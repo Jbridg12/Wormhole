@@ -1,4 +1,7 @@
-﻿using System;
+﻿// A library I am expanding to create shorthands for longer calls that will
+// hopefully save some time.
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 

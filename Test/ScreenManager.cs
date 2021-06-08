@@ -1,4 +1,7 @@
-﻿using System;
+﻿// A manager to wrap all of the code regarding the screens updating and 
+// loading into the Game1.cs functions.
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 

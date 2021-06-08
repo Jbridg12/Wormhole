@@ -1,4 +1,7 @@
-﻿using System;
+﻿// A parent class for the different screen types
+// All of the screens will inherit from this class
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
