@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Test
+namespace WormHole
 {
     public static class Program
     {
