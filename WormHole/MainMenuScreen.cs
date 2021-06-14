@@ -27,7 +27,7 @@ namespace WormHole
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, "Hello!", Vector2.Zero, Color.Aquamarine);
+            spriteBatch.DrawString(font, "Hello!", new Vector2(480.0f, 200.0f), Color.Aquamarine);
         }
 
         public override void Update(GameTime gameTime)
