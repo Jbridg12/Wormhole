@@ -14,6 +14,7 @@ namespace WormHole
     public class GameScreen
     {
         protected ContentManager content;
+        public List<Entity> entities;
         
         public virtual void LoadContent()
         {
@@ -21,17 +22,12 @@ namespace WormHole
             
         }
 
-        public virtual void UnloadContent()
-        {
-            content.Unload();
-        }
-
         public virtual void Update(GameTime gameTime)
         {
             
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
                 
         }

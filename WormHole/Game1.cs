@@ -9,8 +9,10 @@ namespace WormHole
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
+        public static GraphicsDeviceManager _graphics { private set; get; }
         private SpriteBatch _spriteBatch;
+
+        public static Player player1;   // one player across the entire game so make it here for use everywhere
 
         public Game1()
         {
@@ -21,10 +23,12 @@ namespace WormHole
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
             _graphics.PreferredBackBufferWidth = (int)ScreenManager.Instance.dimensions.X;
             _graphics.PreferredBackBufferHeight = (int)ScreenManager.Instance.dimensions.Y;
             _graphics.ApplyChanges();
+
+            player1 = new Player();     // Create the player to make sure it loads 
 
             base.Initialize();
         }
@@ -33,7 +37,7 @@ namespace WormHole
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+
             EntityManager.Instance.LoadContent(Content);
             ScreenManager.Instance.LoadContent(Content);
         }
@@ -43,8 +47,9 @@ namespace WormHole
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F1))
                 Exit();
 
-            // TODO: Add your update logic here
+  
             ScreenManager.Instance.Update(gameTime);
+            EntityManager.Instance.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -52,9 +57,10 @@ namespace WormHole
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+
             _spriteBatch.Begin();
-            ScreenManager.Instance.Draw(_spriteBatch, _graphics);
+            ScreenManager.Instance.Draw(_spriteBatch);
+            EntityManager.Instance.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

@@ -21,13 +21,14 @@ namespace WormHole
         public override void LoadContent()
         {
             base.LoadContent();
-            font = content.Load<SpriteFont>("Base");
-            display = content.Load<Texture2D>("menu0");
-            display0 = content.Load<Texture2D>("menu1");
-            currentdisplay = display;
+            this.font = content.Load<SpriteFont>("Base");
+            this.display = content.Load<Texture2D>("menu0");
+            this.display0 = content.Load<Texture2D>("menu1");
+            this.entities = new List<Entity>();
+            this.currentdisplay = display;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.DrawString(font, "Hello!", new Vector2(480.0f, 200.0f), Color.Aquamarine);
             spriteBatch.Draw(currentdisplay, Vector2.Zero, Color.White);
@@ -49,7 +50,7 @@ namespace WormHole
             else if (status.IsKeyDown(Keys.Enter))
             {
                 if(selectedButton == 1)
-                    ScreenManager.Instance.ChangeScreen(1);
+                    ScreenManager.Instance.ChangeScreen(1); // Enter the first (and only) room
             }
 
             base.Update(gameTime);

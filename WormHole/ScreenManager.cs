@@ -54,14 +54,15 @@ namespace WormHole
             currentScreen.Update(time);
         }
 
-        public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            currentScreen.Draw(spriteBatch, graphics);
+            currentScreen.Draw(spriteBatch);
         }
 
-        public void ChangeScreen(int screenIndex)
+        public void ChangeScreen(int screenIndex)       // Function to allow changing the currentscreen variable
         {
             currentScreen = screens[screenIndex];
+            EntityManager.Instance.SetCurrentEntities(currentScreen.entities);  // also change the entities to the new list
         }
     }
 }
