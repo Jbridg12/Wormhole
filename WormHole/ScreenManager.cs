@@ -17,7 +17,8 @@ namespace WormHole
         public Vector2 dimensions { private set; get; }
         public ContentManager Content { private set; get; }
 
-        GameScreen currentScreen;
+        private List<GameScreen> screens;
+        private GameScreen currentScreen;
 
         public static ScreenManager Instance
         {
@@ -32,19 +33,20 @@ namespace WormHole
 
         public ScreenManager()
         {
-            dimensions = new Vector2(1024, 480);
-            currentScreen = new MainMenuScreen();
+            dimensions = new Vector2(1920, 1080);
+            screens = new List<GameScreen>();
+            screens.Add(new MainMenuScreen());
+            screens.Add(new RoomScreen());
+            currentScreen = screens[0];
         }
 
         public void LoadContent(ContentManager Content)
         {
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
-            currentScreen.LoadContent();
-        }
-
-        public void UnloadContent()
-        {
-            currentScreen.UnloadContent();
+            foreach(var item in screens)
+            {
+                item.LoadContent();
+            }
         }
 
         public void Update(GameTime time)
@@ -52,9 +54,14 @@ namespace WormHole
             currentScreen.Update(time);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
-            currentScreen.Draw(spriteBatch);
+            currentScreen.Draw(spriteBatch, graphics);
+        }
+
+        public void ChangeScreen(int screenIndex)
+        {
+            currentScreen = screens[screenIndex];
         }
     }
 }

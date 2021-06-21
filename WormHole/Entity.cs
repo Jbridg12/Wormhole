@@ -1,7 +1,4 @@
-﻿// A parent class for the different screen types
-// All of the screens will inherit from this class
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,14 +8,14 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WormHole
 {
-    public class GameScreen
+    class Entity
     {
         protected ContentManager content;
-        
+
         public virtual void LoadContent()
         {
             content = new ContentManager(ScreenManager.Instance.Content.ServiceProvider, "Content");
-            
+
         }
 
         public virtual void UnloadContent()
@@ -28,12 +25,12 @@ namespace WormHole
 
         public virtual void Update(GameTime gameTime)
         {
-            
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
-                
+
         }
     }
 }

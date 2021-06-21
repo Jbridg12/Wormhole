@@ -34,23 +34,17 @@ namespace WormHole
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            EntityManager.Instance.LoadContent(Content);
             ScreenManager.Instance.LoadContent(Content);
-        }
-
-        protected override void UnloadContent()
-        {
-            // TODO: use this.Content to load your game content here
-            ScreenManager.Instance.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F1))
                 Exit();
 
             // TODO: Add your update logic here
             ScreenManager.Instance.Update(gameTime);
-
             base.Update(gameTime);
         }
 
@@ -60,10 +54,11 @@ namespace WormHole
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            ScreenManager.Instance.Draw(_spriteBatch);
+            ScreenManager.Instance.Draw(_spriteBatch, _graphics);
             _spriteBatch.End();
 
             base.Draw(gameTime);
         }
     }
+
 }

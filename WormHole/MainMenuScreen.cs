@@ -16,6 +16,7 @@ namespace WormHole
         private SpriteFont font;
         private Texture2D display, display0;
         private Texture2D currentdisplay;
+        private int selectedButton;
 
         public override void LoadContent()
         {
@@ -26,12 +27,7 @@ namespace WormHole
             currentdisplay = display;
         }
 
-        public override void UnloadContent()
-        {
-            base.UnloadContent();
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
             //spriteBatch.DrawString(font, "Hello!", new Vector2(480.0f, 200.0f), Color.Aquamarine);
             spriteBatch.Draw(currentdisplay, Vector2.Zero, Color.White);
@@ -43,10 +39,17 @@ namespace WormHole
             if (status.IsKeyDown(Keys.Space))
             {
                 this.currentdisplay = display0;     //Highlight New game button
+                selectedButton = 1;
             }
             else if (status.IsKeyDown(Keys.LeftShift))
             {
                 this.currentdisplay = display;      // Un-highlight NG button
+                selectedButton = 0;
+            }
+            else if (status.IsKeyDown(Keys.Enter))
+            {
+                if(selectedButton == 1)
+                    ScreenManager.Instance.ChangeScreen(1);
             }
 
             base.Update(gameTime);

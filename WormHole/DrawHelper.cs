@@ -13,7 +13,7 @@ namespace WormHole
 {
     static class DrawHelper
     {
-        public static void ImageCenter(SpriteBatch sb, GraphicsDeviceManager g, Texture2D texture, Color color)
+        public static void ImageCenter(SpriteBatch sb, GraphicsDeviceManager g, Texture2D texture)
         {
             sb.Draw(
                 texture, 
