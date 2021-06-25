@@ -50,28 +50,28 @@ namespace WormHole
                     if (Looking != Game1.Direction.Up)
                         Looking = Game1.Direction.Up;
 
-                    this.Position = new Rectangle(this.Position.X, this.Position.Y - 5, this.Position.Width, this.Position.Height);
+                    this.Y -= 5;
                 }
                 if (input.IsKeyDown(Keys.S))
                 {
                     if (Looking != Game1.Direction.Down)
                         Looking = Game1.Direction.Down;
 
-                    this.Position = new Rectangle(this.Position.X, this.Position.Y + 5, this.Position.Width, this.Position.Height);
+                    this.Y += 5;
                 }
                 if (input.IsKeyDown(Keys.A))
                 {
                     if (Looking != Game1.Direction.Left)
-                        Looking = Game1.Direction.Left;   
-                    
-                    this.Position = new Rectangle(this.Position.X - 5, this.Position.Y, this.Position.Width, this.Position.Height);
+                        Looking = Game1.Direction.Left;
+
+                    this.X -= 5;
                 }
                 if (input.IsKeyDown(Keys.D))
                 {
                     if (Looking != Game1.Direction.Right)
                         Looking = Game1.Direction.Right;
 
-                    this.Position = new Rectangle(this.Position.X + 5, this.Position.Y, this.Position.Width, this.Position.Height);
+                    this.X += 5;
                 }
             }
             
