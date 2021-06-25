@@ -105,5 +105,10 @@ namespace WormHole
             }
             
         }
+
+        public void Shoot()
+        {
+            //TBD
+        }
     }
 }

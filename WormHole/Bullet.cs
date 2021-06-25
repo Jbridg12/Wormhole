@@ -16,6 +16,22 @@ namespace WormHole
         }
         public override void Update(GameTime gameTime)
         {
+            switch (Looking)
+            {
+                case Game1.Direction.Up:
+                    this.Y--;
+                    break;
+                case Game1.Direction.Down:
+                    this.Y++;
+                    break;
+                case Game1.Direction.Right:
+                    this.X++;
+                    break;
+                case Game1.Direction.Left:
+                    this.X--;
+                    break;
+            }
+
             base.Update(gameTime);
         }
     }

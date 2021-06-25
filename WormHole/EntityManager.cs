@@ -15,23 +15,24 @@ namespace WormHole
     public class EntityManager
     {
         private static EntityManager instance;
-
-        public List<Entity> CurrentScreenEntities { get; set; } // list of all Entities in the current room that need to call Update/Draw
-        public Dictionary<string, Texture2D> Textures {get; set; }
-        public ContentManager Content { get; private set; }
-
         public static EntityManager Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new EntityManager(Game1.P1);
+                    instance = new EntityManager();
 
                 return instance;
             }
         }
 
-        public EntityManager(Player player)
+        public List<Entity> CurrentScreenEntities { get; set; } // list of all Entities in the current room that need to call Update/Draw
+        public Dictionary<string, Texture2D> Textures {get; set; }
+        public ContentManager Content { get; private set; }
+
+
+
+        public EntityManager()
         {
             CurrentScreenEntities = new List<Entity>();
             Textures = new Dictionary<string, Texture2D>();
