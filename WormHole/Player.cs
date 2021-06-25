@@ -85,20 +85,20 @@ namespace WormHole
                 case Mode.Vertical:                                     // Draw the sprite in mode 0
                     spriteBatch.Draw(Texture, 
                         Position,
-                        new Rectangle(230, 105, 322, 160),  // get the area of the Texture
+                        new Rectangle(230, 105, 322, 160),              // get the area of the Texture
                         Color.White,
-                        (float)((float)Looking * (float)(Math.PI/2)),
-                        new Vector2(Position.Width, Position.Height),
+                        (float)((float)Looking * (float)(Math.PI/2)),   // using north as origin rotate in radians 
+                        new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
                         SpriteEffects.None,
                         0);
                     break;
                 case Mode.Horizontal:                                     // Draw the sprite in mode 1
                     spriteBatch.Draw(Texture,
                         Position,
-                        new Rectangle(103, 300, 207, 260),  // get the arae of the Texture
+                        new Rectangle(103, 300, 207, 260),                // get the arae of the Texture
                         Color.White,
-                        (float)((float)Looking * (float)(Math.PI/2)),
-                        new Vector2(Position.Width, Position.Height),
+                        (float)((float)Looking * (float)(Math.PI/2)),     // using north as origin rotate in radians 
+                        new Vector2(Position.Width, Position.Height),     // keep image centered while rotating
                         SpriteEffects.None,
                         0);
                     break;
