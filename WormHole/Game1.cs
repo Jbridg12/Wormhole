@@ -13,6 +13,7 @@ namespace WormHole
         private SpriteBatch _spriteBatch;
         public SpriteFont Font { get; set; }
         public static Player P1 {get; set;}   // one player across the entire game so make it here for use everywhere
+        public enum Direction { Up, Right, Down, Left }
 
         public Game1()
         {

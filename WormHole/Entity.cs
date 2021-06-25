@@ -63,16 +63,10 @@ namespace WormHole
                 position.Y = value;
             }
         }
-        public Entity(int x, int y, int width, int height, Texture2D texture)
+        public Entity(Rectangle position, Texture2D texture)
         {
-            Position = new Rectangle(x, y, width, height); // create new rectangle for coordiantes
-            Texture = texture;
-        }
-
-        public virtual void LoadContent()
-        {
-            content = new ContentManager(EntityManager.Instance.Content.ServiceProvider, "Content");
-
+            this.Position = position;
+            this.Texture = texture;
         }
 
         public virtual void Update(GameTime gameTime)

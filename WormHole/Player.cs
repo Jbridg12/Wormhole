@@ -13,18 +13,15 @@ namespace WormHole
     public class Player : Entity
     {
         // specific player attributes
-        int mode = 0;
-        KeyboardState previousState;    // For single press input control
+        enum Mode { Vertical, Horizontal}
+        private Mode state = Mode.Vertical;
 
-        public Player(Texture2D texture) : base(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100, texture)
+        private KeyboardState previousState;    // For single press input control
+        public Game1.Direction Looking { get; set; }
+
+        public Player(Texture2D texture) : base(new Rectangle(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100), texture)
         {
-
-        }
-
-        public override void LoadContent()
-        {
-            base.LoadContent();
-            
+            Looking = Game1.Direction.Up;
         }
 
         public override void Update(GameTime gameTime)
@@ -35,13 +32,13 @@ namespace WormHole
             {
                 if (input.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space))    // this only allows single presses to count as one input
                 {
-                    if (mode == 0)      // Just changes the mode for now
+                    if (state == Mode.Vertical)      // Just changes the mode for now
                     {
-                        mode = 1;
+                        state = Mode.Horizontal;
                     }
                     else
                     {
-                        mode = 0;
+                        state = Mode.Vertical;
                     }
 
                 }
@@ -50,18 +47,30 @@ namespace WormHole
                 // Handle basic movement with WASD
                 if (input.IsKeyDown(Keys.W))
                 {
+                    if (Looking != Game1.Direction.Up)
+                        Looking = Game1.Direction.Up;
+
                     this.Position = new Rectangle(this.Position.X, this.Position.Y - 5, this.Position.Width, this.Position.Height);
                 }
                 if (input.IsKeyDown(Keys.S))
                 {
+                    if (Looking != Game1.Direction.Down)
+                        Looking = Game1.Direction.Down;
+
                     this.Position = new Rectangle(this.Position.X, this.Position.Y + 5, this.Position.Width, this.Position.Height);
                 }
                 if (input.IsKeyDown(Keys.A))
                 {
+                    if (Looking != Game1.Direction.Left)
+                        Looking = Game1.Direction.Left;   
+                    
                     this.Position = new Rectangle(this.Position.X - 5, this.Position.Y, this.Position.Width, this.Position.Height);
                 }
                 if (input.IsKeyDown(Keys.D))
                 {
+                    if (Looking != Game1.Direction.Right)
+                        Looking = Game1.Direction.Right;
+
                     this.Position = new Rectangle(this.Position.X + 5, this.Position.Y, this.Position.Width, this.Position.Height);
                 }
             }
@@ -71,25 +80,25 @@ namespace WormHole
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            switch (mode)
+            switch (state)
             {
-                case 0:                                     // Draw the sprite in mode 0
+                case Mode.Vertical:                                     // Draw the sprite in mode 0
                     spriteBatch.Draw(Texture, 
                         Position,
                         new Rectangle(230, 105, 322, 160),  // get the area of the Texture
                         Color.White,
-                        0f,
-                        Vector2.Zero,
+                        (float)((float)Looking * (float)(Math.PI/2)),
+                        new Vector2(Position.Width, Position.Height),
                         SpriteEffects.None,
                         0);
                     break;
-                case 1:                                     // Draw the sprite in mode 1
+                case Mode.Horizontal:                                     // Draw the sprite in mode 1
                     spriteBatch.Draw(Texture,
                         Position,
                         new Rectangle(103, 300, 207, 260),  // get the arae of the Texture
                         Color.White,
-                        0f,
-                        Vector2.Zero,
+                        (float)((float)Looking * (float)(Math.PI/2)),
+                        new Vector2(Position.Width, Position.Height),
                         SpriteEffects.None,
                         0);
                     break;
