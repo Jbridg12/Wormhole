@@ -11,24 +11,9 @@ namespace WormHole
 {
     class RoomScreen : GameScreen
     {
-        private SpriteFont font;
-        private Texture2D display;
-        private Texture2D currentdisplay;
-
-        public override void LoadContent()
+        public RoomScreen(Texture2D texture, SpriteFont font) : base(texture, font)
         {
-            base.LoadContent();
-            this.font = content.Load<SpriteFont>("Base");
-            this.display = content.Load<Texture2D>("room1");
-            this.currentdisplay = display;
-            this.entities = new List<Entity>();
-            
-            entities.Add(Game1.player1);    // Add player to combat screens
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            DrawHelper.ImageCenter(spriteBatch, Game1._graphics, currentdisplay);
+            Entities.Add(Game1.P1);
         }
 
         public override void Update(GameTime gameTime)
@@ -37,7 +22,7 @@ namespace WormHole
 
             if (status.IsKeyDown(Keys.Escape))          // If the player presses escape in a room it returns to the menu
             {
-                ScreenManager.Instance.ChangeScreen(0);
+                ScreenManager.Instance.ChangeScreen("MainMenu");
             }
             base.Update(gameTime);
         }

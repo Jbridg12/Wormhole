@@ -14,10 +14,13 @@ namespace WormHole
     public class ScreenManager
     {
         private static ScreenManager instance;
-        public Vector2 dimensions { private set; get; }
+        public Vector2 Dimensions { private set; get; }
         public ContentManager Content { private set; get; }
 
-        private List<GameScreen> screens;
+        public Dictionary<string, Texture2D> ScreenTextures { get; set; }
+        public Dictionary<string, SpriteFont> ScreenFonts { get; set; }
+
+        private Dictionary<string, GameScreen> screens;
         private GameScreen currentScreen;
 
         public static ScreenManager Instance
@@ -33,20 +36,25 @@ namespace WormHole
 
         public ScreenManager()
         {
-            dimensions = new Vector2(1920, 1080);
-            screens = new List<GameScreen>();
-            screens.Add(new MainMenuScreen());
-            screens.Add(new RoomScreen());
-            currentScreen = screens[0];
+            Dimensions = new Vector2(1920, 1080);
+            screens = new Dictionary<string, GameScreen>();
+            ScreenFonts = new Dictionary<string, SpriteFont>();
+            ScreenTextures = new Dictionary<string, Texture2D>();
         }
 
         public void LoadContent(ContentManager Content)
         {
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
-            foreach(var item in screens)
-            {
-                item.LoadContent();
-            }
+            ScreenFonts.Add("base", Content.Load<SpriteFont>("Base"));
+            ScreenTextures.Add("room", Content.Load<Texture2D>("room1"));
+
+            Dictionary<string, Texture2D> mainMenu = new Dictionary<string, Texture2D>();
+            mainMenu.Add("Initial", Content.Load<Texture2D>("menu0"));
+            mainMenu.Add("NewGame", Content.Load<Texture2D>("menu1"));
+
+            screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
+            currentScreen = screens["MainMenu"];
+            screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"]));
         }
 
         public void Update(GameTime time)
@@ -59,10 +67,10 @@ namespace WormHole
             currentScreen.Draw(spriteBatch);
         }
 
-        public void ChangeScreen(int screenIndex)       // Function to allow changing the currentscreen variable
+        public void ChangeScreen(string str)       // Function to allow changing the currentscreen variable
         {
-            currentScreen = screens[screenIndex];
-            EntityManager.Instance.SetCurrentEntities(currentScreen.entities);  // also change the entities to the new list
+            currentScreen = screens[str];
+            EntityManager.Instance.SetCurrentEntities(currentScreen.Entities);  // also change the entities to the new list
         }
     }
 }

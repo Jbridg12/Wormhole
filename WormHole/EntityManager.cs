@@ -1,6 +1,6 @@
 ﻿// The enitity manager
 //
-// This loads and handles all entities 
+// This loads and handles all Entities 
 
 using System;
 using System.Collections.Generic;
@@ -16,17 +16,16 @@ namespace WormHole
     {
         private static EntityManager instance;
 
-        private List<Entity> entities;              // The list of all entity types that need to load content
-        private List<Entity> currentScreenEntities; // list of all entities in the current room that need to call Update/Draw
-
-        public ContentManager Content;
+        public List<Entity> CurrentScreenEntities { get; set; } // list of all Entities in the current room that need to call Update/Draw
+        public Dictionary<string, Texture2D> Textures {get; set; }
+        public ContentManager Content { get; private set; }
 
         public static EntityManager Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new EntityManager(Game1.player1);
+                    instance = new EntityManager(Game1.P1);
 
                 return instance;
             }
@@ -34,23 +33,19 @@ namespace WormHole
 
         public EntityManager(Player player)
         {
-            entities = new List<Entity>();
-            currentScreenEntities = new List<Entity>();
-
-            entities.Add(player);       // Add the player to the list by default
+            CurrentScreenEntities = new List<Entity>();
+            Textures = new Dictionary<string, Texture2D>();
         }
 
         public void LoadContent(ContentManager Content)
         {
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
-            foreach (var item in entities)
-            {
-                item.LoadContent();
-            }
+            Textures.Add("player", Content.Load<Texture2D>("ship_game_moc"));
+            Game1.P1 = new Player(Textures["player"]);
         }
         public void Update(GameTime time)
         {
-            foreach (var item in currentScreenEntities)
+            foreach (var item in CurrentScreenEntities)
             {
                 item.Update(time);
             }
@@ -58,7 +53,7 @@ namespace WormHole
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var item in currentScreenEntities)
+            foreach (var item in CurrentScreenEntities)
             {
                 item.Draw(spriteBatch);
             }
@@ -66,7 +61,7 @@ namespace WormHole
 
         public void SetCurrentEntities(List<Entity> newEntities)
         {
-            currentScreenEntities = newEntities;    // When screen changes it switches the current entities with new ones
+            CurrentScreenEntities = newEntities;    // When screen changes it switches the current Entities with new ones
         }
     }
 }

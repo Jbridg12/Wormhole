@@ -11,8 +11,8 @@ namespace WormHole
     {
         public static GraphicsDeviceManager _graphics { private set; get; }
         private SpriteBatch _spriteBatch;
-
-        public static Player player1;   // one player across the entire game so make it here for use everywhere
+        public SpriteFont Font { get; set; }
+        public static Player P1 {get; set;}   // one player across the entire game so make it here for use everywhere
 
         public Game1()
         {
@@ -24,11 +24,9 @@ namespace WormHole
         protected override void Initialize()
         {
 
-            _graphics.PreferredBackBufferWidth = (int)ScreenManager.Instance.dimensions.X;
-            _graphics.PreferredBackBufferHeight = (int)ScreenManager.Instance.dimensions.Y;
+            _graphics.PreferredBackBufferWidth = (int)ScreenManager.Instance.Dimensions.X;
+            _graphics.PreferredBackBufferHeight = (int)ScreenManager.Instance.Dimensions.Y;
             _graphics.ApplyChanges();
-
-            player1 = new Player();     // Create the player to make sure it loads 
 
             base.Initialize();
         }
@@ -36,8 +34,7 @@ namespace WormHole
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-
+            Font = Content.Load<SpriteFont>("Base");
             EntityManager.Instance.LoadContent(Content);
             ScreenManager.Instance.LoadContent(Content);
         }

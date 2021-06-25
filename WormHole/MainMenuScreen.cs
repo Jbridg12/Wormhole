@@ -13,24 +13,16 @@ namespace WormHole
 {
     class MainMenuScreen : GameScreen
     {
-        private SpriteFont font;
-        private Texture2D display, display0;
         private Texture2D currentdisplay;
         private int selectedButton;
 
-        public override void LoadContent()
+        public MainMenuScreen(Dictionary<string, Texture2D> textures, SpriteFont font) : base(textures, font)
         {
-            base.LoadContent();
-            this.font = content.Load<SpriteFont>("Base");
-            this.display = content.Load<Texture2D>("menu0");
-            this.display0 = content.Load<Texture2D>("menu1");
-            this.entities = new List<Entity>();
-            this.currentdisplay = display;
+            this.currentdisplay = Displays["Initial"];
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.DrawString(font, "Hello!", new Vector2(480.0f, 200.0f), Color.Aquamarine);
             spriteBatch.Draw(currentdisplay, Vector2.Zero, Color.White);
         }
 
@@ -39,18 +31,18 @@ namespace WormHole
             KeyboardState status = Keyboard.GetState();
             if (status.IsKeyDown(Keys.Space))
             {
-                this.currentdisplay = display0;     //Highlight New game button
+                this.currentdisplay = Displays["NewGame"];     //Highlight New game button
                 selectedButton = 1;
             }
             else if (status.IsKeyDown(Keys.LeftShift))
             {
-                this.currentdisplay = display;      // Un-highlight NG button
+                this.currentdisplay = Displays["Initial"];      // Un-highlight NG button
                 selectedButton = 0;
             }
             else if (status.IsKeyDown(Keys.Enter))
             {
                 if(selectedButton == 1)
-                    ScreenManager.Instance.ChangeScreen(1); // Enter the first (and only) room
+                    ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room
             }
 
             base.Update(gameTime);

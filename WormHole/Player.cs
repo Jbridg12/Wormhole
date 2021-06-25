@@ -16,15 +16,15 @@ namespace WormHole
         int mode = 0;
         KeyboardState previousState;    // For single press input control
 
-        public Player()
+        public Player(Texture2D texture) : base(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100, texture)
         {
-            this.position = new Rectangle(Game1._graphics.PreferredBackBufferWidth/2, Game1._graphics.PreferredBackBufferHeight/2, 100, 100);   // Start center screen
+
         }
 
         public override void LoadContent()
         {
             base.LoadContent();
-            this.texture = content.Load<Texture2D>("ship_game_moc");    // The placeholder player texture
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -50,19 +50,19 @@ namespace WormHole
                 // Handle basic movement with WASD
                 if (input.IsKeyDown(Keys.W))
                 {
-                    this.position = new Rectangle(this.position.X, this.position.Y - 5, this.position.Width, this.position.Height);
+                    this.Position = new Rectangle(this.Position.X, this.Position.Y - 5, this.Position.Width, this.Position.Height);
                 }
                 if (input.IsKeyDown(Keys.S))
                 {
-                    this.position = new Rectangle(this.position.X, this.position.Y + 5, this.position.Width, this.position.Height);
+                    this.Position = new Rectangle(this.Position.X, this.Position.Y + 5, this.Position.Width, this.Position.Height);
                 }
                 if (input.IsKeyDown(Keys.A))
                 {
-                    this.position = new Rectangle(this.position.X - 5, this.position.Y, this.position.Width, this.position.Height);
+                    this.Position = new Rectangle(this.Position.X - 5, this.Position.Y, this.Position.Width, this.Position.Height);
                 }
                 if (input.IsKeyDown(Keys.D))
                 {
-                    this.position = new Rectangle(this.position.X + 5, this.position.Y, this.position.Width, this.position.Height);
+                    this.Position = new Rectangle(this.Position.X + 5, this.Position.Y, this.Position.Width, this.Position.Height);
                 }
             }
             
@@ -74,9 +74,9 @@ namespace WormHole
             switch (mode)
             {
                 case 0:                                     // Draw the sprite in mode 0
-                    spriteBatch.Draw(texture, 
-                        position,
-                        new Rectangle(230, 105, 322, 160),  // get the area of the texture
+                    spriteBatch.Draw(Texture, 
+                        Position,
+                        new Rectangle(230, 105, 322, 160),  // get the area of the Texture
                         Color.White,
                         0f,
                         Vector2.Zero,
@@ -84,9 +84,9 @@ namespace WormHole
                         0);
                     break;
                 case 1:                                     // Draw the sprite in mode 1
-                    spriteBatch.Draw(texture,
-                        position,
-                        new Rectangle(103, 300, 207, 260),  // get the arae of the texture
+                    spriteBatch.Draw(Texture,
+                        Position,
+                        new Rectangle(103, 300, 207, 260),  // get the arae of the Texture
                         Color.White,
                         0f,
                         Vector2.Zero,

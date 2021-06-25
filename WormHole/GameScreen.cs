@@ -14,12 +14,23 @@ namespace WormHole
     public class GameScreen
     {
         protected ContentManager content;
-        public List<Entity> entities;
-        
-        public virtual void LoadContent()
+        public SpriteFont Font { get; set; }
+        public Texture2D Display { get; set; }
+        public Dictionary<string, Texture2D> Displays { get; set; }
+
+        public List<Entity> Entities { get; set; }
+
+        public GameScreen(Texture2D texture, SpriteFont font)
         {
-            content = new ContentManager(ScreenManager.Instance.Content.ServiceProvider, "Content");
-            
+            this.Entities = new List<Entity>();
+            this.Font = font;
+            this.Display = texture;
+        }
+        public GameScreen(Dictionary<string, Texture2D> textures, SpriteFont font)
+        {
+            this.Entities = new List<Entity>();
+            this.Font = font;
+            this.Displays = textures;
         }
 
         public virtual void Update(GameTime gameTime)
@@ -29,7 +40,7 @@ namespace WormHole
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-                
+            DrawHelper.ImageCenter(spriteBatch, Game1._graphics, this.Display);
         }
     }
 }
