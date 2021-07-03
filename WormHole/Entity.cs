@@ -14,18 +14,8 @@ namespace WormHole
     {
         // Attributes all entities share
         protected ContentManager content;
-        private Texture2D texture;
-        public Texture2D Texture
-        {
-            get
-            {
-                return texture;
-            }
-            set
-            {
-                texture = value;
-            }
-        }
+        public bool Active;
+        public Texture2D Texture { get; set; }
 
         private Rectangle position;
         public Rectangle Position
@@ -67,6 +57,7 @@ namespace WormHole
         {
             this.Position = position;
             this.Texture = texture;
+            this.Active = true;
         }
 
         public virtual void Update(GameTime gameTime)
@@ -76,7 +67,33 @@ namespace WormHole
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, this.position, Color.White); // If called by default just draw the texture in the specific position
+            spriteBatch.Draw(this.Texture, this.position, Color.White); // If called by default just draw the texture in the specific position
+        }
+
+        public void HandleBounds(bool wrap)
+        {
+            if(this.X > Game1._graphics.GraphicsDevice.Viewport.Width)
+            {
+                if (wrap)
+                    this.X = 0;
+            }
+            if (this.X < 0)
+            {
+                if (wrap)
+                    this.X = Game1._graphics.GraphicsDevice.Viewport.Width;
+            }
+            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height)
+            {
+                if (wrap)
+                    this.Y = 0;
+            }
+            if (this.Y < 0)
+            {
+                if (wrap)
+                    this.Y = Game1._graphics.GraphicsDevice.Viewport.Height;
+            }
+
+            this.Active = false;
         }
     }
 }

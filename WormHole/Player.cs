@@ -73,6 +73,10 @@ namespace WormHole
 
                     this.X += 5;
                 }
+                if (input.IsKeyDown(Keys.Space))
+                {
+                    this.Shoot();
+                }
             }
             
             previousState = input;  // Set prvious state
@@ -108,7 +112,7 @@ namespace WormHole
 
         public void Shoot()
         {
-            //TBD
+            // TBD
         }
     }
 }
