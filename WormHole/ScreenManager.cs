@@ -33,7 +33,7 @@ namespace WormHole
 
         public ScreenManager()
         {
-            dimensions = new Vector2(1920, 1080);
+            dimensions = new Vector2(1024, 768);
             screens = new List<GameScreen>();
             screens.Add(new MainMenuScreen());
             screens.Add(new RoomScreen());
