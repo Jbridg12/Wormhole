@@ -14,7 +14,9 @@ namespace WormHole
     {
         // Attributes all entities share
         protected ContentManager content;
-        public bool Active;
+        
+        public bool Active { get; set; }
+        public int Health { get; set; }
         public Texture2D Texture { get; set; }
 
         private Rectangle position;
