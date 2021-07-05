@@ -10,7 +10,7 @@ using System.Text;
 
 namespace WormHole
 {
-    public class Player : Entity
+    public class Player : Character
     {
         // specific player attributes
         enum Mode { Vertical, Horizontal}
@@ -20,7 +20,7 @@ namespace WormHole
         private float currentTime;
 
         private KeyboardState previousState;    // For single press input control
-        public Game1.Direction Looking { get; set; }
+        
 
         public Player(Texture2D texture) : base(new Rectangle(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100), texture)
         {

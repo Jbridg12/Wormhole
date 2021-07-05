@@ -9,13 +9,13 @@ namespace WormHole
 {
     class Bullet : Entity
     {
-        Game1.Direction Looking;
+        private Game1.Direction Direction;
         public int Range { get; set; }
         public int DistTravelled { get; set;}
 
         public Bullet(Rectangle position, Texture2D texture) : base(position, texture)
         {
-            this.Looking = Game1.P1.Looking;
+            this.Direction = Game1.P1.Direction;
             this.Range = 500;
             this.DistTravelled = 0;
         }
@@ -25,7 +25,7 @@ namespace WormHole
             {
                 if (this.DistTravelled < this.Range)
                 {
-                    switch (Looking)
+                    switch (this.Direction)
                     {
                         case Game1.Direction.Up:
                             this.Y-=7;
@@ -60,7 +60,7 @@ namespace WormHole
                          this.Position,
                          null,              // get the area of the Texture
                          Color.White,
-                         (float)(((float)this.Looking * (float)(Math.PI / 2)) - (Math.PI/2)),   // using north as origin rotate in radians 
+                         (float)(((float)this.Direction * (float)(Math.PI / 2)) - (Math.PI/2)),   // using north as origin rotate in radians 
                          new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
                          SpriteEffects.None,
                          0);

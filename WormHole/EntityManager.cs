@@ -54,7 +54,10 @@ namespace WormHole
             for (int i = 0; i < CurrentScreenEntities.Count; i++)
             {
                 CurrentScreenEntities[i].Update(time);
-                
+
+                for (int j = i; j < CurrentScreenEntities.Count; j++)
+                    CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); // short term solution, will implment quadtree collision soon
+
                 if(CurrentScreenEntities[i].Active)             // any active entities carry over to next Update call
                     this.AddEntity(CurrentScreenEntities[i]);
             }

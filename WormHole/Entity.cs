@@ -16,7 +16,7 @@ namespace WormHole
         protected ContentManager content;
         
         public bool Active { get; set; }
-        public int Health { get; set; }
+
         public Texture2D Texture { get; set; }
 
         private Rectangle position;
@@ -69,7 +69,13 @@ namespace WormHole
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.Texture, this.position, Color.White); // If called by default just draw the texture in the specific position
+            if(this.Active)
+                spriteBatch.Draw(this.Texture, this.position, Color.White); // If called by default just draw the texture in the specific position
+        }
+
+        public virtual void HandleCollision(Entity other)
+        {
+
         }
 
         public void HandleBounds(bool wrap)
