@@ -49,7 +49,7 @@ namespace WormHole
             ScreenTextures.Add("room", Content.Load<Texture2D>("room1"));
 
             Dictionary<string, Texture2D> mainMenu = new Dictionary<string, Texture2D>();
-            mainMenu.Add("Initial", Content.Load<Texture2D>("menu0"));
+            mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
             mainMenu.Add("NewGame", Content.Load<Texture2D>("menu1"));
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));

@@ -16,22 +16,12 @@ namespace WormHole
     {
         private Texture2D currentdisplay;
         private int selectedButton;
+        private Rectangle displayLocation;
 
         public MainMenuScreen(Dictionary<string, Texture2D> textures, SpriteFont font) : base(textures, font)
-        private Rectangle displayLocation;
-       
-
-        public override void LoadContent()
         {
+            displayLocation = new Rectangle(((int)ScreenManager.Instance.Dimensions.X / 2) - 384, ((int)ScreenManager.Instance.Dimensions.Y / 2) - 384, 768, 768);
             this.currentdisplay = Displays["Initial"];
-            base.LoadContent();
-            this.font = content.Load<SpriteFont>("Base");
-            this.display = content.Load<Texture2D>("menu");
-            this.display0 = content.Load<Texture2D>("menu1");
-            this.entities = new List<Entity>();
-            this.currentdisplay = display;
-
-            displayLocation = new Rectangle(((int)ScreenManager.Instance.dimensions.X/2) - 384, ((int)ScreenManager.Instance.dimensions.Y / 2) - 384, 768, 768);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -61,7 +51,7 @@ namespace WormHole
             }
 
             //Close game
-            if (status.IsKeyDown(Keys.Escape) && currentdisplay == display)
+            if (status.IsKeyDown(Keys.Escape) && currentdisplay == Displays["Initial"])
             {
             }
 
