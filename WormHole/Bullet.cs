@@ -16,34 +16,34 @@ namespace WormHole
         public Bullet(Rectangle position, Texture2D texture) : base(position, texture)
         {
             this.Looking = Game1.P1.Looking;
-            this.Range = 200;
+            this.Range = 500;
             this.DistTravelled = 0;
         }
         public override void Update(GameTime gameTime)
         {
             if (this.Active)
             {
-                if(this.DistTravelled < this.Range)
+                if (this.DistTravelled < this.Range)
                 {
                     switch (Looking)
                     {
                         case Game1.Direction.Up:
-                            this.Y--;
+                            this.Y-=7;
                             break;
                         case Game1.Direction.Down:
-                            this.Y++;
+                            this.Y+=7;
                             break;
                         case Game1.Direction.Right:
-                            this.X++;
+                            this.X+=7;
                             break;
                         case Game1.Direction.Left:
-                            this.X--;
+                            this.X-=7;
                             break;
                     }
 
                     this.HandleBounds(false);
 
-                    this.DistTravelled++;
+                    this.DistTravelled+=5;
                 }
                 else
                 {
@@ -52,6 +52,18 @@ namespace WormHole
 
                 base.Update(gameTime);
             }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(this.Texture,
+                         this.Position,
+                         null,              // get the area of the Texture
+                         Color.White,
+                         (float)(((float)this.Looking * (float)(Math.PI / 2)) - (Math.PI/2)),   // using north as origin rotate in radians 
+                         new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
+                         SpriteEffects.None,
+                         0);
         }
     }
 }

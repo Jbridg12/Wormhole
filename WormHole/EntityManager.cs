@@ -26,15 +26,15 @@ namespace WormHole
             }
         }
 
-        public List<Entity> CurrentScreenEntities { get; set; } // list of all Entities in the current room that need to call Update/Draw
+        public List<Entity> CurrentScreenEntities { get; private set; } // list of all Entities in the current room that need to call Update/Draw
         public Dictionary<string, Texture2D> Textures {get; set; }
         public ContentManager Content { get; private set; }
-
-
+        public List<Entity> UpdatedEntities { get; set; }
 
         public EntityManager()
         {
             CurrentScreenEntities = new List<Entity>();
+            UpdatedEntities = new List<Entity>();
             Textures = new Dictionary<string, Texture2D>();
         }
 
@@ -42,27 +42,42 @@ namespace WormHole
         {
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
             Textures.Add("player", Content.Load<Texture2D>("ship_game_moc"));
+            Textures.Add("elec_bullet", Content.Load<Texture2D>("elec_bullet"));
             Game1.P1 = new Player(Textures["player"]);
         }
+
         public void Update(GameTime time)
         {
-            foreach (var item in CurrentScreenEntities)
+            CurrentScreenEntities = new List<Entity>(this.UpdatedEntities);     // dynamically update the entites
+            UpdatedEntities.Clear();
+
+            for (int i = 0; i < CurrentScreenEntities.Count; i++)
             {
-                item.Update(time);
+                CurrentScreenEntities[i].Update(time);
+                
+                if(CurrentScreenEntities[i].Active)             // any active entities carry over to next Update call
+                    this.AddEntity(CurrentScreenEntities[i]);
             }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var item in CurrentScreenEntities)
+            foreach (Entity item in CurrentScreenEntities)
             {
                 item.Draw(spriteBatch);
             }
+
+        }
+
+        public void AddEntity(Entity newEn)
+        {
+            UpdatedEntities.Add(newEn);     // add entity to current list
         }
 
         public void SetCurrentEntities(List<Entity> newEntities)
         {
-            CurrentScreenEntities = newEntities;    // When screen changes it switches the current Entities with new ones
+            UpdatedEntities = newEntities;    // When screen changes it switches the current Entities with new ones
         }
     }
 }

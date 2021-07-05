@@ -75,25 +75,43 @@ namespace WormHole
             if(this.X > Game1._graphics.GraphicsDevice.Viewport.Width)
             {
                 if (wrap)
+                {
                     this.X = 0;
+                    return;
+                }
+
+                this.Active = false;
             }
             if (this.X < 0)
             {
                 if (wrap)
+                {
                     this.X = Game1._graphics.GraphicsDevice.Viewport.Width;
+                    return;
+                }
+
+                this.Active = false;
             }
             if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height)
             {
                 if (wrap)
+                {
                     this.Y = 0;
+                    return;
+                }
+
+                this.Active = false;
             }
             if (this.Y < 0)
             {
                 if (wrap)
+                {
                     this.Y = Game1._graphics.GraphicsDevice.Viewport.Height;
-            }
+                    return;
+                }
 
-            this.Active = false;
+                this.Active = false;
+            }
         }
     }
 }

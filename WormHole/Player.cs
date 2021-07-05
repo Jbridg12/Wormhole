@@ -14,23 +14,30 @@ namespace WormHole
     {
         // specific player attributes
         enum Mode { Vertical, Horizontal}
-        private Mode state = Mode.Vertical;
+        private Mode state;
+
+        private float shotsPerSecond;
+        private float currentTime;
 
         private KeyboardState previousState;    // For single press input control
         public Game1.Direction Looking { get; set; }
 
         public Player(Texture2D texture) : base(new Rectangle(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100), texture)
         {
-            Looking = Game1.Direction.Up;
+            this.state = Mode.Vertical;
+            this.shotsPerSecond = 3f;
+            this.currentTime = 0f;
+            this.Looking = Game1.Direction.Up;
         }
 
         public override void Update(GameTime gameTime)
         {
             KeyboardState input = Keyboard.GetState();
+            this.currentTime += (float) gameTime.ElapsedGameTime.TotalSeconds;
 
             if(previousState != null)   // make sure there is a previous state
             {
-                if (input.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space))    // this only allows single presses to count as one input
+                if (input.IsKeyDown(Keys.LeftShift) && !previousState.IsKeyDown(Keys.LeftShift))    // this only allows single presses to count as one input
                 {
                     if (state == Mode.Vertical)      // Just changes the mode for now
                     {
@@ -75,7 +82,11 @@ namespace WormHole
                 }
                 if (input.IsKeyDown(Keys.Space))
                 {
-                    this.Shoot();
+                    if(currentTime >= (1/this.shotsPerSecond))  // shooting depends on the inverse of the amount of shots per second
+                    {
+                        currentTime = 0f;
+                        this.Shoot();
+                    }
                 }
             }
             
@@ -112,7 +123,8 @@ namespace WormHole
 
         public void Shoot()
         {
-            // TBD
+            // create new bullet and add it to current entities
+            EntityManager.Instance.AddEntity(new Bullet(this.Position, EntityManager.Instance.Textures["elec_bullet"]));
         }
     }
 }
