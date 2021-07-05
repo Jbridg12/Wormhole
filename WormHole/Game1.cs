@@ -20,6 +20,11 @@ namespace WormHole
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            //Sets Full Screen, more experimentation needed
+            //_graphics.IsFullScreen = true;
+
+
         }
 
         protected override void Initialize()
@@ -44,8 +49,8 @@ namespace WormHole
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F1))
                 Exit();
+            
 
-  
             ScreenManager.Instance.Update(gameTime);
             EntityManager.Instance.Update(gameTime);
             base.Update(gameTime);
@@ -63,6 +68,8 @@ namespace WormHole
 
             base.Draw(gameTime);
         }
+
+        
     }
 
 }

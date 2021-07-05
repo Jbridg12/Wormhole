@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using System.Security.Cryptography.X509Certificates;
 
 namespace WormHole
 {
@@ -17,13 +18,27 @@ namespace WormHole
         private int selectedButton;
 
         public MainMenuScreen(Dictionary<string, Texture2D> textures, SpriteFont font) : base(textures, font)
+        private Rectangle displayLocation;
+       
+
+        public override void LoadContent()
         {
             this.currentdisplay = Displays["Initial"];
+            base.LoadContent();
+            this.font = content.Load<SpriteFont>("Base");
+            this.display = content.Load<Texture2D>("menu");
+            this.display0 = content.Load<Texture2D>("menu1");
+            this.entities = new List<Entity>();
+            this.currentdisplay = display;
+
+            displayLocation = new Rectangle(((int)ScreenManager.Instance.dimensions.X/2) - 384, ((int)ScreenManager.Instance.dimensions.Y / 2) - 384, 768, 768);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(currentdisplay, Vector2.Zero, Color.White);
+            //spriteBatch.DrawString(font, "Hello!", new Vector2(480.0f, 200.0f), Color.Aquamarine);
+            spriteBatch.Draw(currentdisplay, displayLocation, Color.White);
+
         }
 
         public override void Update(GameTime gameTime)
@@ -43,6 +58,11 @@ namespace WormHole
             {
                 if(selectedButton == 1)
                     ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room
+            }
+
+            //Close game
+            if (status.IsKeyDown(Keys.Escape) && currentdisplay == display)
+            {
             }
 
             base.Update(gameTime);
