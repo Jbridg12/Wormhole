@@ -21,6 +21,7 @@ namespace WormHole
         public Dictionary<string, SpriteFont> ScreenFonts { get; set; }
 
         private Dictionary<string, GameScreen> screens;
+        private RoomScreen theRoom;
         private GameScreen currentScreen;
 
         public static ScreenManager Instance
@@ -56,7 +57,6 @@ namespace WormHole
             currentScreen = screens["MainMenu"];
 
             NextFloor();
-            screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 100, 100), EntityManager.Instance.Textures["enemy"]) }));
         }
 
         public void Update(GameTime time)
@@ -77,7 +77,25 @@ namespace WormHole
 
         public void NextFloor()
         {
-            screens
+            Random rand = new Random();
+            this.theRoom = new EnemyRoom();
+            PopulateAdjacent(theRoom, rand, 1);
+            screens.Add("Room", theRoom);
+        }
+
+        public void PopulateAdjacent(RoomScreen room, Random rand, int depth)
+        {
+            if (room.Depth >= 3)
+                return;
+
+            for(int i = 0; i < 4; i++)
+            {
+                if (rand.Next(2) == 0)
+                {
+                    room.AdjacentRooms[i] = new EnemyRoom(depth);
+                    PopulateAdjacent(room.AdjacentRooms[i], rand, depth+1);
+                }
+            }
         }
     }
 }

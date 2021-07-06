@@ -9,17 +9,20 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WormHole
 {
-    class RoomScreen : GameScreen
+    public class RoomScreen : GameScreen
     {
         public RoomScreen[] AdjacentRooms { get; set; }
-        public RoomScreen(Texture2D texture, SpriteFont font) : base(texture, font)
+        public int Depth { get; set; }
+        public RoomScreen(Texture2D texture, SpriteFont font, int depth) : base(texture, font)
         {
+            this.Depth = depth;
             this.Entities.Add(Game1.P1);
             AdjacentRooms = new RoomScreen[4];
         }
 
-        public RoomScreen(Texture2D texture, SpriteFont font, List<Entity> entities) : base(texture, font)
+        public RoomScreen(Texture2D texture, SpriteFont font, int depth, List<Entity> entities) : base(texture, font)
         {
+            this.Depth = depth;
             this.Entities = entities;
             this.Entities.Add(Game1.P1);
             AdjacentRooms = new RoomScreen[4];
