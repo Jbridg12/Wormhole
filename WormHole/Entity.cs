@@ -1,4 +1,5 @@
-﻿//Entity Base Class
+﻿// Entity.cs
+// Contributors: Josh Bridges
 
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,7 @@
-﻿// A manager to wrap all of the code regarding the screens updating and 
+﻿// ScreenManager.cs
+// Contributors: Josh Bridges
+//
+// A manager to wrap all of the code regarding the screens updating and 
 // loading into the Game1.cs functions.
 
 using System;

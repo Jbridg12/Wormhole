@@ -1,4 +1,7 @@
-﻿// A screen type that is used for doing menu screens in the game
+﻿// MainMenuScreen.cs
+// Contributors: Josh Bridges
+//
+// A screen type that is used for doing menu screens in the game
 
 using System;
 using System.Collections.Generic;

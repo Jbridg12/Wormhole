@@ -1,4 +1,7 @@
-﻿// A library I am expanding to create shorthands for longer calls that will
+﻿// DrawHelper.cs
+// Contributors: Josh Bridges
+//
+// A library I am expanding to create shorthands for longer calls that will
 // hopefully save some time.
 
 using System;

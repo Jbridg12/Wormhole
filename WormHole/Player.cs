@@ -1,5 +1,8 @@
-﻿// Player Class
-// Inherits the entity class
+﻿// Player.cs
+// Contributors: Josh Bridges
+//
+// Player Class
+// Inherits the character class
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

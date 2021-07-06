@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Salvage.cs
+// Contributors: Josh Bridges
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 

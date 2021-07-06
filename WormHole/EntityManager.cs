@@ -1,4 +1,6 @@
-﻿// The enitity manager
+﻿// EntityManager.cs
+// Contributors: Josh Bridges
+// The enitity manager
 //
 // This loads and handles all Entities 
 
