@@ -78,47 +78,23 @@ namespace WormHole
 
         }
 
-        public void HandleBounds(bool wrap)
+        public virtual void HandleBounds()
         {
             if(this.X > Game1._graphics.GraphicsDevice.Viewport.Width)
             {
-                if (wrap)
-                {
-                    this.X = 0;
-                    return;
-                }
-
-                this.Active = false;
+                this.X = Game1._graphics.GraphicsDevice.Viewport.Width;
             }
             if (this.X < 0)
             {
-                if (wrap)
-                {
-                    this.X = Game1._graphics.GraphicsDevice.Viewport.Width;
-                    return;
-                }
-
-                this.Active = false;
+                this.X = 0;
             }
             if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height)
             {
-                if (wrap)
-                {
-                    this.Y = 0;
-                    return;
-                }
-
-                this.Active = false;
+                this.Y = Game1._graphics.GraphicsDevice.Viewport.Height;
             }
             if (this.Y < 0)
             {
-                if (wrap)
-                {
-                    this.Y = Game1._graphics.GraphicsDevice.Viewport.Height;
-                    return;
-                }
-
-                this.Active = false;
+                this.Y = 0;
             }
         }
     }

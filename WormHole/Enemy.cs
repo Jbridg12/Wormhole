@@ -14,7 +14,7 @@ namespace WormHole
         public Enemy(Rectangle position, Texture2D texture) : base(position, texture)
         {
             this.Health = 100;
-            this.Speed = 100;
+            this.Speed = 200;
         }
 
         public override void Update(GameTime gameTime)
@@ -26,10 +26,11 @@ namespace WormHole
 
             if (this.Active)
             {
-                this.ChasePlayer(gameTime);
-                this.HandleBounds(true);
+                this.ChasePlayer(time);
+                this.HandleBounds();
             }
         }
+
         public override void HandleCollision(Entity other)
         {
             if (this.Position.Intersects(other.Position))
@@ -49,7 +50,7 @@ namespace WormHole
             }
         }
 
-        private void ChasePlayer(GameTime gameTime)
+        private void ChasePlayer(float deltaT)
         { 
             Vector2 pos = new Vector2(this.X, this.Y);
             Vector2 playerPos = new Vector2(Game1.P1.X, Game1.P1.Y);
@@ -57,7 +58,7 @@ namespace WormHole
             Vector2 direction = playerPos - pos;
             direction.Normalize();
 
-            pos += direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            pos += direction * Speed * deltaT;
             this.X = (int)pos.X;
             this.Y = (int)pos.Y;
 

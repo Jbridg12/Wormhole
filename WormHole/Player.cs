@@ -28,7 +28,7 @@ namespace WormHole
             this.shotsPerSecond = 3f;
             this.currentTime = 0f;
             this.Direction = Game1.Direction.Up;
-            this.Speed = 200;
+            this.Speed = 400;
         }
 
         public override void Update(GameTime gameTime)
@@ -93,7 +93,7 @@ namespace WormHole
                 }
 
             }
-            this.HandleBounds(true);
+            this.HandleBounds();
 
             previousState = input;  // Set prvious state
         }
@@ -124,6 +124,26 @@ namespace WormHole
                     break;
             }
             
+        }
+
+        public override void HandleBounds()
+        {
+            if (this.X > Game1._graphics.GraphicsDevice.Viewport.Width-50)
+            {
+                this.X = Game1._graphics.GraphicsDevice.Viewport.Width-50;
+            }
+            if (this.X < 50)
+            {
+                this.X = 50;
+            }
+            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height-50)
+            {
+                this.Y = Game1._graphics.GraphicsDevice.Viewport.Height-50;
+            }
+            if (this.Y < 50)
+            {
+                this.Y = 50;
+            }
         }
 
         public void Shoot()

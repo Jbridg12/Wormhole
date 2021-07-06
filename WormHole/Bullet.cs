@@ -41,7 +41,7 @@ namespace WormHole
                             break;
                     }
 
-                    this.HandleBounds(false);
+                    this.HandleBounds();
 
                     this.DistTravelled+=5;
                 }
@@ -64,6 +64,12 @@ namespace WormHole
                          new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
                          SpriteEffects.None,
                          0);
+        }
+        public override void HandleBounds()
+        {
+            if (this.X > Game1._graphics.GraphicsDevice.Viewport.Width || this.Y < 0 || this.X < 0 || this.Y > Game1._graphics.GraphicsDevice.Viewport.Height)
+                this.Active = false;
+
         }
     }
 }
