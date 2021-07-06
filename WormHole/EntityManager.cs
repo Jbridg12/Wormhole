@@ -43,6 +43,7 @@ namespace WormHole
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
             Textures.Add("player", Content.Load<Texture2D>("ship_game_moc"));
             Textures.Add("elec_bullet", Content.Load<Texture2D>("elec_bullet"));
+            Textures.Add("enemy", Content.Load<Texture2D>("enemy"));
             Game1.P1 = new Player(Textures["player"]);
         }
 

@@ -28,12 +28,15 @@ namespace WormHole
             this.shotsPerSecond = 3f;
             this.currentTime = 0f;
             this.Direction = Game1.Direction.Up;
+            this.Speed = 200;
         }
 
         public override void Update(GameTime gameTime)
         {
             KeyboardState input = Keyboard.GetState();
-            this.currentTime += (float) gameTime.ElapsedGameTime.TotalSeconds;
+
+            float deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            currentTime += deltaT;
 
             if(previousState != null)   // make sure there is a previous state
             {
@@ -57,28 +60,28 @@ namespace WormHole
                     if (Direction != Game1.Direction.Up)
                         Direction = Game1.Direction.Up;
 
-                    this.Y -= 5;
+                    this.Y -= (int)(this.Speed * deltaT);
                 }
                 if (input.IsKeyDown(Keys.S))
                 {
                     if (Direction != Game1.Direction.Down)
                         Direction = Game1.Direction.Down;
 
-                    this.Y += 5;
+                    this.Y += (int)(this.Speed * deltaT);
                 }
                 if (input.IsKeyDown(Keys.A))
                 {
                     if (Direction != Game1.Direction.Left)
                         Direction = Game1.Direction.Left;
 
-                    this.X -= 5;
+                    this.X -= (int)(this.Speed * deltaT);
                 }
                 if (input.IsKeyDown(Keys.D))
                 {
                     if (Direction != Game1.Direction.Right)
                         Direction = Game1.Direction.Right;
 
-                    this.X += 5;
+                    this.X += (int)(this.Speed * deltaT);
                 }
                 if (input.IsKeyDown(Keys.Space))
                 {
@@ -88,8 +91,10 @@ namespace WormHole
                         this.Shoot();
                     }
                 }
+
             }
-            
+            this.HandleBounds(true);
+
             previousState = input;  // Set prvious state
         }
 

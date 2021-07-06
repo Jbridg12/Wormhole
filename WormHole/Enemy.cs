@@ -14,30 +14,20 @@ namespace WormHole
         public Enemy(Rectangle position, Texture2D texture) : base(position, texture)
         {
             this.Health = 100;
+            this.Speed = 100;
         }
 
         public override void Update(GameTime gameTime)
         {
+            float time = (float) gameTime.ElapsedGameTime.TotalSeconds;
+
             if (this.Health <= 0)
                 this.Active = false;
 
             if (this.Active)
             {
-                switch (this.GetDirection())
-                {
-                    case Game1.Direction.Up:
-                        this.Y -= 2;
-                        break;
-                    case Game1.Direction.Down:
-                        this.Y += 2;
-                        break;
-                    case Game1.Direction.Left:
-                        this.X -= 2;
-                        break;
-                    case Game1.Direction.Right:
-                        this.X += 2;
-                        break;
-                }
+                this.ChasePlayer(gameTime);
+                this.HandleBounds(true);
             }
         }
         public override void HandleCollision(Entity other)
@@ -59,28 +49,17 @@ namespace WormHole
             }
         }
 
-        private Game1.Direction GetDirection()
-        {
-            int verticalDistance, horizontalDistance;
-            verticalDistance = this.Y - Game1.P1.Y;
-            horizontalDistance = this.X - Game1.P1.Y;
+        private void ChasePlayer(GameTime gameTime)
+        { 
+            Vector2 pos = new Vector2(this.X, this.Y);
+            Vector2 playerPos = new Vector2(Game1.P1.X, Game1.P1.Y);
 
-            if(Math.Abs(verticalDistance) > Math.Abs(horizontalDistance))
-            {
-                if (verticalDistance >= 0)
-                {
-                    return Game1.Direction.Up;
-                }
-                return Game1.Direction.Down;
-            }
-            else
-            {
-                if (horizontalDistance >= 0)
-                {
-                    return Game1.Direction.Right;
-                }
-                return Game1.Direction.Left;
-            }
+            Vector2 direction = playerPos - pos;
+            direction.Normalize();
+
+            pos += direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.X = (int)pos.X;
+            this.Y = (int)pos.Y;
 
         }
     }

@@ -19,7 +19,7 @@ namespace WormHole
         public RoomScreen(Texture2D texture, SpriteFont font, List<Entity> entities) : base(texture, font)
         {
             this.Entities = entities;
-            Entities.Add(Game1.P1);
+            this.Entities.Add(Game1.P1);
         }
 
         public override void Update(GameTime gameTime)
