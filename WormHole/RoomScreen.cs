@@ -11,16 +11,20 @@ namespace WormHole
 {
     class RoomScreen : GameScreen
     {
+        public RoomScreen[] AdjacentRooms { get; set; }
         public RoomScreen(Texture2D texture, SpriteFont font) : base(texture, font)
         {
             this.Entities.Add(Game1.P1);
+            AdjacentRooms = new RoomScreen[4];
         }
 
         public RoomScreen(Texture2D texture, SpriteFont font, List<Entity> entities) : base(texture, font)
         {
             this.Entities = entities;
             this.Entities.Add(Game1.P1);
+            AdjacentRooms = new RoomScreen[4];
         }
+
 
         public override void Update(GameTime gameTime)
         {
