@@ -27,7 +27,7 @@ namespace WormHole
             this.state = Mode.Vertical;
             this.shotsPerSecond = 3f;
             this.currentTime = 0f;
-            this.Looking = Game1.Direction.Up;
+            this.Direction = Game1.Direction.Up;
         }
 
         public override void Update(GameTime gameTime)
@@ -54,29 +54,29 @@ namespace WormHole
                 // Handle basic movement with WASD
                 if (input.IsKeyDown(Keys.W))
                 {
-                    if (Looking != Game1.Direction.Up)
-                        Looking = Game1.Direction.Up;
+                    if (Direction != Game1.Direction.Up)
+                        Direction = Game1.Direction.Up;
 
                     this.Y -= 5;
                 }
                 if (input.IsKeyDown(Keys.S))
                 {
-                    if (Looking != Game1.Direction.Down)
-                        Looking = Game1.Direction.Down;
+                    if (Direction != Game1.Direction.Down)
+                        Direction = Game1.Direction.Down;
 
                     this.Y += 5;
                 }
                 if (input.IsKeyDown(Keys.A))
                 {
-                    if (Looking != Game1.Direction.Left)
-                        Looking = Game1.Direction.Left;
+                    if (Direction != Game1.Direction.Left)
+                        Direction = Game1.Direction.Left;
 
                     this.X -= 5;
                 }
                 if (input.IsKeyDown(Keys.D))
                 {
-                    if (Looking != Game1.Direction.Right)
-                        Looking = Game1.Direction.Right;
+                    if (Direction != Game1.Direction.Right)
+                        Direction = Game1.Direction.Right;
 
                     this.X += 5;
                 }
@@ -102,7 +102,7 @@ namespace WormHole
                         Position,
                         new Rectangle(230, 105, 322, 160),              // get the area of the Texture
                         Color.White,
-                        (float)((float)Looking * (float)(Math.PI/2)),   // using north as origin rotate in radians 
+                        (float)((float)Direction * (float)(Math.PI/2)),   // using north as origin rotate in radians 
                         new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
                         SpriteEffects.None,
                         0);
@@ -112,7 +112,7 @@ namespace WormHole
                         Position,
                         new Rectangle(103, 300, 207, 260),                // get the arae of the Texture
                         Color.White,
-                        (float)((float)Looking * (float)(Math.PI/2)),     // using north as origin rotate in radians 
+                        (float)((float)Direction * (float)(Math.PI/2)),     // using north as origin rotate in radians 
                         new Vector2(Position.Width, Position.Height),     // keep image centered while rotating
                         SpriteEffects.None,
                         0);

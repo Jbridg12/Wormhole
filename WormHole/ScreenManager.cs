@@ -54,7 +54,7 @@ namespace WormHole
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
             currentScreen = screens["MainMenu"];
-            screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"]));
+            screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 50, 50), EntityManager.Instance.Textures["enemy"]) }));
         }
 
         public void Update(GameTime time)
@@ -71,6 +71,11 @@ namespace WormHole
         {
             currentScreen = screens[str];
             EntityManager.Instance.SetCurrentEntities(currentScreen.Entities);  // also change the entities to the new list
+        }
+
+        public void NextFloor()
+        {
+            // TBD
         }
     }
 }
