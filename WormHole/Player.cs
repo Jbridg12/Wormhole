@@ -20,16 +20,19 @@ namespace WormHole
         private float currentTime;
 
         private KeyboardState previousState;    // For single press input control
-        
+
+        public Dictionary<string, int> Consumables { get; set; }
 
         public Player(Texture2D texture) : base(new Rectangle(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100), texture)
         {
+            this.Consumables = InitiateConsumables();
             this.state = Mode.Vertical;
-            this.shotsPerSecond = 3f;
+            this.shotsPerSecond = 10f;
             this.currentTime = 0f;
             this.Direction = Game1.Direction.Up;
-            this.Speed = 400;
+            this.Speed = 600;
         }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -125,6 +128,27 @@ namespace WormHole
             }
             
         }
+        private Dictionary<string, int> InitiateConsumables()
+        {
+            return new Dictionary<string, int>
+            {
+                {"Salvage", 0 }
+            };
+        }
+
+        public override void HandleCollision(Entity other)
+        {
+            if (other.GetType() == typeof(Bullet))
+            { 
+            }
+
+            if (other.GetType() == typeof(Enemy))
+            {
+                this.Health -= 10;
+
+            }
+        }
+
 
         public override void HandleBounds()
         {

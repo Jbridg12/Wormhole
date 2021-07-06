@@ -28,6 +28,11 @@ namespace WormHole
             AdjacentRooms = new RoomScreen[4];
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            spriteBatch.DrawString(Font, String.Format("Salvage: {0}", Game1.P1.Consumables["Salvage"]), new Vector2(1500f, 60f), Color.Black);
+        }
 
         public override void Update(GameTime gameTime)
         {

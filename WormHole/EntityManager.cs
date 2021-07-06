@@ -44,6 +44,7 @@ namespace WormHole
             Textures.Add("player", Content.Load<Texture2D>("ship_game_moc"));
             Textures.Add("elec_bullet", Content.Load<Texture2D>("elec_bullet"));
             Textures.Add("enemy", Content.Load<Texture2D>("enemy"));
+            Textures.Add("salvage", Content.Load<Texture2D>("salvage"));
             Game1.P1 = new Player(Textures["player"]);
         }
 
@@ -57,7 +58,13 @@ namespace WormHole
                 CurrentScreenEntities[i].Update(time);
 
                 for (int j = i; j < CurrentScreenEntities.Count; j++)
-                    CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); // short term solution, will implment quadtree collision soon
+                {
+                    if (CurrentScreenEntities[i].Position.Intersects(CurrentScreenEntities[j].Position))
+                    {
+                        CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); // short term solution, will implment quadtree collision soon
+                        CurrentScreenEntities[j].HandleCollision(CurrentScreenEntities[i]);
+                    }
+                }
 
                 if(CurrentScreenEntities[i].Active)             // any active entities carry over to next Update call
                     this.AddEntity(CurrentScreenEntities[i]);

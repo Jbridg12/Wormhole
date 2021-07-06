@@ -71,6 +71,7 @@ namespace WormHole
 
         public void ChangeScreen(string str)       // Function to allow changing the currentscreen variable
         {
+            currentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
             currentScreen = screens[str];
             EntityManager.Instance.SetCurrentEntities(currentScreen.Entities);  // also change the entities to the new list
         }

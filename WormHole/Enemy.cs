@@ -10,11 +10,26 @@ namespace WormHole
 {
     public class Enemy : Character
     {
-
+        private bool hit;
         public Enemy(Rectangle position, Texture2D texture) : base(position, texture)
         {
+            this.hit = false;
             this.Health = 100;
-            this.Speed = 200;
+            this.Speed = 100;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (!this.hit)
+            {
+                base.Draw(spriteBatch);
+            }
+            else
+            {
+                if (this.Active)
+                    spriteBatch.Draw(this.Texture, this.Position, Color.Red);
+            }
+
         }
 
         public override void Update(GameTime gameTime)
@@ -22,7 +37,9 @@ namespace WormHole
             float time = (float) gameTime.ElapsedGameTime.TotalSeconds;
 
             if (this.Health <= 0)
-                this.Active = false;
+                this.Destroy();
+
+            this.hit = false;
 
             if (this.Active)
             {
@@ -31,22 +48,26 @@ namespace WormHole
             }
         }
 
+        private void Destroy()
+        {
+            this.Active = false;
+            EntityManager.Instance.AddEntity(new Salvage(this.X, this.Y));
+        }
+
         public override void HandleCollision(Entity other)
         {
-            if (this.Position.Intersects(other.Position))
+            if (other.GetType() == typeof(Enemy))
+                return;
+
+            this.hit = true;
+            if (other.GetType() == typeof(Bullet))
             {
-                if (other.GetType() == typeof(Bullet))
-                {
-                    this.Health -= 25;
-                    other.Active = false;
-                }
+                this.Health -= 25;
+            }
 
-                if (other.GetType() == typeof(Player))
-                {
-                    this.Active = false;
-                    ((Player)other).Health -= 10;
-
-                }
+            if (other.GetType() == typeof(Player))
+            {
+                this.Health = 0;
             }
         }
 
@@ -63,5 +84,6 @@ namespace WormHole
             this.Y = (int)pos.Y;
 
         }
+
     }
 }

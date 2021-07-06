@@ -80,21 +80,21 @@ namespace WormHole
 
         public virtual void HandleBounds()
         {
-            if(this.X > Game1._graphics.GraphicsDevice.Viewport.Width)
+            if(this.X > Game1._graphics.GraphicsDevice.Viewport.Width-50)
             {
-                this.X = Game1._graphics.GraphicsDevice.Viewport.Width;
+                this.X = Game1._graphics.GraphicsDevice.Viewport.Width-50;
             }
-            if (this.X < 0)
+            if (this.X < 50)
             {
-                this.X = 0;
+                this.X = 50;
             }
-            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height)
+            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height-50)
             {
-                this.Y = Game1._graphics.GraphicsDevice.Viewport.Height;
+                this.Y = Game1._graphics.GraphicsDevice.Viewport.Height-50;
             }
-            if (this.Y < 0)
+            if (this.Y < 50)
             {
-                this.Y = 0;
+                this.Y = 50;
             }
         }
     }
