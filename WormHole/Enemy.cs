@@ -47,6 +47,14 @@ namespace WormHole
                 if (other.GetType() == typeof(Bullet))
                 {
                     this.Health -= 25;
+                    other.Active = false;
+                }
+
+                if (other.GetType() == typeof(Player))
+                {
+                    this.Active = false;
+                    ((Player)other).Health -= 10;
+
                 }
             }
         }
