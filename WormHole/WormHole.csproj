@@ -10,6 +10,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\room1.png" />
     <None Remove="Content\Title Mockup No Buttons.png" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
