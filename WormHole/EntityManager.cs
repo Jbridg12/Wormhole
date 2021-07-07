@@ -48,7 +48,7 @@ namespace WormHole
             Textures.Add("player", Content.Load<Texture2D>("ship_game_moc"));
             Textures.Add("elec_bullet", Content.Load<Texture2D>("elec_bullet"));
             Textures.Add("enemy", Content.Load<Texture2D>("enemy"));
-            Textures.Add("salvage", Content.Load<Texture2D>("salvage"));
+          //  Textures.Add("salvage", Content.Load<Texture2D>("salvage"));
             Textures.Add("door", Content.Load<Texture2D>("nebula"));
             Game1.P1 = new Player(Textures["player"]);
 
