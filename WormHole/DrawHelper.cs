@@ -1,4 +1,7 @@
-﻿// A library I am expanding to create shorthands for longer calls that will
+﻿// DrawHelper.cs
+// Contributors: Josh Bridges
+//
+// A library I am expanding to create shorthands for longer calls that will
 // hopefully save some time.
 
 using System;
@@ -17,7 +20,7 @@ namespace WormHole
         {
             sb.Draw(
                 texture, 
-                new Vector2(g.PreferredBackBufferWidth / 2, g.PreferredBackBufferHeight / 2), 
+                new Vector2(g.GraphicsDevice.Viewport.Width / 2, g.GraphicsDevice.Viewport.Height / 2), 
                 null, 
                 Color.White, 
                 0f, 

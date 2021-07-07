@@ -1,4 +1,5 @@
-﻿//Entity Base Class
+﻿// Entity.cs
+// Contributors: Josh Bridges
 
 using System;
 using System.Collections.Generic;
@@ -69,8 +70,7 @@ namespace WormHole
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if(this.Active)
-                spriteBatch.Draw(this.Texture, this.position, Color.White); // If called by default just draw the texture in the specific position
+            spriteBatch.Draw(this.Texture, this.position, Color.White); // If called by default just draw the texture in the specific position
         }
 
         public virtual void HandleCollision(Entity other)
@@ -78,47 +78,23 @@ namespace WormHole
 
         }
 
-        public void HandleBounds(bool wrap)
+        public virtual void HandleBounds()
         {
-            if(this.X > Game1._graphics.GraphicsDevice.Viewport.Width)
+            if(this.X > Game1._graphics.GraphicsDevice.Viewport.Width-50)
             {
-                if (wrap)
-                {
-                    this.X = 0;
-                    return;
-                }
-
-                this.Active = false;
+                this.X = Game1._graphics.GraphicsDevice.Viewport.Width-50;
             }
-            if (this.X < 0)
+            if (this.X < 50)
             {
-                if (wrap)
-                {
-                    this.X = Game1._graphics.GraphicsDevice.Viewport.Width;
-                    return;
-                }
-
-                this.Active = false;
+                this.X = 50;
             }
-            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height)
+            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height-50)
             {
-                if (wrap)
-                {
-                    this.Y = 0;
-                    return;
-                }
-
-                this.Active = false;
+                this.Y = Game1._graphics.GraphicsDevice.Viewport.Height-50;
             }
-            if (this.Y < 0)
+            if (this.Y < 50)
             {
-                if (wrap)
-                {
-                    this.Y = Game1._graphics.GraphicsDevice.Viewport.Height;
-                    return;
-                }
-
-                this.Active = false;
+                this.Y = 50;
             }
         }
     }

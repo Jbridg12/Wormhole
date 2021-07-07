@@ -1,4 +1,7 @@
-﻿// A manager to wrap all of the code regarding the screens updating and 
+﻿// ScreenManager.cs
+// Contributors: Josh Bridges
+//
+// A manager to wrap all of the code regarding the screens updating and 
 // loading into the Game1.cs functions.
 
 using System;
@@ -21,7 +24,8 @@ namespace WormHole
         public Dictionary<string, SpriteFont> ScreenFonts { get; set; }
 
         private Dictionary<string, GameScreen> screens;
-        private GameScreen currentScreen;
+        public RoomScreen NextRoom { get; private set; }
+        public GameScreen CurrentScreen { get; private set; }
 
         public static ScreenManager Instance
         {
@@ -47,6 +51,7 @@ namespace WormHole
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
             ScreenFonts.Add("base", Content.Load<SpriteFont>("Base"));
             ScreenTextures.Add("room", Content.Load<Texture2D>("room1"));
+            ScreenTextures.Add("blueroom", Content.Load<Texture2D>("bluescreen"));
 
             Dictionary<string, Texture2D> mainMenu = new Dictionary<string, Texture2D>();
             mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
@@ -66,23 +71,70 @@ namespace WormHole
 
         public void Update(GameTime time)
         {
-            currentScreen.Update(time);
+            CurrentScreen.Update(time);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            currentScreen.Draw(spriteBatch);
+            CurrentScreen.Draw(spriteBatch);
         }
 
-        public void ChangeScreen(string str)       // Function to allow changing the currentscreen variable
+        public void ChangeScreen(string str)       // Function to allow changing the CurrentScreen variable
         {
-            currentScreen = screens[str];
-            EntityManager.Instance.SetCurrentEntities(currentScreen.Entities);  // also change the entities to the new list
+            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;  // store entities status
+
+            CurrentScreen = screens[str];
+            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);  // also change the entities to the new list
+        }
+
+        public void ChangeScreen(RoomScreen rs) 
+        {
+            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
+            EntityManager.Instance.NextRoom = null;
+
+            CurrentScreen = rs;
+            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);  
         }
 
         public void NextFloor()
         {
-            // TBD
+            Random rand = new Random();
+            NextRoom = new EnemyRoom();
+
+            PopulateAdjacent(NextRoom, null, rand, 1, 0);
+
+            EntityManager.Instance.NextRoom = NextRoom;
+            if (!screens.ContainsKey("Room"))
+            {
+                screens.Add("Room", NextRoom);
+            }
+            else
+            {
+                screens["Room"] = NextRoom;
+            }
+        }
+
+        public void PopulateAdjacent(RoomScreen room, RoomScreen parent, Random rand, int depth, int direction)
+        {
+            if(parent != null)
+                room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)((direction + 2) % 4), parent));
+
+            if (room.Depth >= 3)
+                return;
+               
+
+            for(int i = 0; i < 4; i++)
+            {
+                if (room.AdjacentRooms[i] != null)
+                    continue;
+                if (rand.Next(2) == 0)
+                {
+                    room.AdjacentRooms[i] = new EnemyRoom(depth);
+                    PopulateAdjacent(room.AdjacentRooms[i], room, rand, depth+1, i);
+                    room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, room.AdjacentRooms[i]));
+                }
+            }
+
         }
     }
 }

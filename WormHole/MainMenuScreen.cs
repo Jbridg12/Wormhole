@@ -1,4 +1,7 @@
-﻿// A screen type that is used for doing menu screens in the game
+﻿// MainMenuScreen.cs
+// Contributors: Josh Bridges
+//
+// A screen type that is used for doing menu screens in the game
 
 using System;
 using System.Collections.Generic;
@@ -24,7 +27,7 @@ namespace WormHole
 
     class MainMenuScreen : GameScreen
     {
-        private Texture2D currentdisplay;
+        private Texture2D currentDisplay;
         private int selectedButton;
         private Rectangle displayLocation;
 
@@ -53,7 +56,7 @@ namespace WormHole
         public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.DrawString(font, "Hello!", new Vector2(480.0f, 200.0f), Color.Aquamarine);
-            spriteBatch.Draw(currentdisplay, displayLocation, Color.White);
+            spriteBatch.Draw(currentDisplay, displayLocation, Color.White);
 
             switch (currentState) //-CLos
             {
@@ -103,18 +106,20 @@ namespace WormHole
 
             if (keyStatus.IsKeyDown(Keys.Space))
             {
-                this.currentdisplay = Displays["NewGame"];     //Highlight New game button
+                this.currentDisplay = Displays["NewGame"];     //Highlight New game button
                 selectedButton = 1;
             }
             else if (keyStatus.IsKeyDown(Keys.LeftShift))
             {
-                this.currentdisplay = Displays["Initial"];      // Un-highlight NG button
+                this.currentDisplay = Displays["Initial"];      // Un-highlight NG button
                 selectedButton = 0;
             }
             else if (keyStatus.IsKeyDown(Keys.Enter))
             {
                 if (selectedButton == 1)
-                    ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room
+                {
+                    ScreenManager.Instance.NextFloor(); // Enter the first (and only) room
+                }
             }
 
             //Close game

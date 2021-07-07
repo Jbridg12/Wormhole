@@ -1,4 +1,7 @@
-﻿// The main game class.
+﻿// Game1.cs
+// Contributors: Josh Bridges
+//
+// The main game class.
 // THis is where all of the other classes and methods have to be involved somehow.
 
 using Microsoft.Xna.Framework;

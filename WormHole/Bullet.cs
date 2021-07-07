@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Bullet.cs
+// Contributors: Josh Bridges
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,10 +14,12 @@ namespace WormHole
     {
         private Game1.Direction Direction;
         public int Range { get; set; }
+        private int speed;
         public int DistTravelled { get; set;}
 
         public Bullet(Rectangle position, Texture2D texture) : base(position, texture)
         {
+            this.speed = 900;
             this.Direction = Game1.P1.Direction;
             this.Range = 500;
             this.DistTravelled = 0;
@@ -23,27 +28,29 @@ namespace WormHole
         {
             if (this.Active)
             {
+                float deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
                 if (this.DistTravelled < this.Range)
                 {
                     switch (this.Direction)
                     {
                         case Game1.Direction.Up:
-                            this.Y-=7;
+                            this.Y-= (int)(this.speed * deltaT);
                             break;
                         case Game1.Direction.Down:
-                            this.Y+=7;
+                            this.Y+= (int)(this.speed * deltaT);
                             break;
                         case Game1.Direction.Right:
-                            this.X+=7;
+                            this.X+= (int)(this.speed * deltaT);
                             break;
                         case Game1.Direction.Left:
-                            this.X-=7;
+                            this.X-= (int)(this.speed * deltaT);
                             break;
                     }
 
-                    this.HandleBounds(false);
+                    this.HandleBounds();
 
-                    this.DistTravelled+=5;
+                    this.DistTravelled+= (int)(this.speed * deltaT);
                 }
                 else
                 {
@@ -65,5 +72,20 @@ namespace WormHole
                          SpriteEffects.None,
                          0);
         }
+        public override void HandleBounds()
+        {
+            if (this.X > Game1._graphics.GraphicsDevice.Viewport.Width || this.Y < 0 || this.X < 0 || this.Y > Game1._graphics.GraphicsDevice.Viewport.Height)
+                this.Active = false;
+
+        }
+
+        public override void HandleCollision(Entity other)
+        {
+            if (other.GetType() == typeof(Enemy))
+            {
+                this.Active = false;
+            }
+        }
+        
     }
 }

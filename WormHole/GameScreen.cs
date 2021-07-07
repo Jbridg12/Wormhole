@@ -1,4 +1,7 @@
-﻿// A parent class for the different screen types
+﻿// GameScreen.cs
+// Contributors: Josh Bridges
+//
+// A parent class for the different screen types
 // All of the screens will inherit from this class
 
 using System;

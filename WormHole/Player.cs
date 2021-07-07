@@ -1,5 +1,8 @@
-﻿// Player Class
-// Inherits the entity class
+﻿// Player.cs
+// Contributors: Josh Bridges
+//
+// Player Class
+// Inherits the character class
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,16 +23,19 @@ namespace WormHole
         private float currentTime;
 
         private KeyboardState previousState;    // For single press input control
-        
+
+        public Dictionary<string, int> Consumables { get; set; }
 
         public Player(Texture2D texture) : base(new Rectangle(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100), texture)
         {
+            this.Consumables = InitiateConsumables();
             this.state = Mode.Vertical;
-            this.shotsPerSecond = 3f;
+            this.shotsPerSecond = 10f;
             this.currentTime = 0f;
             this.Direction = Game1.Direction.Up;
-            this.Speed = 200;
+            this.Speed = 600;
         }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -93,7 +99,7 @@ namespace WormHole
                 }
 
             }
-            this.HandleBounds(true);
+            this.HandleBounds();
 
             previousState = input;  // Set prvious state
         }
@@ -124,6 +130,63 @@ namespace WormHole
                     break;
             }
             
+        }
+        private Dictionary<string, int> InitiateConsumables()
+        {
+            return new Dictionary<string, int>
+            {
+                {"Salvage", 0 }
+            };
+        }
+
+        public override void HandleCollision(Entity other)
+        {
+            if (other.GetType() == typeof(Door))
+            {
+                EntityManager.Instance.NextRoom = ((Door)other).Destination;
+                switch (((Door)other).Direction)
+                {
+                    case Game1.Direction.Up:
+                        this.X = 800; this.Y = 700;
+                        break;
+                    case Game1.Direction.Down:
+                        this.X = 800; this.Y = 400;
+                        break;
+                    case Game1.Direction.Right:
+                        this.X = 300; this.Y = 500;
+                        break;
+                    case Game1.Direction.Left:
+                        this.X = 1530; this.Y = 500;
+                        break;
+                }
+            }
+
+            if (other.GetType() == typeof(Enemy))
+            {
+                this.Health -= 10;
+
+            }
+        }
+
+
+        public override void HandleBounds()
+        {
+            if (this.X > Game1._graphics.GraphicsDevice.Viewport.Width-50)
+            {
+                this.X = Game1._graphics.GraphicsDevice.Viewport.Width-50;
+            }
+            if (this.X < 50)
+            {
+                this.X = 50;
+            }
+            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height-50)
+            {
+                this.Y = Game1._graphics.GraphicsDevice.Viewport.Height-50;
+            }
+            if (this.Y < 50)
+            {
+                this.Y = 50;
+            }
         }
 
         public void Shoot()

@@ -1,4 +1,6 @@
-﻿// The enitity manager
+﻿// EntityManager.cs
+// Contributors: Josh Bridges
+// The enitity manager
 //
 // This loads and handles all Entities 
 
@@ -30,12 +32,14 @@ namespace WormHole
         public Dictionary<string, Texture2D> Textures {get; set; }
         public ContentManager Content { get; private set; }
         public List<Entity> UpdatedEntities { get; set; }
+        public RoomScreen NextRoom { get; set; }
 
         public EntityManager()
         {
             CurrentScreenEntities = new List<Entity>();
             UpdatedEntities = new List<Entity>();
             Textures = new Dictionary<string, Texture2D>();
+            NextRoom = null;
         }
 
         public void LoadContent(ContentManager Content)
@@ -44,6 +48,8 @@ namespace WormHole
             Textures.Add("player", Content.Load<Texture2D>("ship_game_moc"));
             Textures.Add("elec_bullet", Content.Load<Texture2D>("elec_bullet"));
             Textures.Add("enemy", Content.Load<Texture2D>("enemy"));
+            Textures.Add("salvage", Content.Load<Texture2D>("salvage"));
+            Textures.Add("door", Content.Load<Texture2D>("nebula"));
             Game1.P1 = new Player(Textures["player"]);
 
             //Buttons -CLos
@@ -64,20 +70,36 @@ namespace WormHole
             {
                 CurrentScreenEntities[i].Update(time);
 
-                for (int j = i; j < CurrentScreenEntities.Count; j++)
-                    CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); // short term solution, will implment quadtree collision soon
+                if (CurrentScreenEntities[i].Active)
+                {
+                    for (int j = i; j < CurrentScreenEntities.Count; j++)
+                    {
+                        if (!CurrentScreenEntities[j].Active)
+                            continue;
 
-                if(CurrentScreenEntities[i].Active)             // any active entities carry over to next Update call
+                        if (CurrentScreenEntities[i].Position.Intersects(CurrentScreenEntities[j].Position))
+                        {
+                            CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); // short term solution, will implment quadtree collision soon
+                            CurrentScreenEntities[j].HandleCollision(CurrentScreenEntities[i]);
+                        }
+                    }
+                }
+
+                if (CurrentScreenEntities[i].Active || (CurrentScreenEntities[i].GetType() == typeof(Door)))            // any active entities carry over to next Update call
                     this.AddEntity(CurrentScreenEntities[i]);
+                
             }
 
+            if (NextRoom != null)
+                ScreenManager.Instance.ChangeScreen(NextRoom);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Entity item in CurrentScreenEntities)
             {
-                item.Draw(spriteBatch);
+                if(item.Active)
+                    item.Draw(spriteBatch);
             }
 
         }
