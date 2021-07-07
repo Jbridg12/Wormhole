@@ -41,7 +41,7 @@ namespace WormHole
         public MainMenuScreen(Dictionary<string, Texture2D> textures, SpriteFont font) : base(textures, font)
         {
             displayLocation = new Rectangle(((int)ScreenManager.Instance.Dimensions.X / 2) - 384, ((int)ScreenManager.Instance.Dimensions.Y / 2) - 384, 768, 768);
-            this.currentdisplay = Displays["Initial"];
+            this.currentDisplay = Displays["Initial"];
 
             buttons = new List<MenuButton>();
 
@@ -81,7 +81,7 @@ namespace WormHole
             switch (currentState) //-CLos
             {
                 case GameState.Main:
-                    currentdisplay = Displays["Initial"];
+                    currentDisplay = Displays["Initial"];
                     if (buttons[0].LeftButtonPress(mouseStatus, buttons[0].Position))
                     {
                         currentState = GameState.Game;
@@ -93,7 +93,7 @@ namespace WormHole
                     }
                     break;
                 case GameState.Instructions:
-                    currentdisplay = Displays["SubMenu"];
+                    currentDisplay = Displays["SubMenu"];
                     if (buttons[3].LeftButtonPress(mouseStatus, new Rectangle(542, 685, 322, 64)))
                     {
                         currentState = GameState.Main;
@@ -123,7 +123,7 @@ namespace WormHole
             }
 
             //Close game
-            if (keyStatus.IsKeyDown(Keys.Escape) && currentdisplay == Displays["Initial"])
+            if (keyStatus.IsKeyDown(Keys.Escape) && currentDisplay == Displays["Initial"])
             {
             }
 
