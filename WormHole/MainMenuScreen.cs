@@ -44,6 +44,10 @@ namespace WormHole
 
             //Creating the buttons
             buttons.Add(button = new MenuButton(new Rectangle(315, 414, 394, 82), Displays["button0"]));
+            buttons.Add(button = new MenuButton(new Rectangle(351, 544, 322, 64), Displays["button1"]));
+            buttons.Add(button = new MenuButton(new Rectangle(315, 414, 394, 82), Displays["button2"]));
+            buttons.Add(button = new MenuButton(new Rectangle(351, 544, 322, 64), Displays["button3"]));
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -55,10 +59,11 @@ namespace WormHole
             {
                 case GameState.Main:
                     spriteBatch.Draw(buttons[0].Texture, buttons[0].Position, Color.White);
+                    spriteBatch.Draw(buttons[1].Texture, buttons[1].Position, Color.White);
                     break;
                 case GameState.Instructions:
-                    currentdisplay = Displays["SubMenu"];
-                    break;
+                    spriteBatch.Draw(buttons[3].Texture, new Rectangle(542, 685, 322, 64), Color.White);
+                        break;
                 case GameState.Game:
                     ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room
                     break;
@@ -78,9 +83,18 @@ namespace WormHole
                     {
                         currentState = GameState.Game;
                     }
+
+                    if (buttons[1].LeftButtonPress(mouseStatus, buttons[1].Position))
+                    {
+                        currentState = GameState.Instructions;
+                    }
                     break;
                 case GameState.Instructions:
                     currentdisplay = Displays["SubMenu"];
+                    if (buttons[3].LeftButtonPress(mouseStatus, new Rectangle(542, 685, 322, 64)))
+                    {
+                        currentState = GameState.Main;
+                    }
                     break;
                 case GameState.Game:
                     ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room
