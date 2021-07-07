@@ -65,7 +65,7 @@ namespace WormHole
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
             currentScreen = screens["MainMenu"];
-            screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 100, 100), EntityManager.Instance.Textures["enemy"]) }));
+            //screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 100, 100), EntityManager.Instance.Textures["enemy"]) }));
         
         }
 
