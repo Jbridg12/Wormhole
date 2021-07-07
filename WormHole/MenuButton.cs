@@ -7,7 +7,7 @@ using System;
 namespace WormHole
 {
 
-    class MenuButton : Entity
+    class MenuButton : Entity // - CLos
     {
         //Input
         private MouseState prevMState;
