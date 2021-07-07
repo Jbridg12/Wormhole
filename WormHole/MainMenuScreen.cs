@@ -12,11 +12,24 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace WormHole
 {
+    //Used to cycle through the different screens - CLos
+    enum GameState
+    { 
+    Main,
+    Instructions,
+    Pause,
+    Game,
+    Gameover
+    }
+
     class MainMenuScreen : GameScreen
     {
         private Texture2D currentdisplay;
         private int selectedButton;
         private Rectangle displayLocation;
+
+        //What is currently getting shown on screen
+        private GameState currentState = GameState.Main;
 
         public MainMenuScreen(Dictionary<string, Texture2D> textures, SpriteFont font) : base(textures, font)
         {
@@ -34,6 +47,20 @@ namespace WormHole
         public override void Update(GameTime gameTime)
         {
             KeyboardState status = Keyboard.GetState();
+
+            switch (currentState) //-CLos
+            {
+                case GameState.Main:
+                    currentdisplay = Displays["Initial"];
+                    break;
+                case GameState.Instructions:
+                    currentdisplay = Displays["SubMenu"];
+                    break;
+                case GameState.Game:
+                    ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room
+                    break;
+            }
+
             if (status.IsKeyDown(Keys.Space))
             {
                 this.currentdisplay = Displays["NewGame"];     //Highlight New game button

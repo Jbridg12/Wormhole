@@ -36,7 +36,7 @@ namespace WormHole
 
         public ScreenManager()
         {
-            Dimensions = new Vector2(1920, 1080);
+            Dimensions = new Vector2(1024, 768);
             screens = new Dictionary<string, GameScreen>();
             ScreenFonts = new Dictionary<string, SpriteFont>();
             ScreenTextures = new Dictionary<string, Texture2D>();
@@ -51,6 +51,7 @@ namespace WormHole
             Dictionary<string, Texture2D> mainMenu = new Dictionary<string, Texture2D>();
             mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
             mainMenu.Add("NewGame", Content.Load<Texture2D>("menu1"));
+            mainMenu.Add("SubMenu", Content.Load<Texture2D>("instructions")); //-CLos
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
             currentScreen = screens["MainMenu"];
