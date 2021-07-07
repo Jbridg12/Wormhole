@@ -14,6 +14,7 @@ namespace WormHole
 {
     public class RoomScreen : GameScreen
     {
+        public RoomScreen parent;
         public RoomScreen[] AdjacentRooms { get; set; }
         public int Depth { get; set; }
         public RoomScreen(Texture2D texture, SpriteFont font, int depth) : base(texture, font)

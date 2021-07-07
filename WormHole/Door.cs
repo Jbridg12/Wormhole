@@ -23,16 +23,16 @@ namespace WormHole
             switch (direction)
             {
                 case Game1.Direction.Up:
-                    this.Position = new Rectangle(760, 0, 400, 200);
+                    this.Position = new Rectangle(760, 0, 200, 100);
                     break;
                 case Game1.Direction.Right:
-                    this.Position = new Rectangle(1820, 340, 400, 200);
+                    this.Position = new Rectangle(1820, 340, 200, 100);
                     break;
                 case Game1.Direction.Down:
-                    this.Position = new Rectangle(760, 980, 400, 200);
+                    this.Position = new Rectangle(760, 980, 200, 100);
                     break;
                 case Game1.Direction.Left:
-                    this.Position = new Rectangle(0, 340, 400, 200);
+                    this.Position = new Rectangle(0, 340, 200, 100);
                     break;
             }
             this.Destination = room;

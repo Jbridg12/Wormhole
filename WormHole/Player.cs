@@ -143,20 +143,20 @@ namespace WormHole
         {
             if (other.GetType() == typeof(Door))
             {
-                ScreenManager.Instance.ChangeScreen(((Door)other).Destination);
+                EntityManager.Instance.NextRoom = ((Door)other).Destination;
                 switch (((Door)other).Direction)
                 {
                     case Game1.Direction.Up:
-                        this.X = 800; this.Y = 50;
+                        this.X = 800; this.Y = 700;
                         break;
                     case Game1.Direction.Down:
-                        this.X = 800; this.Y = 900;
+                        this.X = 800; this.Y = 400;
                         break;
                     case Game1.Direction.Right:
-                        this.X = 1900; this.Y = 500;
+                        this.X = 300; this.Y = 500;
                         break;
                     case Game1.Direction.Left:
-                        this.X = 50; this.Y = 500;
+                        this.X = 1530; this.Y = 500;
                         break;
                 }
             }

@@ -24,7 +24,7 @@ namespace WormHole
         public Dictionary<string, SpriteFont> ScreenFonts { get; set; }
 
         private Dictionary<string, GameScreen> screens;
-        public RoomScreen CurrentRoom { get; private set; }
+        public RoomScreen NextRoom { get; private set; }
         public GameScreen CurrentScreen { get; private set; }
 
         public static ScreenManager Instance
@@ -81,7 +81,8 @@ namespace WormHole
 
         public void ChangeScreen(RoomScreen rs) 
         {
-            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;  
+            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
+            EntityManager.Instance.NextRoom = null;
 
             CurrentScreen = rs;
             EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);  
@@ -90,29 +91,38 @@ namespace WormHole
         public void NextFloor()
         {
             Random rand = new Random();
-            CurrentRoom = new EnemyRoom();
-            PopulateAdjacent(CurrentRoom, rand, 1);
+            NextRoom = new EnemyRoom();
+
+            PopulateAdjacent(NextRoom, null, rand, 1, 0);
+
+            EntityManager.Instance.NextRoom = NextRoom;
             if (!screens.ContainsKey("Room"))
             {
-                screens.Add("Room", CurrentRoom);
+                screens.Add("Room", NextRoom);
             }
             else
             {
-                screens["Room"] = CurrentRoom;
+                screens["Room"] = NextRoom;
             }
         }
 
-        public void PopulateAdjacent(RoomScreen room, Random rand, int depth)
+        public void PopulateAdjacent(RoomScreen room, RoomScreen parent, Random rand, int depth, int direction)
         {
+            if(parent != null)
+                room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)((direction + 2) % 4), parent));
+
             if (room.Depth >= 3)
                 return;
+               
 
             for(int i = 0; i < 4; i++)
             {
+                if (room.AdjacentRooms[i] != null)
+                    continue;
                 if (rand.Next(2) == 0)
                 {
                     room.AdjacentRooms[i] = new EnemyRoom(depth);
-                    PopulateAdjacent(room.AdjacentRooms[i], rand, depth+1);
+                    PopulateAdjacent(room.AdjacentRooms[i], room, rand, depth+1, i);
                     room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, room.AdjacentRooms[i]));
                 }
             }

@@ -51,8 +51,7 @@ namespace WormHole
             {
                 if (selectedButton == 1)
                 {
-                    ScreenManager.Instance.NextFloor();
-                    ScreenManager.Instance.ChangeScreen(ScreenManager.Instance.CurrentRoom); // Enter the first (and only) room
+                    ScreenManager.Instance.NextFloor(); // Enter the first (and only) room
                 }
             }
 

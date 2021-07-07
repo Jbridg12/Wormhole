@@ -32,12 +32,14 @@ namespace WormHole
         public Dictionary<string, Texture2D> Textures {get; set; }
         public ContentManager Content { get; private set; }
         public List<Entity> UpdatedEntities { get; set; }
+        public RoomScreen NextRoom { get; set; }
 
         public EntityManager()
         {
             CurrentScreenEntities = new List<Entity>();
             UpdatedEntities = new List<Entity>();
             Textures = new Dictionary<string, Texture2D>();
+            NextRoom = null;
         }
 
         public void LoadContent(ContentManager Content)
@@ -79,6 +81,9 @@ namespace WormHole
                     this.AddEntity(CurrentScreenEntities[i]);
                 
             }
+
+            if (NextRoom != null)
+                ScreenManager.Instance.ChangeScreen(NextRoom);
         }
 
         public void Draw(SpriteBatch spriteBatch)
