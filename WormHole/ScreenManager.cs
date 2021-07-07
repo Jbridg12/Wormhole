@@ -52,10 +52,16 @@ namespace WormHole
             mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
             mainMenu.Add("NewGame", Content.Load<Texture2D>("menu1"));
             mainMenu.Add("SubMenu", Content.Load<Texture2D>("instructions")); //-CLos
+            //Button textures here because I was having trouble making a unique element for them
+            mainMenu.Add("button0", Content.Load<Texture2D>("button0"));
+            mainMenu.Add("button1", Content.Load<Texture2D>("button1"));
+            mainMenu.Add("button2", Content.Load<Texture2D>("button2"));
+            mainMenu.Add("button3", Content.Load<Texture2D>("button3"));
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
             currentScreen = screens["MainMenu"];
             screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 100, 100), EntityManager.Instance.Textures["enemy"]) }));
+        
         }
 
         public void Update(GameTime time)

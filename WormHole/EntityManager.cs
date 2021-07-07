@@ -45,6 +45,14 @@ namespace WormHole
             Textures.Add("elec_bullet", Content.Load<Texture2D>("elec_bullet"));
             Textures.Add("enemy", Content.Load<Texture2D>("enemy"));
             Game1.P1 = new Player(Textures["player"]);
+
+            //Buttons -CLos
+            Textures.Add("button0", Content.Load<Texture2D>("button0"));
+            Textures.Add("button1", Content.Load<Texture2D>("button1"));
+            Textures.Add("button2", Content.Load<Texture2D>("button2"));
+            Textures.Add("button3", Content.Load<Texture2D>("button3"));
+
+
         }
 
         public void Update(GameTime time)
