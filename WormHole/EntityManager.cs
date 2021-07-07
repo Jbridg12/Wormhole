@@ -47,6 +47,7 @@ namespace WormHole
             Textures.Add("elec_bullet", Content.Load<Texture2D>("elec_bullet"));
             Textures.Add("enemy", Content.Load<Texture2D>("enemy"));
             Textures.Add("salvage", Content.Load<Texture2D>("salvage"));
+            Textures.Add("door", Content.Load<Texture2D>("nebula"));
             Game1.P1 = new Player(Textures["player"]);
         }
 
@@ -59,26 +60,33 @@ namespace WormHole
             {
                 CurrentScreenEntities[i].Update(time);
 
-                for (int j = i; j < CurrentScreenEntities.Count; j++)
+                if (CurrentScreenEntities[i].Active)
                 {
-                    if (CurrentScreenEntities[i].Position.Intersects(CurrentScreenEntities[j].Position))
+                    for (int j = i; j < CurrentScreenEntities.Count; j++)
                     {
-                        CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); // short term solution, will implment quadtree collision soon
-                        CurrentScreenEntities[j].HandleCollision(CurrentScreenEntities[i]);
+                        if (!CurrentScreenEntities[j].Active)
+                            continue;
+
+                        if (CurrentScreenEntities[i].Position.Intersects(CurrentScreenEntities[j].Position))
+                        {
+                            CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); // short term solution, will implment quadtree collision soon
+                            CurrentScreenEntities[j].HandleCollision(CurrentScreenEntities[i]);
+                        }
                     }
                 }
 
-                if(CurrentScreenEntities[i].Active)             // any active entities carry over to next Update call
+                if (CurrentScreenEntities[i].Active || (CurrentScreenEntities[i].GetType() == typeof(Door)))            // any active entities carry over to next Update call
                     this.AddEntity(CurrentScreenEntities[i]);
+                
             }
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Entity item in CurrentScreenEntities)
             {
-                item.Draw(spriteBatch);
+                if(item.Active)
+                    item.Draw(spriteBatch);
             }
 
         }

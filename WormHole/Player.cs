@@ -141,8 +141,24 @@ namespace WormHole
 
         public override void HandleCollision(Entity other)
         {
-            if (other.GetType() == typeof(Bullet))
-            { 
+            if (other.GetType() == typeof(Door))
+            {
+                ScreenManager.Instance.ChangeScreen(((Door)other).Destination);
+                switch (((Door)other).Direction)
+                {
+                    case Game1.Direction.Up:
+                        this.X = 800; this.Y = 50;
+                        break;
+                    case Game1.Direction.Down:
+                        this.X = 800; this.Y = 900;
+                        break;
+                    case Game1.Direction.Right:
+                        this.X = 1900; this.Y = 500;
+                        break;
+                    case Game1.Direction.Left:
+                        this.X = 50; this.Y = 500;
+                        break;
+                }
             }
 
             if (other.GetType() == typeof(Enemy))

@@ -35,7 +35,7 @@ namespace WormHole
         {
             //base.Draw(spriteBatch);
             spriteBatch.Draw(Display,
-                new Vector2(g.GraphicsDevice.Viewport.Width / 2, g.GraphicsDevice.Viewport.Height / 2),
+                new Vector2(Game1._graphics.GraphicsDevice.Viewport.Width / 2, Game1._graphics.GraphicsDevice.Viewport.Height / 2),
                 null,
                 Color.White,
                 0f,
@@ -50,11 +50,30 @@ namespace WormHole
         {
             KeyboardState status = Keyboard.GetState();
 
+            if (!EnemiesAlive())
+            {
+                foreach (Entity door in Entities)
+                {
+                    if(door.GetType() == typeof(Door))
+                        door.Active = true;
+                }
+                    
+            }
+
             if (status.IsKeyDown(Keys.Escape))          // If the player presses escape in a room it returns to the menu
             {
                 ScreenManager.Instance.ChangeScreen("MainMenu");
             }
             base.Update(gameTime);
+        }
+
+        public bool EnemiesAlive()
+        {
+            foreach(Entity en in Entities)
+            {
+                if (en is Enemy && en.Active) return true;
+            }
+            return false;
         }
     }
 }

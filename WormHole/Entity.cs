@@ -70,8 +70,7 @@ namespace WormHole
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if(this.Active)
-                spriteBatch.Draw(this.Texture, this.position, Color.White); // If called by default just draw the texture in the specific position
+            spriteBatch.Draw(this.Texture, this.position, Color.White); // If called by default just draw the texture in the specific position
         }
 
         public virtual void HandleCollision(Entity other)
