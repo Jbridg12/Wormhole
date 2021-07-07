@@ -4,6 +4,12 @@
 // The main game class.
 // THis is where all of the other classes and methods have to be involved somehow.
 
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
