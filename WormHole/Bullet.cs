@@ -50,7 +50,7 @@ namespace WormHole
 
                     this.HandleBounds();
 
-                    this.DistTravelled+=5;
+                    this.DistTravelled+= (int)(this.speed * deltaT);
                 }
                 else
                 {

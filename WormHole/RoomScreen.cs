@@ -33,7 +33,16 @@ namespace WormHole
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            //base.Draw(spriteBatch);
+            spriteBatch.Draw(Display,
+                new Vector2(g.GraphicsDevice.Viewport.Width / 2, g.GraphicsDevice.Viewport.Height / 2),
+                null,
+                Color.White,
+                0f,
+                new Vector2(Display.Width / 2, Display.Height / 2),
+                Vector2.One,
+                SpriteEffects.None,
+                0f);
             spriteBatch.DrawString(Font, String.Format("Salvage: {0}", Game1.P1.Consumables["Salvage"]), new Vector2(1500f, 60f), Color.Black);
         }
 
