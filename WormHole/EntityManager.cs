@@ -68,10 +68,11 @@ namespace WormHole
 
             for (int i = 0; i < CurrentScreenEntities.Count; i++)
             {
-                CurrentScreenEntities[i].Update(time);
-
                 if (CurrentScreenEntities[i].Active)
                 {
+
+                    CurrentScreenEntities[i].Update(time);
+
                     for (int j = i; j < CurrentScreenEntities.Count; j++)
                     {
                         if (!CurrentScreenEntities[j].Active)
