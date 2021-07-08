@@ -60,11 +60,14 @@ namespace WormHole
                 }
                     
             }
-
-            if (status.IsKeyDown(Keys.Escape))          // If the player presses escape in a room it returns to the menu
+            
+            if (status.IsKeyDown(Keys.Escape))          // If the player presses escape to reset the room in case the door 
+                                                        //doesn't load.  This will be replaced by a proper pause function that takes
+                                                        //you back to the main menu later
             {
                 ScreenManager.Instance.ChangeScreen("MainMenu");
             }
+            
             base.Update(gameTime);
         }
 

@@ -100,10 +100,10 @@ namespace WormHole
                     }
                     break;
                 case GameState.Game:
-                    ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room
+                    ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room                 
                     break;
             }
-
+            /*
             if (keyStatus.IsKeyDown(Keys.Space))
             {
                 this.currentDisplay = Displays["NewGame"];     //Highlight New game button
@@ -121,11 +121,9 @@ namespace WormHole
                     ScreenManager.Instance.NextFloor(); // Enter the first (and only) room
                 }
             }
-
+            */
             //Close game
-            if (keyStatus.IsKeyDown(Keys.Escape) && currentDisplay == Displays["Initial"])
-            {
-            }
+            
 
             base.Update(gameTime);
         }
