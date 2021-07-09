@@ -12,7 +12,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace WormHole
-{
+{//THE IMAGE HAS THAT WHITE/GRAY CHECKER PATTERN BEHIND IT
+    //IT IS NOT ON A TRANSPARENT BACKGROUND
     class Door : Entity
     {
         public Game1.Direction Direction { get; private set; }

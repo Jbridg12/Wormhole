@@ -75,6 +75,8 @@ namespace WormHole
 
         public override void Update(GameTime gameTime)
         {
+            //We should add another state for they arrow keys
+            //so it's WASD and arrow key controls
             KeyboardState keyStatus = Keyboard.GetState();
             MouseState mouseStatus = Mouse.GetState();
 

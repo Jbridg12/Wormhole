@@ -98,6 +98,8 @@ namespace WormHole
 
         public void NextFloor()
         {
+            //We should change up the look by like changing between 3 or 4 different
+            //arts for the background, it's kind of confusing 
             Random rand = new Random();
             NextRoom = new EnemyRoom();
 

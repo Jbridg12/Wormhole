@@ -75,7 +75,9 @@ namespace WormHole
 
         public virtual void HandleCollision(Entity other)
         {
-
+            //I dont know if you have this planned but it should be simple in theory
+            //If the players bullet intersects(I think there is a method for this) with
+            //the entity bounds then the en
         }
 
         public virtual void HandleBounds()

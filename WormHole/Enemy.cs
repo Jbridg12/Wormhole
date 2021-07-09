@@ -59,6 +59,7 @@ namespace WormHole
 
         public override void HandleCollision(Entity other)
         {
+            
             if (other.GetType() == typeof(Enemy))
                 return;
 
@@ -70,6 +71,7 @@ namespace WormHole
 
             if (other.GetType() == typeof(Player))
             {
+                //this should kill the player not the enemy
                 this.Health = 0;
             }
         }
