@@ -15,15 +15,6 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace WormHole
 {
-    //Used to cycle through the different screens - CLos
-    enum GameState
-    {
-        Main,
-        Instructions,
-        Pause,
-        Game,
-        Gameover
-    }
 
     class MainMenuScreen : GameScreen
     {
@@ -31,8 +22,6 @@ namespace WormHole
         private int selectedButton;
         private Rectangle displayLocation;
 
-        //What is currently getting shown on screen
-        private GameState currentState = GameState.Main;
 
         //Button code - CLos
         private List<MenuButton> buttons;
@@ -58,16 +47,16 @@ namespace WormHole
             //spriteBatch.DrawString(font, "Hello!", new Vector2(480.0f, 200.0f), Color.Aquamarine);
             spriteBatch.Draw(currentDisplay, displayLocation, Color.White);
 
-            switch (currentState) //-CLos
+            switch (Game1.CurrentState) //-CLos
             {
-                case GameState.Main:
+                case Game1.GameState.Main:
                     spriteBatch.Draw(buttons[0].Texture, buttons[0].Position, Color.White);
                     spriteBatch.Draw(buttons[1].Texture, buttons[1].Position, Color.White);
                     break;
-                case GameState.Instructions:
+                case Game1.GameState.Instructions:
                     spriteBatch.Draw(buttons[3].Texture, new Rectangle(542, 685, 322, 64), Color.White);
                         break;
-                case GameState.Game:
+                case Game1.GameState.Game:
                     ScreenManager.Instance.NextFloor(); // Enter the first (and only) room
                     break;
             }
@@ -80,28 +69,29 @@ namespace WormHole
             KeyboardState keyStatus = Keyboard.GetState();
             MouseState mouseStatus = Mouse.GetState();
 
-            switch (currentState) //-CLos
+            switch (Game1.CurrentState) //-CLos
             {
-                case GameState.Main:
+                case Game1.GameState.Main:
                     currentDisplay = Displays["Initial"];
                     if (buttons[0].LeftButtonPress(mouseStatus, buttons[0].Position))
                     {
-                        currentState = GameState.Game;
+                        Game1.CurrentState = Game1.GameState.Game;
                     }
 
                     if (buttons[1].LeftButtonPress(mouseStatus, buttons[1].Position))
                     {
-                        currentState = GameState.Instructions;
+                        Game1.CurrentState = Game1.GameState.Instructions;
                     }
                     break;
-                case GameState.Instructions:
+                case Game1.GameState.Instructions:
                     currentDisplay = Displays["SubMenu"];
                     if (buttons[3].LeftButtonPress(mouseStatus, new Rectangle(542, 685, 322, 64)))
                     {
-                        currentState = GameState.Main;
+                        Game1.CurrentState = Game1.GameState.Main;
                     }
                     break;
-                case GameState.Game:
+                case Game1.GameState.Game:
+                    Mouse.SetPosition(515, 320);
                     ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room                 
                     break;
             }
@@ -129,5 +119,6 @@ namespace WormHole
 
             base.Update(gameTime);
         }
+
     }
 }

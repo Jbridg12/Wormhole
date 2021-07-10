@@ -24,6 +24,13 @@ namespace WormHole
         public Dictionary<string, SpriteFont> ScreenFonts { get; set; }
 
         private Dictionary<string, GameScreen> screens;
+        public Dictionary<string, GameScreen> Screens
+        {
+            get
+            {
+                return screens;
+            }
+        }
         public RoomScreen NextRoom { get; private set; }
         public GameScreen CurrentScreen { get; private set; }
 
@@ -57,6 +64,7 @@ namespace WormHole
             mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
             mainMenu.Add("NewGame", Content.Load<Texture2D>("menu1"));
             mainMenu.Add("SubMenu", Content.Load<Texture2D>("instructions")); //-CLos
+
             //Button textures here because I was having trouble making a unique element for them
             mainMenu.Add("button0", Content.Load<Texture2D>("button0"));
             mainMenu.Add("button1", Content.Load<Texture2D>("button1"));
