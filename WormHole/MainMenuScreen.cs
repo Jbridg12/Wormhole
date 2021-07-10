@@ -57,7 +57,6 @@ namespace WormHole
                     spriteBatch.Draw(buttons[3].Texture, new Rectangle(542, 685, 322, 64), Color.White);
                         break;
                 case Game1.GameState.Game:
-                    ScreenManager.Instance.NextFloor(); // Enter the first (and only) room
                     break;
             }
         }
@@ -92,7 +91,7 @@ namespace WormHole
                     break;
                 case Game1.GameState.Game:
                     Mouse.SetPosition(515, 320);
-                    ScreenManager.Instance.ChangeScreen("Room"); // Enter the first (and only) room                 
+                    ScreenManager.Instance.NextFloor(); // Enter the first (and only) room               
                     break;
             }
             /*
