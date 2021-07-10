@@ -17,6 +17,8 @@ namespace WormHole
         public RoomScreen parent;
         public RoomScreen[] AdjacentRooms { get; set; }
         public int Depth { get; set; }
+        KeyboardState pvState;
+
         public RoomScreen(Texture2D texture, SpriteFont font, int depth) : base(texture, font)
         {
             this.Depth = depth;
@@ -61,13 +63,15 @@ namespace WormHole
                     
             }
             
-            if (status.IsKeyDown(Keys.Escape))          // If the player presses escape to reset the room in case the door 
+            if (status.IsKeyDown(Keys.Escape) && !pvState.IsKeyDown(Keys.Escape))          // If the player presses escape to reset the room in case the door 
                                                         //doesn't load.  This will be replaced by a proper pause function that takes
                                                         //you back to the main menu later
             {
                 ScreenManager.Instance.ChangeScreen("MainMenu");
+                Game1.CurrentState = Game1.GameState.Main;
             }
-            
+
+            pvState = status;  // Set prvious state
             base.Update(gameTime);
         }
 
