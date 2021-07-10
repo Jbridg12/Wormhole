@@ -12,8 +12,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace WormHole
-{//THE IMAGE HAS THAT WHITE/GRAY CHECKER PATTERN BEHIND IT
-    //IT IS NOT ON A TRANSPARENT BACKGROUND
+{
     class Door : Entity
     {
         public Game1.Direction Direction { get; private set; }
@@ -22,19 +21,20 @@ namespace WormHole
         {
             this.Direction = direction;
             this.Active = false;
-            switch (direction)
+
+            switch (direction)  // fine tuning of location still needs to happen
             {
                 case Game1.Direction.Up:
-                    this.Position = new Rectangle(760, 0, 200, 100);
+                    this.Position = new Rectangle( ((Game1._graphics.GraphicsDevice.Viewport.Width/2)-100), 0, 200, 100);
                     break;
                 case Game1.Direction.Right:
-                    this.Position = new Rectangle(1820, 340, 200, 100);
+                    this.Position = new Rectangle((Game1._graphics.GraphicsDevice.Viewport.Width - 50), ((Game1._graphics.GraphicsDevice.Viewport.Height/2)-100), 200, 100);
                     break;
                 case Game1.Direction.Down:
-                    this.Position = new Rectangle(760, 980, 200, 100);
+                    this.Position = new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width / 2) - 100), (Game1._graphics.GraphicsDevice.Viewport.Height - 100), 200, 100);
                     break;
                 case Game1.Direction.Left:
-                    this.Position = new Rectangle(0, 340, 200, 100);
+                    this.Position = new Rectangle(0, ((Game1._graphics.GraphicsDevice.Viewport.Height / 2) - 100), 200, 100);
                     break;
             }
             this.Destination = room;
