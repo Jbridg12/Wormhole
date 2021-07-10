@@ -67,8 +67,9 @@ namespace WormHole
                                                         //doesn't load.  This will be replaced by a proper pause function that takes
                                                         //you back to the main menu later
             {
-                ScreenManager.Instance.ChangeScreen("MainMenu");
+                Game1.P1.Reset();
                 Game1.CurrentState = Game1.GameState.Main;
+                ScreenManager.Instance.ChangeScreen("MainMenu");
             }
 
             pvState = status;  // Set prvious state

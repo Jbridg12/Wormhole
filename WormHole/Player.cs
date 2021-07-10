@@ -196,5 +196,16 @@ namespace WormHole
             // create new bullet and add it to current entities
             EntityManager.Instance.AddEntity(new Bullet(this.Position, EntityManager.Instance.Textures["elec_bullet"]));
         }
+
+        public void Reset()
+        {
+            this.Position = new Rectangle(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100);
+            this.Consumables = InitiateConsumables();
+            this.state = Mode.Vertical;
+            this.shotsPerSecond = 10f;
+            this.currentTime = 0f;
+            this.Direction = Game1.Direction.Up;
+            this.Speed = 600;
+        }
     }
 }
