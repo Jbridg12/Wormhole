@@ -35,10 +35,10 @@ namespace WormHole
             buttons = new List<MenuButton>();
 
             //Creating the buttons
-            buttons.Add(button = new MenuButton(new Rectangle(315, 414, 394, 82), Displays["button0"]));
-            buttons.Add(button = new MenuButton(new Rectangle(351, 544, 322, 64), Displays["button1"]));
-            buttons.Add(button = new MenuButton(new Rectangle(315, 414, 394, 82), Displays["button2"]));
-            buttons.Add(button = new MenuButton(new Rectangle(351, 544, 322, 64), Displays["button3"]));
+            buttons.Add(button = new MenuButton(new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width/2) - 197), ((Game1._graphics.GraphicsDevice.Viewport.Height / 2) + 41), 394, 82), Displays["button0"]));
+            buttons.Add(button = new MenuButton(new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width / 2) - 161), ((Game1._graphics.GraphicsDevice.Viewport.Height / 2) + 171), 322, 64), Displays["button1"]));
+            buttons.Add(button = new MenuButton(new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width / 2) - 197), ((Game1._graphics.GraphicsDevice.Viewport.Height / 2) + 41), 394, 82), Displays["button2"]));
+            buttons.Add(button = new MenuButton(new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width / 2) - 161), ((Game1._graphics.GraphicsDevice.Viewport.Height / 2) + 171), 322, 64), Displays["button3"]));
 
         }
 
