@@ -18,6 +18,7 @@ namespace WormHole
 {
     public class Game1 : Game
     {
+
         public static GraphicsDeviceManager _graphics { private set; get; }
         private SpriteBatch _spriteBatch;
         public SpriteFont Font { get; set; }
