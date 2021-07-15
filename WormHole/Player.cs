@@ -173,21 +173,27 @@ namespace WormHole
 
         public override void HandleBounds()
         {
-            if (this.X > Game1._graphics.GraphicsDevice.Viewport.Width-50)
+            if (ScreenManager.Instance.CurrentScreen.GetType() == typeof(RoomScreen))
             {
-                this.X = Game1._graphics.GraphicsDevice.Viewport.Width-50;
-            }
-            if (this.X < 50)
-            {
-                this.X = 50;
-            }
-            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height-50)
-            {
-                this.Y = Game1._graphics.GraphicsDevice.Viewport.Height-50;
-            }
-            if (this.Y < 50)
-            {
-                this.Y = 50;
+                RoomScreen screen = (RoomScreen)ScreenManager.Instance.CurrentScreen;
+                int xMax = (int)((screen.Display.Width + ((Game1._graphics.GraphicsDevice.Viewport.Width - screen.Display.Width) / 2)) - (50 * screen.Scaling));
+                int xMin = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - screen.Display.Width) / 2)) + (50 * screen.Scaling));
+                if (this.X > xMax)
+                {
+                    this.X = xMax;
+                }
+                if (this.X < xMin)
+                {
+                    this.X = xMin;
+                }
+                if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height - 50)
+                {
+                    this.Y = Game1._graphics.GraphicsDevice.Viewport.Height - 50;
+                }
+                if (this.Y < 50)
+                {
+                    this.Y = 50;
+                }
             }
         }
 
