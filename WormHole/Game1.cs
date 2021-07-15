@@ -2,7 +2,7 @@
 // Contributors: Josh Bridges
 //
 // The main game class.
-// THis is where all of the other classes and methods have to be involved somehow.
+// This is where all of the other classes and methods have to be involved somehow.
 
 
 using System;
