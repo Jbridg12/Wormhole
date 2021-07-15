@@ -17,12 +17,15 @@ namespace WormHole
         public RoomScreen parent;
         public RoomScreen[] AdjacentRooms { get; set; }
         public int Depth { get; set; }
+        public float Scaling { get; private set; }
+
         KeyboardState pvState;
 
         public RoomScreen(Texture2D texture, SpriteFont font, int depth) : base(texture, font)
         {
             this.Depth = depth;
             this.Entities.Add(Game1.P1);
+            this.Scaling = (float)Game1._graphics.GraphicsDevice.Viewport.Height / texture.Height;
             AdjacentRooms = new RoomScreen[4];
         }
 
@@ -31,6 +34,7 @@ namespace WormHole
             this.Depth = depth;
             this.Entities = entities;
             this.Entities.Add(Game1.P1);
+            this.Scaling = (float)Game1._graphics.GraphicsDevice.Viewport.Height / texture.Height;
             AdjacentRooms = new RoomScreen[4];
         }
 
@@ -43,9 +47,11 @@ namespace WormHole
                 Color.White,
                 0f,
                 new Vector2(Display.Width / 2, Display.Height / 2),
-                Vector2.One,
+                new Vector2(Scaling, Scaling),
                 SpriteEffects.None,
                 0f);
+
+            //spriteBatch.DrawString(Font, String.Format("Height: {0} Scale: {1}", Game1._graphics.GraphicsDevice.Viewport.Height, scaling), Vector2.Zero, Color.White);
             spriteBatch.DrawString(Font, String.Format("Salvage: {0}", Game1.P1.Consumables["Salvage"]), new Vector2(1500f, 60f), Color.Black);
         }
 
