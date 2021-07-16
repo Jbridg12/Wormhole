@@ -17,7 +17,8 @@ namespace WormHole
         public Enemy(Rectangle position, Texture2D texture) : base(position, texture)
         {
             this.hit = false;
-            this.Health = 100;
+            this.MaxHealth = 100;
+            this.CurrentHealth = 100;
             this.Speed = 100;
         }
 
@@ -39,7 +40,7 @@ namespace WormHole
         {
             float time = (float) gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (this.Health <= 0)
+            if (this.CurrentHealth <= 0)
                 this.Destroy();
 
             this.hit = false;
@@ -66,13 +67,13 @@ namespace WormHole
             this.hit = true;
             if (other.GetType() == typeof(Bullet))
             {
-                this.Health -= 25;
+                this.CurrentHealth -= 25;
             }
 
             if (other.GetType() == typeof(Player))
             {
                 //this should kill the player not the enemy
-                this.Health = 0;
+                this.CurrentHealth = 0;
             }
         }
 

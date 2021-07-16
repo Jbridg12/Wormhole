@@ -13,7 +13,8 @@ namespace WormHole
 {
     public class Character : Entity
     {
-        public int Health { get; set; }
+        public int CurrentHealth { get; set; }
+        public int MaxHealth { get; set; }
         public int Speed { get; set; }
         public Game1.Direction Direction { get; set; }
 

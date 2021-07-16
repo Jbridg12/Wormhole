@@ -165,7 +165,7 @@ namespace WormHole
 
             if (other.GetType() == typeof(Enemy))
             {
-                this.Health -= 10;
+                this.CurrentHealth -= 10;
 
             }
         }
