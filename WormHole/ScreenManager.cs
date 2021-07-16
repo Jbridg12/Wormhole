@@ -112,7 +112,7 @@ namespace WormHole
             EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);
         }
 
-        public void NextFloor(int floorSize)
+        public void NextFloor(int floorSize) 
         {
             //We should change up the look by like changing between 3 or 4 different
             //arts for the background, it's kind of confusing 
