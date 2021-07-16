@@ -27,6 +27,7 @@ namespace WormHole
         }
 
         public Dictionary<string, Texture2D> Textures { get; set; }
+        public List<UIElement>  Elements { get; set; }
         public SpriteFont Font { get; set; }
 
         public UIManager()
@@ -44,6 +45,8 @@ namespace WormHole
             Textures.Add("Full_Shield", Content.Load<Texture2D>("Full_Shield"));
             Textures.Add("Half_Shield", Content.Load<Texture2D>("Half_Shield"));
             Textures.Add("Empty_Shield", Content.Load<Texture2D>("Empty_Shield"));
+
+
         }
 
         public void Update(GameTime gameTime)
