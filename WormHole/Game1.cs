@@ -23,7 +23,7 @@ namespace WormHole
         private SpriteBatch _spriteBatch;
         public SpriteFont Font { get; set; }
         public static Player P1 {get; set; }   // one player across the entire game so make it here for use everywhere
-                                               //Used to cycle through the different screens - CLos
+                                               // Used to cycle through the different screens - CLos
         public enum GameState
         {
             Main,

@@ -43,7 +43,7 @@ namespace WormHole
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            DrawHelper.ImageCenter(spriteBatch, Game1._graphics, this.Display);
+            Globals.ImageCenter(spriteBatch, Game1._graphics, this.Display);
         }
     }
 }
