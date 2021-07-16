@@ -28,12 +28,14 @@ namespace WormHole
             this.Entities = new List<Entity>();
             this.Font = font;
             this.Display = texture;
+            this.Displays = null;
         }
         public GameScreen(Dictionary<string, Texture2D> textures, SpriteFont font)
         {
             this.Entities = new List<Entity>();
             this.Font = font;
             this.Displays = textures;
+            this.Display = null;
         }
 
         public virtual void Update(GameTime gameTime)
