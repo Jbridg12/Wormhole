@@ -68,7 +68,8 @@ namespace WormHole
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.Texture, this.Position, Color.White); // If called by default just draw the texture in the specific position
+            if (this.Active)
+                spriteBatch.Draw(this.Texture, this.Position, Color.White); // If called by default just draw the texture in the specific position
         }
 
     }

@@ -99,8 +99,7 @@ namespace WormHole
         {
             foreach (Entity item in CurrentScreenEntities)
             {
-                if(item.Active)
-                    item.Draw(spriteBatch);
+                item.Draw(spriteBatch);
             }
 
         }
