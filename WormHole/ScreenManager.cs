@@ -167,12 +167,12 @@ namespace WormHole
 
                 if (Floor[nextIndex] != null)
                 {
-                    room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, Floor[nextIndex]));
+                    //room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, Floor[nextIndex]));
                 }
                 else if (rand.Next(3) != 0)
                 {
                     Floor[nextIndex] = new EnemyRoom(depth, nextIndex);
-                    room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, Floor[nextIndex]));
+                    //room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, Floor[nextIndex]));
                     PopulateAdjacent(floorSize, Floor[nextIndex], rand, depth + 1, i, nextIndex);
                 }
             }
