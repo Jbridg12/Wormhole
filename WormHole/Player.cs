@@ -166,7 +166,7 @@ namespace WormHole
             };
         }
 
-        public override void HandleCollision(Entity other)
+        public override void HandleCollision(Entity other) // Need to change this to be scaling based on the room dimensions
         {
             if (other.GetType() == typeof(Door))
             {
@@ -180,10 +180,10 @@ namespace WormHole
                         this.X = 800; this.Y = 400;
                         break;
                     case Game1.Direction.Right:
-                        this.X = Globals.XMIN + 200; this.Y = 500;
+                        this.X = Globals.XMIN + 50; this.Y = 500;
                         break;
                     case Game1.Direction.Left:
-                        this.X = Globals.XMAX - 150; this.Y = 500;
+                        this.X = Globals.XMAX - 50; this.Y = 500;
                         break;
                 }
             }
