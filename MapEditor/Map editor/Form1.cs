@@ -21,6 +21,8 @@ namespace Map_editor
         enum Wall { Door, Wall }; //change the wall mode
         enum floor { O , Player , Enemy1 , Enemy2 , Enemy3 , Wall };//change the floor mode
 
+        string[] rooms = new string[25]; // array of saved room strings
+
         Dictionary<char, int> floorX;
         //int rows; //the rows of the map
         //int cols; //the columns of the map
@@ -487,6 +489,24 @@ namespace Map_editor
                     pressed.Text = "O"; //blank                   
                     form[floorX[x], y] = "O";
                     break;
+            }
+        }
+
+        private void Save_Room(object sender, EventArgs e)
+        {
+            string result = "";
+            for()
+            {
+                result += "";
+            }
+            string[i] = result;
+        }
+
+        private void Write(object sender, EventArgs e)
+        {
+            foreach(string str in rooms)
+            {
+                //write ...
             }
         }
     }
