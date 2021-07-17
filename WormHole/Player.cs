@@ -36,6 +36,8 @@ namespace WormHole
         enum Mode { Vertical, Horizontal}
         private Mode state;
 
+        public int MaxShields { get; set; }
+        public int CurrentShields { get; set; }
         private float shotsPerSecond;
         private float currentTime;
 
@@ -52,7 +54,9 @@ namespace WormHole
             this.Direction = Game1.Direction.Up;
             this.Speed = 600;
 
-            this.MaxHealth = 4;
+            this.MaxShields = 2;
+            this.CurrentShields = this.MaxShields;
+            this.MaxHealth = 6;
             this.CurrentHealth = this.MaxHealth;
         }
 

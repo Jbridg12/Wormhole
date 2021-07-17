@@ -40,7 +40,7 @@ namespace WormHole
         {
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
             this.Font = Content.Load<SpriteFont>("Base");
-            Elements.Add(new HealthDisplay(Content.Load<Texture2D>("Health_Spritesheet")));
+            Elements.Add(new HealthDisplay(Content.Load<Texture2D>("Health_Spritesheet"), Font));
         }
 
         public void Update(GameTime gameTime)
