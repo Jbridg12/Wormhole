@@ -25,16 +25,16 @@ namespace WormHole
             switch (direction)  // fine tuning of location still needs to happen
             {
                 case Game1.Direction.Up:
-                    this.Position = new Rectangle( ((Game1._graphics.GraphicsDevice.Viewport.Width/2)-100), 0, 200, 100);
+                    this.Position = new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width/2) - 100), 100, 200, 100);
                     break;
                 case Game1.Direction.Right:
-                    this.Position = new Rectangle((Game1._graphics.GraphicsDevice.Viewport.Width - 50), ((Game1._graphics.GraphicsDevice.Viewport.Height/2)-100), 200, 100);
+                    this.Position = new Rectangle(Globals.XMAX, ((Game1._graphics.GraphicsDevice.Viewport.Height/2) - 100), 200, 100);
                     break;
                 case Game1.Direction.Down:
                     this.Position = new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width / 2) - 100), (Game1._graphics.GraphicsDevice.Viewport.Height - 100), 200, 100);
                     break;
                 case Game1.Direction.Left:
-                    this.Position = new Rectangle(0, ((Game1._graphics.GraphicsDevice.Viewport.Height / 2) - 100), 200, 100);
+                    this.Position = new Rectangle(Globals.XMIN, ((Game1._graphics.GraphicsDevice.Viewport.Height / 2) - 100), 200, 100);
                     break;
             }
             this.Destination = room;
@@ -43,14 +43,15 @@ namespace WormHole
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture,
-                        Position,
-                        null,              // get the area of the Texture
-                        Color.White,
-                        (float)((float)Direction * (float)(Math.PI / 2)),   // using north as origin rotate in radians 
-                        new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
-                        SpriteEffects.None,
-                        0);
+            if(Active)
+                spriteBatch.Draw(Texture,
+                            Position,
+                            null,              // get the area of the Texture
+                            Color.White,
+                            (float)((float)Direction * (float)(Math.PI / 2)),   // using north as origin rotate in radians 
+                            new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
+                            SpriteEffects.None,
+                            0);
         }
     }
 }

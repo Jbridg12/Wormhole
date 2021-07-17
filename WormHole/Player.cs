@@ -17,10 +17,27 @@ namespace WormHole
 {
     public class Player : Character
     {
+        // one player across the entire game so make it here for use everywhere
+        // Used to cycle through the different screens - CLos
+
+        private static Player instance;
+        public static Player Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Player(EntityManager.Instance.Textures["player"]);
+
+                return instance;
+            }
+        }
+
         // specific player attributes
         enum Mode { Vertical, Horizontal}
         private Mode state;
 
+        public int MaxShields { get; set; }
+        public int CurrentShields { get; set; }
         private float shotsPerSecond;
         private float currentTime;
 
@@ -36,12 +53,20 @@ namespace WormHole
             this.currentTime = 0f;
             this.Direction = Game1.Direction.Up;
             this.Speed = 600;
+
+            this.MaxShields = 2;
+            this.CurrentShields = this.MaxShields;
+            this.MaxHealth = 6;
+            this.CurrentHealth = this.MaxHealth;
         }
 
 
         public override void Update(GameTime gameTime)
         {
             KeyboardState input = Keyboard.GetState();
+
+            if (this.CurrentHealth <= 0)
+                this.Reset();
 
             float deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
             currentTime += deltaT;
@@ -141,11 +166,11 @@ namespace WormHole
             };
         }
 
-        public override void HandleCollision(Entity other)
+        public override void HandleCollision(Entity other) // Need to change this to be scaling based on the room dimensions
         {
             if (other.GetType() == typeof(Door))
             {
-                EntityManager.Instance.NextRoom = ((Door)other).Destination;
+                EntityManager.Instance.NextScreen = ((Door)other).Destination;
                 switch (((Door)other).Direction)
                 {
                     case Game1.Direction.Up:
@@ -155,17 +180,17 @@ namespace WormHole
                         this.X = 800; this.Y = 400;
                         break;
                     case Game1.Direction.Right:
-                        this.X = 300; this.Y = 500;
+                        this.X = Globals.XMIN + 50; this.Y = 500;
                         break;
                     case Game1.Direction.Left:
-                        this.X = 1530; this.Y = 500;
+                        this.X = Globals.XMAX - 50; this.Y = 500;
                         break;
                 }
             }
 
             if (other.GetType() == typeof(Enemy))
             {
-                this.Health -= 10;
+                this.CurrentHealth--;
 
             }
         }
@@ -173,21 +198,24 @@ namespace WormHole
 
         public override void HandleBounds()
         {
-            if (this.X > Game1._graphics.GraphicsDevice.Viewport.Width-50)
+            if (ScreenManager.Instance.CurrentScreen.GetType().IsSubclassOf(typeof(RoomScreen)))
             {
-                this.X = Game1._graphics.GraphicsDevice.Viewport.Width-50;
-            }
-            if (this.X < 50)
-            {
-                this.X = 50;
-            }
-            if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height-50)
-            {
-                this.Y = Game1._graphics.GraphicsDevice.Viewport.Height-50;
-            }
-            if (this.Y < 50)
-            {
-                this.Y = 50;
+                if (this.X > Globals.XMAX)
+                {
+                    this.X = Globals.XMAX;
+                }
+                if (this.X < Globals.XMIN)
+                {
+                    this.X = Globals.XMIN;
+                }
+                if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height - 100)
+                {
+                    this.Y = Game1._graphics.GraphicsDevice.Viewport.Height - 100;
+                }
+                if (this.Y < 100)
+                {
+                    this.Y = 100;
+                }
             }
         }
 
@@ -199,13 +227,13 @@ namespace WormHole
 
         public void Reset()
         {
-            this.Position = new Rectangle(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100);
-            this.Consumables = InitiateConsumables();
-            this.state = Mode.Vertical;
-            this.shotsPerSecond = 10f;
-            this.currentTime = 0f;
-            this.Direction = Game1.Direction.Up;
-            this.Speed = 600;
+            
+            //Reset to Menu Screen
+            Game1.CurrentState = Game1.GameState.Main;
+            ScreenManager.Instance.ChangeScreen("MainMenu");
+
+            // Reset all initialization values
+            instance = new Player(EntityManager.Instance.Textures["player"]);
         }
     }
 }

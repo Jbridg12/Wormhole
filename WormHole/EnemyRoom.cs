@@ -14,14 +14,14 @@ namespace WormHole
 {
     class EnemyRoom : RoomScreen
     {
-        public EnemyRoom() : base(ScreenManager.Instance.ScreenTextures["room"], ScreenManager.Instance.ScreenFonts["base"], 0)
-        {
-            this.Entities = GenerateEntities();
-        }
-
         public EnemyRoom(int depth) : base(ScreenManager.Instance.ScreenTextures["room"], ScreenManager.Instance.ScreenFonts["base"], depth)
         {
             this.Entities = GenerateEntities();
+        }
+        
+        public EnemyRoom(int depth, int index) : this(depth)
+        {
+            this.Index = index;
         }
 
         private List<Entity> GenerateEntities()
@@ -29,7 +29,7 @@ namespace WormHole
             List<Entity> temp = new List<Entity>();
             Random rand = new Random();
 
-            temp.Add(Game1.P1);
+            temp.Add(Player.Instance);
 
             switch (rand.Next(5))
             {

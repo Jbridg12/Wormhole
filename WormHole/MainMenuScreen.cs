@@ -91,7 +91,7 @@ namespace WormHole
                     break;
                 case Game1.GameState.Game:
                     Mouse.SetPosition(515, 320);
-                    ScreenManager.Instance.NextFloor(); // Enter the first (and only) room               
+                    ScreenManager.Instance.NextFloor(25); // Enter the first (and only) room               
                     break;
             }
             /*

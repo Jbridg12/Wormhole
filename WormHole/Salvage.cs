@@ -24,7 +24,7 @@ namespace WormHole
             {
                 if(other.GetType() == typeof(Player))
                 {
-                    Game1.P1.Consumables["Salvage"]+=10;
+                    Player.Instance.Consumables["Salvage"]+=10;
                     this.Active = false;
                 }
             }

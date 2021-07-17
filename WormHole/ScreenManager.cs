@@ -17,6 +17,17 @@ namespace WormHole
     public class ScreenManager
     {
         private static ScreenManager instance;
+        public static ScreenManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new ScreenManager();
+
+                return instance;
+            }
+        }
+
         public Vector2 Dimensions { private set; get; }
         public ContentManager Content { private set; get; }
 
@@ -33,22 +44,12 @@ namespace WormHole
         }
         public RoomScreen NextRoom { get; private set; }
         public GameScreen CurrentScreen { get; private set; }
-
-        public static ScreenManager Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new ScreenManager();
-                
-                return instance;
-            }
-        }
+        public RoomScreen[] Floor { get; private set; }
 
         public ScreenManager()
         {
-            Dimensions = new Vector2(1920, 1080);
-            //Dimensions = new Vector2(1024, 768);
+            //Dimensions = new Vector2(1920, 1080);
+            Dimensions = new Vector2(1024, 768);
             screens = new Dictionary<string, GameScreen>();
             ScreenFonts = new Dictionary<string, SpriteFont>();
             ScreenTextures = new Dictionary<string, Texture2D>();
@@ -73,9 +74,16 @@ namespace WormHole
             mainMenu.Add("button3", Content.Load<Texture2D>("button3"));
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
+
+            // Set Globals for room scaling
+            Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;
+            Globals.XMAX = (int)(((ScreenTextures["room"].Width*Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width*Globals.SCREEN_SCALING)) / 2)) + (50 * Globals.SCREEN_SCALING));
+            Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width*Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
+            Globals.ROOM_TEXTURE_LEFT = (int)((Game1._graphics.GraphicsDevice.Viewport.Width - ((ScreenTextures["room"].Width)*Globals.SCREEN_SCALING)) / 2);
+            Globals.ROOM_TEXTURE_RIGHT = (int)(((ScreenTextures["room"].Width*Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width*Globals.SCREEN_SCALING)) / 2)));
             CurrentScreen = screens["MainMenu"];
             //screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 100, 100), EntityManager.Instance.Textures["enemy"]) }));
-        
+
         }
 
         public void Update(GameTime time)
@@ -88,33 +96,19 @@ namespace WormHole
             CurrentScreen.Draw(spriteBatch);
         }
 
-        public void ChangeScreen(string str)       // Function to allow changing the CurrentScreen variable
-        {
-            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;  // store entities status
-
-            CurrentScreen = screens[str];
-            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);  // also change the entities to the new list
-        }
-
-        public void ChangeScreen(RoomScreen rs) 
-        {
-            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
-            EntityManager.Instance.NextRoom = null;
-
-            CurrentScreen = rs;
-            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);  
-        }
-
-        public void NextFloor()
+        public void NextFloor(int floorSize) 
         {
             //We should change up the look by like changing between 3 or 4 different
             //arts for the background, it's kind of confusing 
             Random rand = new Random();
-            NextRoom = new EnemyRoom();
+            Floor = new RoomScreen[floorSize];
 
-            PopulateAdjacent(NextRoom, null, rand, 1, 0);
+            NextRoom = new EnemyRoom(0, floorSize / 2);
+            Floor[floorSize / 2] = NextRoom;
+            PopulateAdjacent(floorSize, NextRoom, rand, 1, 0, floorSize / 2);
+            SetupDoors(floorSize);
 
-            EntityManager.Instance.NextRoom = NextRoom;
+            EntityManager.Instance.NextScreen = NextRoom;
             if (!screens.ContainsKey("Room"))
             {
                 screens.Add("Room", NextRoom);
@@ -125,27 +119,92 @@ namespace WormHole
             }
         }
 
-        public void PopulateAdjacent(RoomScreen room, RoomScreen parent, Random rand, int depth, int direction)
+        public void PopulateAdjacent(int floorSize, RoomScreen room, Random rand, int depth, int direction, int index)
         {
-            if(parent != null)
-                room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)((direction + 2) % 4), parent));
+            int nextIndex;
 
-            if (room.Depth >= 3)
+            if (depth > 3)
                 return;
-               
 
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                if (room.AdjacentRooms[i] != null)
-                    continue;
-                if (rand.Next(2) == 0)
+                nextIndex = 0;
+                switch (i)
                 {
-                    room.AdjacentRooms[i] = new EnemyRoom(depth);
-                    PopulateAdjacent(room.AdjacentRooms[i], room, rand, depth+1, i);
-                    room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, room.AdjacentRooms[i]));
+                    case 0:
+                        nextIndex = index - (int)Math.Sqrt(floorSize);
+                        
+                        break;
+                    case 1:
+                        nextIndex = index + 1;
+                        break;
+                    case 2:
+                        nextIndex = index + (int)Math.Sqrt(floorSize);
+                        break;
+                    case 3:
+                        nextIndex = index - 1;
+                        break;
+                }
+
+                if (nextIndex >= floorSize || nextIndex < 0)
+                    continue;
+
+                if (Floor[nextIndex] != null)
+                {
+                    //room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, Floor[nextIndex]));
+                }
+                else if (rand.Next(3) != 0)
+                {
+                    Floor[nextIndex] = new EnemyRoom(depth, nextIndex);
+                    //room.Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)i, Floor[nextIndex]));
+                    PopulateAdjacent(floorSize, Floor[nextIndex], rand, depth + 1, i, nextIndex);
                 }
             }
 
+        }
+        public void SetupDoors(int floorSize)
+        {
+            int[] edges = new int[4];
+
+            for (int i = 0; i < floorSize; i++)
+            {
+                if (Floor[i] == null)
+                    continue;
+
+                edges[0] = i - (int)Math.Sqrt(floorSize);
+                edges[1] = i + 1;
+                edges[2] = i + (int)Math.Sqrt(floorSize);
+                edges[3] = i - 1;
+
+                for (int index = 0; index < edges.Length; index++)
+                {
+                    if (edges[index] >= floorSize || edges[index] < 0)
+                        continue;
+
+                    if (Floor[edges[index]] != null)
+                    {
+                        Floor[i].Entities.Add(new Door(new Rectangle(0, 0, 400, 200), (Game1.Direction)index, Floor[edges[index]]));
+                    }
+                }
+            }
+        }
+        public void ChangeScreen(string str)       // Function to allow changing the CurrentScreen variable
+        {
+            EntityManager.Instance.NextScreen = screens[str];
+        }
+
+        public void ChangeScreen(GameScreen rs)
+        {
+            EntityManager.Instance.NextScreen = rs;
+        }
+
+        public void UpdateScreen(GameScreen gs)
+        {
+            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
+            CurrentScreen = gs;
+
+            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);
+            EntityManager.Instance.NextScreen = null;
         }
     }
 }
