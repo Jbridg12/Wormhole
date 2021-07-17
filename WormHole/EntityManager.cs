@@ -32,14 +32,14 @@ namespace WormHole
         public Dictionary<string, Texture2D> Textures {get; set; }
         public ContentManager Content { get; private set; }
         public List<Entity> UpdatedEntities { get; set; }
-        public RoomScreen NextRoom { get; set; }
+        public GameScreen NextScreen { get; set; }
 
         public EntityManager()
         {
             CurrentScreenEntities = new List<Entity>();
             UpdatedEntities = new List<Entity>();
             Textures = new Dictionary<string, Texture2D>();
-            NextRoom = null;
+            NextScreen = null;
         }
 
         public void LoadContent(ContentManager Content)
@@ -50,7 +50,6 @@ namespace WormHole
             Textures.Add("enemy", Content.Load<Texture2D>("enemy"));
             Textures.Add("salvage", Content.Load<Texture2D>("salvage"));
             Textures.Add("door", Content.Load<Texture2D>("nebula"));
-            Game1.P1 = new Player(Textures["player"]);
 
             //Buttons -CLos
             Textures.Add("button0", Content.Load<Texture2D>("button0"));
@@ -91,8 +90,8 @@ namespace WormHole
                 
             }
 
-            if (NextRoom != null)
-                ScreenManager.Instance.ChangeScreen(NextRoom);
+            if (NextScreen != null)
+                ScreenManager.Instance.UpdateScreen(NextScreen);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -112,6 +111,11 @@ namespace WormHole
         public void SetCurrentEntities(List<Entity> newEntities)
         {
             UpdatedEntities = newEntities;    // When screen changes it switches the current Entities with new ones
+        }
+
+        public void SetScreenUpdate(GameScreen gs)
+        {
+            NextScreen = gs;
         }
     }
 }
