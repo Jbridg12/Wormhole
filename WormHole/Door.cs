@@ -43,14 +43,15 @@ namespace WormHole
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture,
-                        Position,
-                        null,              // get the area of the Texture
-                        Color.White,
-                        (float)((float)Direction * (float)(Math.PI / 2)),   // using north as origin rotate in radians 
-                        new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
-                        SpriteEffects.None,
-                        0);
+            if(Active)
+                spriteBatch.Draw(Texture,
+                            Position,
+                            null,              // get the area of the Texture
+                            Color.White,
+                            (float)((float)Direction * (float)(Math.PI / 2)),   // using north as origin rotate in radians 
+                            new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
+                            SpriteEffects.None,
+                            0);
         }
     }
 }
