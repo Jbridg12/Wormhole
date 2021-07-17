@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Map editor", "Map editor\Map editor.csproj", "{D0D4D9F9-ABDB-4AB3-8D76-D832F4440E02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0D4D9F9-ABDB-4AB3-8D76-D832F4440E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0D4D9F9-ABDB-4AB3-8D76-D832F4440E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0D4D9F9-ABDB-4AB3-8D76-D832F4440E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0D4D9F9-ABDB-4AB3-8D76-D832F4440E02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {74E3EF4D-F570-466F-B9C2-DAC1D5352DA0}
+	EndGlobalSection
+EndGlobal

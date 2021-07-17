@@ -84,7 +84,7 @@ namespace WormHole
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.Transparent);
 
 
             _spriteBatch.Begin();
