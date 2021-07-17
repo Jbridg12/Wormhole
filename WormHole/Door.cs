@@ -25,10 +25,10 @@ namespace WormHole
             switch (direction)  // fine tuning of location still needs to happen
             {
                 case Game1.Direction.Up:
-                    this.Position = new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width/2)-100), 100, 200, 100);
+                    this.Position = new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width/2) - 100), 100, 200, 100);
                     break;
                 case Game1.Direction.Right:
-                    this.Position = new Rectangle(Globals.XMAX, ((Game1._graphics.GraphicsDevice.Viewport.Height/2)-100), 200, 100);
+                    this.Position = new Rectangle(Globals.XMAX, ((Game1._graphics.GraphicsDevice.Viewport.Height/2) - 100), 200, 100);
                     break;
                 case Game1.Direction.Down:
                     this.Position = new Rectangle(((Game1._graphics.GraphicsDevice.Viewport.Width / 2) - 100), (Game1._graphics.GraphicsDevice.Viewport.Height - 100), 200, 100);

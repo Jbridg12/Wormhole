@@ -17,8 +17,8 @@ namespace WormHole
         public Enemy(Rectangle position, Texture2D texture) : base(position, texture)
         {
             this.hit = false;
-            this.MaxHealth = 100;
-            this.CurrentHealth = 100;
+            this.MaxHealth = 1;
+            this.CurrentHealth = 1;
             this.Speed = 100;
         }
 
@@ -67,7 +67,7 @@ namespace WormHole
             this.hit = true;
             if (other.GetType() == typeof(Bullet))
             {
-                this.CurrentHealth -= 25;
+                this.CurrentHealth--;
             }
 
             if (other.GetType() == typeof(Player))
@@ -80,7 +80,7 @@ namespace WormHole
         private void ChasePlayer(float deltaT)
         { 
             Vector2 pos = new Vector2(this.X, this.Y);
-            Vector2 playerPos = new Vector2(Game1.P1.X, Game1.P1.Y);
+            Vector2 playerPos = new Vector2(Player.Instance.X, Player.Instance.Y);
 
             Vector2 direction = playerPos - pos;
             direction.Normalize();

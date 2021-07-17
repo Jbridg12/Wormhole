@@ -24,13 +24,13 @@ namespace WormHole
         public RoomScreen(Texture2D texture, SpriteFont font, int depth) : base(texture, font)
         {
             this.Depth = depth;
-            this.Entities.Add(Game1.P1);
+            this.Entities.Add(Player.Instance);
         }
 
         public RoomScreen(Texture2D texture, SpriteFont font, int depth, List<Entity> entities) : this(texture, font, depth)
         {
             this.Entities = entities;
-            this.Entities.Add(Game1.P1);
+            this.Entities.Add(Player.Instance);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -47,7 +47,7 @@ namespace WormHole
 
             //spriteBatch.DrawString(Font, String.Format("Max X: {0} Scale: {1} Index: {2}", (int)((Display.Width + ((Game1._graphics.GraphicsDevice.Viewport.Width - Display.Width) / 2)) - (50 * Globals.SCREEN_SCALING)), Globals.SCREEN_SCALING, Index), Vector2.Zero, Color.White);
             //spriteBatch.DrawString(Font, String.Format("Height: {0} Scale: {1} Index: {2}", Game1._graphics.GraphicsDevice.Viewport.Height, Globals.SCREEN_SCALING, Index), Vector2.Zero, Color.White);
-            spriteBatch.DrawString(Font, String.Format("Salvage: {0}", Game1.P1.Consumables["Salvage"]), new Vector2(1500f, 60f), Color.Black);
+            spriteBatch.DrawString(Font, String.Format("Salvage: {0}", Player.Instance.Consumables["Salvage"]), new Vector2(1500f, 60f), Color.Black);
         }
 
         public override void Update(GameTime gameTime)
@@ -68,9 +68,7 @@ namespace WormHole
                                                         //doesn't load.  This will be replaced by a proper pause function that takes
                                                         //you back to the main menu later
             {
-                Game1.P1.Reset();
-                Game1.CurrentState = Game1.GameState.Main;
-                ScreenManager.Instance.ChangeScreen("MainMenu");
+                Player.Instance.Reset();
             }
 
             pvState = status;  // Set prvious state

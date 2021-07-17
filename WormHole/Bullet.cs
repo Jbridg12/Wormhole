@@ -21,7 +21,7 @@ namespace WormHole
         public Bullet(Rectangle position, Texture2D texture) : base(position, texture)
         {
             this.speed = 900;
-            this.Direction = Game1.P1.Direction;
+            this.Direction = Player.Instance.Direction;
             this.Range = 500;
             this.DistTravelled = 0;
         }

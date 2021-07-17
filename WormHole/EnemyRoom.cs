@@ -29,7 +29,7 @@ namespace WormHole
             List<Entity> temp = new List<Entity>();
             Random rand = new Random();
 
-            temp.Add(Game1.P1);
+            temp.Add(Player.Instance);
 
             switch (rand.Next(5))
             {

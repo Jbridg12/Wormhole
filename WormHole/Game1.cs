@@ -21,9 +21,7 @@ namespace WormHole
 
         public static GraphicsDeviceManager _graphics { private set; get; }
         private SpriteBatch _spriteBatch;
-        public SpriteFont Font { get; set; }
-        public static Player P1 {get; set; }   // one player across the entire game so make it here for use everywhere
-                                               // Used to cycle through the different screens - CLos
+        public static SpriteFont Font { get; set; }
         public enum GameState
         {
             Main,
@@ -65,6 +63,7 @@ namespace WormHole
             Font = Content.Load<SpriteFont>("Base");
             EntityManager.Instance.LoadContent(Content);
             ScreenManager.Instance.LoadContent(Content);
+            UIManager.Instance.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -78,6 +77,7 @@ namespace WormHole
                 this.IsMouseVisible = true;
 
             ScreenManager.Instance.Update(gameTime);
+            UIManager.Instance.Update(gameTime);
             EntityManager.Instance.Update(gameTime);
             base.Update(gameTime);
         }
@@ -89,6 +89,7 @@ namespace WormHole
 
             _spriteBatch.Begin();
             ScreenManager.Instance.Draw(_spriteBatch);
+            UIManager.Instance.Draw(_spriteBatch);
             EntityManager.Instance.Draw(_spriteBatch);
             _spriteBatch.End();
 

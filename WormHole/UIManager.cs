@@ -32,31 +32,34 @@ namespace WormHole
 
         public UIManager()
         {
-            Textures = new Dictionary<string, Texture2D>();
+            this.Textures = new Dictionary<string, Texture2D>();
+            this.Elements = new List<UIElement>();
         }
 
-        public void LoadContent(ContentManager content)
+        public void LoadContent(ContentManager Content)
         {
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
             this.Font = Content.Load<SpriteFont>("Base");
-            Textures.Add("Full_Hull", Content.Load<Texture2D>("Full_Hull"));
-            Textures.Add("Half_Hull", Content.Load<Texture2D>("Half_Hull"));
-            Textures.Add("Empty_Hull", Content.Load<Texture2D>("Empty_Hull"));
-            Textures.Add("Full_Shield", Content.Load<Texture2D>("Full_Shield"));
-            Textures.Add("Half_Shield", Content.Load<Texture2D>("Half_Shield"));
-            Textures.Add("Empty_Shield", Content.Load<Texture2D>("Empty_Shield"));
-
-
+            Elements.Add(new HealthDisplay(Content.Load<Texture2D>("Health_Spritesheet")));
         }
 
         public void Update(GameTime gameTime)
         {
-
+            foreach(UIElement element in Elements)
+            {
+                element.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            if(Game1.CurrentState == Game1.GameState.Game)
+            {
+                foreach (UIElement element in Elements)
+                {
+                    element.Draw(spriteBatch);
+                }
+            }
         }
     }
 }

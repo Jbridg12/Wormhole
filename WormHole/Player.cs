@@ -17,6 +17,21 @@ namespace WormHole
 {
     public class Player : Character
     {
+        // one player across the entire game so make it here for use everywhere
+        // Used to cycle through the different screens - CLos
+
+        private static Player instance;
+        public static Player Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Player(EntityManager.Instance.Textures["player"]);
+
+                return instance;
+            }
+        }
+
         // specific player attributes
         enum Mode { Vertical, Horizontal}
         private Mode state;
@@ -36,12 +51,18 @@ namespace WormHole
             this.currentTime = 0f;
             this.Direction = Game1.Direction.Up;
             this.Speed = 600;
+
+            this.MaxHealth = 4;
+            this.CurrentHealth = this.MaxHealth;
         }
 
 
         public override void Update(GameTime gameTime)
         {
             KeyboardState input = Keyboard.GetState();
+
+            if (this.CurrentHealth <= 0)
+                this.Reset();
 
             float deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
             currentTime += deltaT;
@@ -145,7 +166,7 @@ namespace WormHole
         {
             if (other.GetType() == typeof(Door))
             {
-                EntityManager.Instance.NextRoom = ((Door)other).Destination;
+                EntityManager.Instance.NextScreen = ((Door)other).Destination;
                 switch (((Door)other).Direction)
                 {
                     case Game1.Direction.Up:
@@ -165,7 +186,7 @@ namespace WormHole
 
             if (other.GetType() == typeof(Enemy))
             {
-                this.CurrentHealth -= 10;
+                this.CurrentHealth--;
 
             }
         }
@@ -202,13 +223,13 @@ namespace WormHole
 
         public void Reset()
         {
-            this.Position = new Rectangle(Game1._graphics.PreferredBackBufferWidth / 2, Game1._graphics.PreferredBackBufferHeight / 2, 100, 100);
-            this.Consumables = InitiateConsumables();
-            this.state = Mode.Vertical;
-            this.shotsPerSecond = 10f;
-            this.currentTime = 0f;
-            this.Direction = Game1.Direction.Up;
-            this.Speed = 600;
+            
+            //Reset to Menu Screen
+            Game1.CurrentState = Game1.GameState.Main;
+            ScreenManager.Instance.ChangeScreen("MainMenu");
+
+            // Reset all initialization values
+            instance = new Player(EntityManager.Instance.Textures["player"]);
         }
     }
 }
