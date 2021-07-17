@@ -1,4 +1,4 @@
-﻿// DrawHelper.cs
+﻿// Globals.cs
 // Contributors: Josh Bridges
 //
 // A library I am expanding to create shorthands for longer calls that will

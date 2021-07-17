@@ -1,5 +1,5 @@
 ﻿// UIManager.cs
-// Contributors: Josh
+// Contributors: Josh Bridges
 
 using System;
 using System.Collections.Generic;

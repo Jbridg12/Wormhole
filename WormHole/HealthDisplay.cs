@@ -1,5 +1,5 @@
-﻿// UIEntity.cs
-// Contributors: Josh
+﻿// HealthDisplay.cs
+// Contributors: Josh Bridges
 
 using System;
 using System.Collections.Generic;
