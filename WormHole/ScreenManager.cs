@@ -48,8 +48,7 @@ namespace WormHole
 
         public ScreenManager()
         {
-            //Dimensions = new Vector2(1920, 1080);
-            Dimensions = new Vector2(1024, 768);
+            Dimensions = new Vector2(1280, 720);
             screens = new Dictionary<string, GameScreen>();
             ScreenFonts = new Dictionary<string, SpriteFont>();
             ScreenTextures = new Dictionary<string, Texture2D>();
