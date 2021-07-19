@@ -7,6 +7,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -59,7 +61,7 @@ namespace WormHole
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
             ScreenFonts.Add("base", Content.Load<SpriteFont>("Base"));
             ScreenTextures.Add("room", Content.Load<Texture2D>("room1"));
-            ScreenTextures.Add("blueroom", Content.Load<Texture2D>("bluescreen"));
+            ScreenTextures.Add("room_tiles", Content.Load<Texture2D>("doors_spritesheet"));
 
             Dictionary<string, Texture2D> mainMenu = new Dictionary<string, Texture2D>();
             mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
@@ -93,6 +95,40 @@ namespace WormHole
         public void Draw(SpriteBatch spriteBatch)
         {
             CurrentScreen.Draw(spriteBatch);
+        }
+        public void ReadFloor(string textFile)
+        {
+            //We should change up the look by like changing between 3 or 4 different
+            //arts for the background, it's kind of confusing 
+            Random rand = new Random();
+            var reader = File.OpenText(String.Format(@"{0}", textFile));
+            var floorSize = File.ReadLines(String.Format(@"{0}", textFile)).Count();
+
+            Floor = new RoomScreen[floorSize];
+
+            string format = reader.ReadLine();
+            for(int i = 0; i < floorSize; i++)
+            {
+                string[] parts = format.Split(' ');
+                if (Int32.Parse(parts[0]) == 1)
+                {
+                    Floor[i] = new EnemyRoom(parts[1]);
+                }
+            }
+
+            NextRoom = Floor[floorSize / 2];
+
+            SetupDoors(floorSize);
+
+            EntityManager.Instance.NextScreen = NextRoom;
+            if (!screens.ContainsKey("Room"))
+            {
+                screens.Add("Room", NextRoom);
+            }
+            else
+            {
+                screens["Room"] = NextRoom;
+            }
         }
 
         public void NextFloor(int floorSize) 

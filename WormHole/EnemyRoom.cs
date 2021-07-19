@@ -14,6 +14,7 @@ namespace WormHole
 {
     class EnemyRoom : RoomScreen
     {
+        public string Layout { get; set; }
         public EnemyRoom(int depth) : base(ScreenManager.Instance.ScreenTextures["room"], ScreenManager.Instance.ScreenFonts["base"], depth)
         {
             this.Entities = GenerateEntities();
@@ -22,6 +23,10 @@ namespace WormHole
         public EnemyRoom(int depth, int index) : this(depth)
         {
             this.Index = index;
+        }
+        public EnemyRoom(string layout) : base(ScreenManager.Instance.ScreenTextures["room_tiles"], ScreenManager.Instance.ScreenFonts["base"], 0)
+        {
+            this.Layout = layout;
         }
 
         private List<Entity> GenerateEntities()
@@ -58,6 +63,56 @@ namespace WormHole
 
             return temp;
             
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if(Layout == null)
+            {
+                base.Draw(spriteBatch);
+            }
+            else
+            {
+                string[] rows = Layout.Split(',');
+                for(int i = 0; i < rows.Length; i++)
+                {
+                    var chars = rows[i].ToCharArray();
+                    for(int j = 0; j < chars.Length; j++)
+                    {
+                        Rectangle texture = new Rectangle();
+                        switch (chars[j])
+                        {
+                            case 'C':
+                                texture = new Rectangle();
+                                break;
+                            case '*':
+                                texture = new Rectangle();
+                                break;
+                            case 'd':
+                                texture = new Rectangle();
+                                break;
+                            case 'D':
+                                texture = new Rectangle();
+                                break;
+                            case '-':
+                                texture = new Rectangle(0, 616, 64, 60);
+                                break;
+                            case 'E':
+                                texture = new Rectangle();
+                                break;
+                        }
+
+                        spriteBatch.Draw(Display,
+                                    new Rectangle(j * 64, i * 60, 64, 60),
+                                    texture,
+                                    Color.White,
+                                    0f,
+                                    Vector2.Zero,
+                                    SpriteEffects.None,
+                                    0);
+                    }
+                }
+            }
         }
     }
 }
