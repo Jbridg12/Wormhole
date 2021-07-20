@@ -227,9 +227,11 @@ namespace WormHole
 
         public void Reset()
         {
+            //change to go to end screen
             
             //Reset to Menu Screen
             Game1.CurrentState = Game1.GameState.Main;
+            //Game1.CurrentState = Game1.GameState.Gameover;
             ScreenManager.Instance.ChangeScreen("MainMenu");
 
             // Reset all initialization values
