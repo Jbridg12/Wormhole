@@ -73,7 +73,6 @@ namespace WormHole
             ScreenTextures.Add("room", Content.Load<Texture2D>("room1"));
             ScreenTextures.Add("room_tiles", Content.Load<Texture2D>("doors_spritesheet"));
 
-            ScreenTextures.Add("room_tiles", Content.Load<Texture2D>("doors_spritesheet"));
            
 
             Dictionary<string, Texture2D> mainMenu = new Dictionary<string, Texture2D>();
@@ -94,7 +93,7 @@ namespace WormHole
             mainMenu.Add("D", Content.Load<Texture2D>("nebula"));
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
-            screens.Add("GameOver", new GameOverScreen(gameOver, ScreenFonts["base"]));
+            //screens.Add("GameOver", new GameOverScreen(gameOver, ScreenFonts["base"]));
 
             // Set Globals for room scaling
             Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;
