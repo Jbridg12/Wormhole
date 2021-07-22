@@ -79,7 +79,7 @@ namespace WormHole
 
                         if (CurrentScreenEntities[i].Position.Intersects(CurrentScreenEntities[j].Position))
                         {
-                            CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); // short term solution, will implment quadtree collision soon
+                            CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); 
                             CurrentScreenEntities[j].HandleCollision(CurrentScreenEntities[i]);
                         }
                     }

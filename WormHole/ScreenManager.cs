@@ -63,7 +63,7 @@ namespace WormHole
             this.Content = new ContentManager(Content.ServiceProvider, "Content");
             ScreenFonts.Add("base", Content.Load<SpriteFont>("Base"));
             ScreenTextures.Add("room", Content.Load<Texture2D>("room1"));
-            ScreenTextures.Add("blueroom", Content.Load<Texture2D>("bluescreen"));
+            ScreenTextures.Add("room_tiles", Content.Load<Texture2D>("doors_spritesheet"));
 
             ScreenTextures.Add("room_tiles", Content.Load<Texture2D>("doors_spritesheet"));
            

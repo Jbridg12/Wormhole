@@ -26,7 +26,7 @@ namespace Map_editor
         Dictionary<char, int> floorX;
         //int rows; //the rows of the map
         //int cols; //the columns of the map
-        string[,] form = new string[15,15]; // Record the input of the rows and columns of the map , the map size is 15X15
+        string[,] form = new string[12,20]; // Record the input of the rows and columns of the map , the map size is 12 X 20
          
         //Wall myWall;
 
@@ -48,16 +48,17 @@ namespace Map_editor
                 {'G', 7 },
                 {'H', 8 },
                 {'I', 9 },
-                {'J', 10 },
-                {'K', 11 },
-                {'L', 12 },
-                {'M', 13 }
+                {'J', 10 }//,
+                //{'K', 11 },
+                //{'L', 12 },
+                //{'M', 13 }
+
             };
             //Set the text of the four corners
             form[0, 0] = "C";
-            form[0,14] = "C";
-            form[14, 0] = "C";
-            form[14, 14] = "C";
+            form[0,19] = "C";
+            form[11, 0] = "C";
+            form[11, 19] = "C";
 
             //Set map
             //Top Wall
@@ -65,8 +66,8 @@ namespace Map_editor
             form[0, 1] = "W";
             form[0, 2] = "W";
             form[0, 3] = "W";
-            form[0, 4] = "D";//Door
-            form[0, 5] = "W";
+            form[0, 4] = "d";//Door
+            form[0, 5] = "D";//Door
             form[0, 6] = "W";
             form[0, 7] = "W";
             form[0, 8] = "W";
@@ -75,28 +76,33 @@ namespace Map_editor
             form[0, 11] = "W";
             form[0, 12] = "W";
             form[0, 13] = "W";
+            form[0, 14] = "W";
+            form[0, 15] = "W";
+            form[0, 16] = "W";
+            form[0, 17] = "W";
+            form[0, 18] = "W";
 
             //Bottom wall
-            for (int i = 1; i < 14; i++)
+            for (int i = 1; i < 19; i++)
             {
-                form[14, i] = "W";
+                form[11, i] = "W";
             }
            
 
             //Left wall
-            for (int i = 1; i < 14; i++)
+            for (int i = 1; i < 11; i++)
             {
                 form[i, 0] = "W";
             }
 
             //Right wall
-            for(int i = 1; i < 14; i ++)
+            for(int i = 1; i < 11; i ++)
             {
-                form[i, 14] = "W";
+                form[i, 19] = "W";
             }
 
             //Floor A
-            for (int i = 1; i < 14; i++)
+            for (int i = 1; i < 19; i++)
             {
                 form[1, i] = "O";
             }
@@ -114,7 +120,11 @@ namespace Map_editor
             form[2, 11] = "O";
             form[2, 12] = "O";
             form[2, 13] = "O";
-
+            form[2, 14] = "O";
+            form[2, 15] = "O";
+            form[2, 16] = "O";
+            form[2, 17] = "O";
+            form[2, 18] = "O";
             //Floor C
             form[3, 1] = "O";
             form[3, 2] = "E2";
@@ -129,9 +139,13 @@ namespace Map_editor
             form[3, 11] = "E1";
             form[3, 12] = "O";
             form[3, 13] = "O";
-
+            form[3, 14] = "O";
+            form[3, 15] = "O";
+            form[3, 16] = "O";
+            form[3, 17] = "O";
+            form[3, 18] = "O";
             //Floor D
-            for (int i = 1; i < 14; i++)
+            for (int i = 1; i < 19; i++)
             {
                 form[4, i] = "O";
             }
@@ -150,7 +164,11 @@ namespace Map_editor
             form[5, 11] = "O";
             form[5, 12] = "O";
             form[5, 13] = "O";
-
+            form[5, 14] = "O";
+            form[5, 15] = "O";
+            form[5, 16] = "O";
+            form[5, 17] = "O";
+            form[5, 18] = "O";
             //Floor F
             form[6, 1] = "O";
             form[6, 2] = "O";
@@ -165,52 +183,72 @@ namespace Map_editor
             form[6, 11] = "O";
             form[6, 12] = "O";
             form[6, 13] = "O";
-
+            form[6, 14] = "O";
+            form[6, 15] = "O";
+            form[6, 16] = "O";
+            form[6, 17] = "O";
+            form[6, 18] = "O";
             //Floor G
-            for (int i = 1; i < 14; i++)
+            for (int i = 1; i < 19; i++)
             {
                 form[7, i] = "O";
             }
             //Floor H
-            for (int i = 1; i < 14; i++)
+            for (int i = 1; i < 19; i++)
             {
                 form[8, i] = "O";
             }
+
             //Floor I
-            for (int i = 1; i < 14; i++)
-            {
-                form[9, i] = "O";
-            }
+            form[9, 1] = "O";
+            form[9, 2] = "O";
+            form[9, 3] = "O";
+            form[9, 4] = "O";
+            form[9, 5] = "O";
+            form[9, 6] = "O";
+            form[9, 7] = "O";
+            form[9, 8] = "P";
+            form[9, 9] = "O";
+            form[9, 10] = "O";
+            form[9, 11] = "O";
+            form[9, 12] = "O";
+            form[9, 13] = "O";
+            form[9, 14] = "O";
+            form[9, 15] = "O";
+            form[9, 16] = "O";
+            form[9, 17] = "O";
+            form[9, 18] = "O";
+
             //Floor J
-            for (int i = 1; i < 14; i++)
+            for (int i = 1; i < 19; i++)
             {
                 form[10, i] = "O";
             }
-            //Floor K
-            form[11, 1] = "O";
-            form[11, 2] = "O";
-            form[11, 3] = "O";
-            form[11, 4] = "O";
-            form[11, 5] = "O";
-            form[11, 6] = "O";
-            form[11, 7] = "P";
-            form[11, 8] = "O";
-            form[11, 9] = "O";
-            form[11, 10] = "O";
-            form[11, 11] = "O";
-            form[11, 12] = "O";
-            form[11, 13] = "O";
+            ////Floor K
+            //form[11, 1] = "O";
+            //form[11, 2] = "O";
+            //form[11, 3] = "O";
+            //form[11, 4] = "O";
+            //form[11, 5] = "O";
+            //form[11, 6] = "O";
+            //form[11, 7] = "P";
+            //form[11, 8] = "O";
+            //form[11, 9] = "O";
+            //form[11, 10] = "O";
+            //form[11, 11] = "O";
+            //form[11, 12] = "O";
+            //form[11, 13] = "O";
 
-            //Floor L
-            for (int i = 1; i < 14; i++)
-            {
-                form[12, i] = "O";
-            }
-            //Floor M
-            for (int i = 1; i < 14; i++)
-            {
-                form[13, i] = "O";
-            }
+            ////Floor L
+            //for (int i = 1; i < 14; i++)
+            //{
+            //    form[12, i] = "O";
+            //}
+            ////Floor M
+            //for (int i = 1; i < 14; i++)
+            //{
+            //    form[13, i] = "O";
+            //}
         }
 
         //Create Map !
@@ -224,11 +262,11 @@ namespace Map_editor
                 StreamWriter output = new StreamWriter("Map.txt");
 
                 // write out a comma delimited lines of text
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 12; i++)
                 {
-                    for (int j = 0; j < 15; j++)
+                    for (int j = 0; j < 20; j++)
                     {
-                        if (j < 15 - 1)  // comma separated on same line
+                        if (j < 20 - 1)  // comma separated on same line
                         {
                             output.Write(form[i, j] + ",");
                         }
@@ -324,15 +362,21 @@ namespace Map_editor
             {
                 case "D":
 
+                    pressed.BackColor = Color.Aqua; //Door color
+                    pressed.Text = "d"; //Door2  
+                    form[x, 0] = "d";
+                    break;
+
+                case "d":
                     pressed.BackColor = Color.Lime; //Wall color
-                    pressed.Text = "W"; //Wall
+                    pressed.Text = "W"; //Wall 
                     form[x, 0] = "W";
                     break;
 
                 case "W":
 
                     pressed.BackColor = Color.Aqua; //Door color
-                    pressed.Text = "D"; //Door                   
+                    pressed.Text = "D"; //Door1                   
                     form[x, 0] = "D";
                     break;
 
@@ -357,16 +401,22 @@ namespace Map_editor
             {
                 case "D":
 
+                    pressed.BackColor = Color.Aqua; //Door color
+                    pressed.Text = "d"; //Door2
+                    form[x, 19] = "d";
+                    break;
+
+                case "d":
                     pressed.BackColor = Color.Lime; //Wall color
-                    pressed.Text = "W"; //Wall
-                    form[x, 14] = "W";
+                    pressed.Text = "W"; //Wall 
+                    form[x, 19] = "W";
                     break;
 
                 case "W":
 
                     pressed.BackColor = Color.Aqua; //Door color
-                    pressed.Text = "D"; //Door                   
-                    form[x, 14] = "D";
+                    pressed.Text = "D"; //Door 1                   
+                    form[x, 19] = "D";
                     break;
 
             }
@@ -391,15 +441,21 @@ namespace Map_editor
             {
                 case "D":
 
+                    pressed.BackColor = Color.Aqua; //Door color
+                    pressed.Text = "d"; //Wall
+                    form[0, y] = "d";
+                    break;
+
+                case "d":
                     pressed.BackColor = Color.Lime; //Wall color
-                    pressed.Text = "W"; //Wall
+                    pressed.Text = "W"; //Wall 
                     form[0, y] = "W";
                     break;
 
                 case "W":
 
                     pressed.BackColor = Color.Aqua; //Door color
-                    pressed.Text = "D"; //Door                   
+                    pressed.Text = "D"; //Door 1                 
                     form[0, y] = "D";
                     break;
 
@@ -425,16 +481,22 @@ namespace Map_editor
             {
                 case "D":
 
+                    pressed.BackColor = Color.Aqua; //Door color
+                    pressed.Text = "d"; //Door 2
+                    form[11, y] = "d";
+                    break;
+
+                case "d":
                     pressed.BackColor = Color.Lime; //Wall color
-                    pressed.Text = "W"; //Wall
-                    form[14, y] = "W";
+                    pressed.Text = "W"; //Wall 
+                    form[11, y] = "W";
                     break;
 
                 case "W":
 
                     pressed.BackColor = Color.Aqua; //Door color
-                    pressed.Text = "D"; //Door                   
-                    form[14, y] = "D";
+                    pressed.Text = "D"; //Door 1                  
+                    form[11, y] = "D";
                     break;
 
             }
@@ -492,15 +554,15 @@ namespace Map_editor
             }
         }
 
-        private void Save_Room(object sender, EventArgs e)
-        {
-            string result = "";
-            for()
-            {
-                result += "";
-            }
-            string[i] = result;
-        }
+        //private void Save_Room(object sender, EventArgs e)
+        //{
+        //    string result = "";
+        //    for()
+        //    {
+        //        result += "";
+        //    }
+        //    string[i] = result;
+        //}
 
         private void Write(object sender, EventArgs e)
         {
