@@ -230,6 +230,11 @@ namespace WormHole
             //change to go to end screen
             
             //Reset to Menu Screen
+            
+            /*Game1.CurrentState = Game1.GameState.Main;
+            Game1.CurrentState = Game1.GameState.Gameover;
+            ScreenManager.Instance.ChangeScreen("GameOver");*/
+            
             Game1.CurrentState = Game1.GameState.Main;
             //Game1.CurrentState = Game1.GameState.Gameover;
             ScreenManager.Instance.ChangeScreen("MainMenu");
