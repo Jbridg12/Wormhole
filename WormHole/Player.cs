@@ -231,8 +231,8 @@ namespace WormHole
             
             //Reset to Menu Screen
             //Game1.CurrentState = Game1.GameState.Main;
-            //Game1.CurrentState = Game1.GameState.Gameover;
-            ScreenManager.Instance.ChangeScreen("MainMenu");
+            Game1.CurrentState = Game1.GameState.Gameover;
+            ScreenManager.Instance.ChangeScreen("GameOver");
 
             // Reset all initialization values
             instance = new Player(EntityManager.Instance.Textures["player"]);
