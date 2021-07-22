@@ -48,6 +48,8 @@ namespace WormHole
         public GameScreen CurrentScreen { get; private set; }
         public RoomScreen[] Floor { get; private set; }
 
+        public SpriteFont font;
+
         public ScreenManager()
         {
             Dimensions = new Vector2(1280, 720);
@@ -63,6 +65,9 @@ namespace WormHole
             ScreenTextures.Add("room", Content.Load<Texture2D>("room1"));
             ScreenTextures.Add("room_tiles", Content.Load<Texture2D>("doors_spritesheet"));
 
+            ScreenTextures.Add("room_tiles", Content.Load<Texture2D>("doors_spritesheet"));
+           
+
             Dictionary<string, Texture2D> mainMenu = new Dictionary<string, Texture2D>();
             mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
             mainMenu.Add("NewGame", Content.Load<Texture2D>("menu1"));
@@ -74,7 +79,19 @@ namespace WormHole
             mainMenu.Add("button2", Content.Load<Texture2D>("button2"));
             mainMenu.Add("button3", Content.Load<Texture2D>("button3"));
 
+            Dictionary<string, Texture2D> gameOver = new Dictionary<string, Texture2D>();
+            gameOver.Add("Initial", Content.Load<Texture2D>("menu"));
+            gameOver.Add("MainMenu", Content.Load<Texture2D>("menu"));
+
+            //Button textures here because I was having trouble making a unique element for them
+            gameOver.Add("button0", Content.Load<Texture2D>("button0"));
+            gameOver.Add("button1", Content.Load<Texture2D>("button1"));
+            gameOver.Add("button2", Content.Load<Texture2D>("button2"));
+            gameOver.Add("button3", Content.Load<Texture2D>("button3"));
+            //gameOver.Add("button4", Content.Load<Texture2D>("button4"));
+
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
+            screens.Add("GameOver", new GameOverScreen(gameOver, ScreenFonts["base"]));
 
             // Set Globals for room scaling
             Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;
