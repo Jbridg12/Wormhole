@@ -19,6 +19,14 @@ namespace WormHole
     public class ScreenManager
     {
         private static ScreenManager instance;
+
+        //Load Variables - CLos
+        StreamReader input = null;
+        string loadBoard = "";
+        List<RoomGen> rooms = new List<RoomGen>();
+        private string line = null;
+        private string[,] arrayRoom;
+
         public static ScreenManager Instance
         {
             get
@@ -74,6 +82,12 @@ namespace WormHole
             mainMenu.Add("button2", Content.Load<Texture2D>("button2"));
             mainMenu.Add("button3", Content.Load<Texture2D>("button3"));
 
+            //Adding room tiles - CLos
+            mainMenu.Add("*", Content.Load<Texture2D>("wall"));
+            mainMenu.Add("B", Content.Load<Texture2D>("Barrier"));
+            mainMenu.Add("C", Content.Load<Texture2D>("corner"));
+            mainMenu.Add("D", Content.Load<Texture2D>("nebula"));
+
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
 
             // Set Globals for room scaling
@@ -84,6 +98,9 @@ namespace WormHole
             Globals.ROOM_TEXTURE_RIGHT = (int)(((ScreenTextures["room"].Width*Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width*Globals.SCREEN_SCALING)) / 2)));
             CurrentScreen = screens["MainMenu"];
             //screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 100, 100), EntityManager.Instance.Textures["enemy"]) }));
+
+            loadBoard = "test Floor.txt";
+            GenerateFloor("..\\..\\..\\" + loadBoard, mainMenu);
 
         }
 
@@ -142,7 +159,6 @@ namespace WormHole
             Floor[floorSize / 2] = NextRoom;
             PopulateAdjacent(floorSize, NextRoom, rand, 1, 0, floorSize / 2);
             SetupDoors(floorSize);
-
             EntityManager.Instance.NextScreen = NextRoom;
             if (!screens.ContainsKey("Room"))
             {
@@ -241,5 +257,79 @@ namespace WormHole
             EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);
             EntityManager.Instance.NextScreen = null;
         }
+       
+        //Generate Floor from text file
+        private void GenerateFloor(string loadBoard, Dictionary<string, Texture2D> roomTiles)
+        {
+            //room name that's used as the key in the rooms dictionary
+            string roomName;
+            //The actual layout
+            string roomLayout;
+            try
+            {
+                //Takes the loadboard file
+                input = new StreamReader(loadBoard);
+
+                //Loops through every line in the test Floor text file
+                while ((line = input.ReadLine()) != null)
+                {
+                    //the data array stores the information in the text file by splitting it where the { is in the text file
+                    string[] data = line.Split('{');
+
+                    roomName = data[0].Trim(); ;
+                    roomLayout = data[1];
+                    //If you put a break point on line 253 and look at the locals tab in the output window below
+                    //you can see how the line of the text file is split up and stored in the data array
+
+                    data = roomLayout.Split(',');
+                    //Now data is reused for the actual room data stored in the roomLayout variable
+                    //if you put a breakpoint on line 260 you can see how data stores the actual room text that
+                    //will be used to draw the room in the room class
+
+                    //initializes the 2d array that stores the room data using the length of the data array
+                    //In this case it creates a 15x15 array
+                    arrayRoom = new string[data.Length, data[0].Length];
+
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        for (int j = 0; j < data[0].Length; j++)
+                        {
+                            //Sets each index of the testRoom array to a letter in the data array
+                            arrayRoom[i, j] = data[i][j].ToString();
+                        }
+                    }
+
+                    //Creates a room object using the testRoom 2d array, the roomName, and the textures Dictionary
+                    //and then adds it the rooms dictionary
+                    rooms.Add(new RoomGen(arrayRoom, roomName, roomTiles));
+                    //Then it loops and starts over with the next line in the test Floor text file
+                }
+
+
+            }
+            //Error stuff in case something goes wrong with the text file
+            catch (Exception e)
+            {
+                Console.WriteLine("\nThere was an error loading the level or that level file does not exist:\n\n " + e.Message);
+            }
+            finally
+            {
+                if (input != null)
+                {
+                    input.Close();
+
+                }
+            }
+        }
+
+        /*
+        public void DrawRoom(SpriteBatch spriteBatch)
+        {
+            //Code to determine which room to load
+
+            rooms[4].Draw(spriteBatch);
+
+        }
+        */
     }
 }

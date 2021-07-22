@@ -1,5 +1,5 @@
 ﻿// RoomScreen.cs
-// Contributors: Josh Bridges
+// Contributors: Josh Bridges, Chris LoSardo
 
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace WormHole
     public class RoomScreen : GameScreen
     {
         public RoomScreen parent;
+
         public int Depth { get; set; }
         public int Index { get; set; }  // Index in the floor array that this room is in
 
@@ -27,11 +28,27 @@ namespace WormHole
             this.Entities.Add(Player.Instance);
         }
 
+
         public RoomScreen(Texture2D texture, SpriteFont font, int depth, List<Entity> entities) : this(texture, font, depth)
         {
             this.Entities = entities;
             this.Entities.Add(Player.Instance);
         }
+
+        
+        /*
+        //Level Creation Constructor
+        public RoomScreen(Texture2D texture, SpriteFont font, int depth, string[,] arrayRoom, Dictionary<string, Texture2D> textures) : base(texture, font)
+        {
+            this.arrayRoom = arrayRoom;
+            this.textures = textures;
+
+            //gets the x and y dimensions of the room array
+            xArray = arrayRoom.GetLength(0);
+            yArray = arrayRoom.Length / xArray;
+        }
+        */
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             //base.Draw(spriteBatch);

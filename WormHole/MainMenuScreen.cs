@@ -1,5 +1,5 @@
 ﻿// MainMenuScreen.cs
-// Contributors: Josh Bridges
+// Contributors: Josh Bridges, Chris LoSardo
 //
 // A screen type that is used for doing menu screens in the game
 
@@ -22,6 +22,7 @@ namespace WormHole
         private int selectedButton;
         private Rectangle displayLocation;
 
+        private RoomGen roomDraw;
 
         //Button code - CLos
         private List<MenuButton> buttons;
@@ -57,6 +58,7 @@ namespace WormHole
                     spriteBatch.Draw(buttons[3].Texture, new Rectangle(542, 685, 322, 64), Color.White);
                         break;
                 case Game1.GameState.Game:
+                   // ScreenManager.Instance.DrawRoom(spriteBatch);
                     break;
             }
         }
