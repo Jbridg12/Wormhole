@@ -58,7 +58,7 @@ namespace WormHole
                     spriteBatch.Draw(buttons[3].Texture, new Rectangle(542, 685, 322, 64), Color.White);
                         break;
                 case Game1.GameState.Game:
-                   // ScreenManager.Instance.DrawRoom(spriteBatch);
+                   //ScreenManager.Instance.DrawRoom(spriteBatch);
                     break;
             }
         }
