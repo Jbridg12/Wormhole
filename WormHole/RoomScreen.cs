@@ -18,6 +18,7 @@ namespace WormHole
         public int Depth { get; set; }
         public int Index { get; set; }  // Index in the floor array that this room is in
 
+        protected int doorAnimationState;   // animation state for door animation later
 
         KeyboardState pvState;
 
@@ -25,12 +26,12 @@ namespace WormHole
         {
             this.Depth = depth;
             this.Entities.Add(Player.Instance);
+            doorAnimationState = 0;
         }
 
         public RoomScreen(Texture2D texture, SpriteFont font, int depth, List<Entity> entities) : this(texture, font, depth)
         {
             this.Entities = entities;
-            this.Entities.Add(Player.Instance);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
