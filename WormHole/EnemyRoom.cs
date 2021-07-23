@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -65,9 +66,9 @@ namespace WormHole
             
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)  // new Draw method can draw the room from the provided Layout string
         {
-            if(Layout == null)
+            if(Layout == null)  // If not using the tool just draw as normal
             {
                 base.Draw(spriteBatch);
             }
@@ -79,32 +80,9 @@ namespace WormHole
                     var chars = rows[i].ToCharArray();
                     for(int j = 0; j < chars.Length; j++)
                     {
-                        Rectangle texture = new Rectangle();
-                        switch (chars[j])
-                        {
-                            case 'C':
-                                texture = new Rectangle();
-                                break;
-                            case '*':
-                                texture = new Rectangle();
-                                break;
-                            case 'd':
-                                texture = new Rectangle();
-                                break;
-                            case 'D':
-                                texture = new Rectangle();
-                                break;
-                            case '-':
-                                texture = new Rectangle(0, 616, 64, 60);
-                                break;
-                            case 'E':
-                                texture = new Rectangle();
-                                break;
-                        }
-
                         spriteBatch.Draw(Display,
                                     new Rectangle(j * 64, i * 60, 64, 60),
-                                    texture,
+                                    GetTile(chars[j], i, j),
                                     Color.White,
                                     0f,
                                     Vector2.Zero,
@@ -113,6 +91,76 @@ namespace WormHole
                     }
                 }
             }
+        }
+
+        public Rectangle GetTile(char c, int i, int j)  // method to identify the proper tile from spritesheet
+        {
+            switch (c)
+            {
+                case 'C':
+                    return new Rectangle(0, 600, 64, 60);
+                case '*':
+                    if (i == 0)
+                    {
+                        return new Rectangle(0, 660, 64, 60);
+                    }
+                    else if (i == 11)
+                    {
+                        return new Rectangle(64, 660, 64, 60);
+                    }
+                    else if (j == 0)
+                    {
+                        return new Rectangle(0, 720, 64, 60);
+                    }
+                    else
+                    {
+                        return new Rectangle(64, 720, 64, 60);
+                    }
+                case 'd':
+                    if (i == 0)
+                    {
+                        return new Rectangle(0, 60 * doorAnimationState, 64, 60);
+                    }
+                    else if (i == 11)
+                    {
+                        return new Rectangle(128, (300 - (60 * doorAnimationState)), 64, 60);
+                    }
+                    else if (j == 0)
+                    {
+                        return new Rectangle(64 * doorAnimationState, 420, 64, 60);
+                    }
+                    else
+                    {
+                        return new Rectangle((320 - (64 * doorAnimationState)), 480, 64, 60);
+                    }
+                    
+                case 'D':
+                    if (i == 0)
+                    {
+                        return new Rectangle(64, 60 * doorAnimationState, 64, 60);
+                    }
+                    else if (i == 11)
+                    {
+                        return new Rectangle(192, (300 - (60 * doorAnimationState)), 64, 60);
+                    }
+                    else if (j == 0)
+                    {
+                        return new Rectangle(64 * doorAnimationState, 360, 64, 60);
+                    }
+                    else
+                    {
+                        return new Rectangle((320 - (64 * doorAnimationState)), 540, 64, 60);
+                    }
+                case '-':
+                    return new Rectangle(0, 600, 64, 60);
+                case 'E':
+                    this.Entities.Add(new Enemy(new Rectangle(j*64, i*60, 100, 100), EntityManager.Instance.Textures["enemy"]));
+                    return new Rectangle(0, 600, 64, 60);
+                default:
+                    return new Rectangle();
+            }
+
+
         }
     }
 }
