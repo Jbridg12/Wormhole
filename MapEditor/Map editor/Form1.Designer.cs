@@ -2390,6 +2390,7 @@ namespace Map_editor
             this.WallBottom14.TabIndex = 250;
             this.WallBottom14.Text = "W";
             this.WallBottom14.UseVisualStyleBackColor = false;
+            this.WallBottom14.Click += new System.EventHandler(this.WallTop_Click);
             // 
             // FloorJ14
             // 
@@ -2400,6 +2401,7 @@ namespace Map_editor
             this.FloorJ14.TabIndex = 247;
             this.FloorJ14.Text = "O";
             this.FloorJ14.UseVisualStyleBackColor = false;
+            this.FloorJ14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorI14
             // 
@@ -2410,6 +2412,7 @@ namespace Map_editor
             this.FloorI14.TabIndex = 246;
             this.FloorI14.Text = "O";
             this.FloorI14.UseVisualStyleBackColor = false;
+            this.FloorI14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorH14
             // 
@@ -2420,6 +2423,7 @@ namespace Map_editor
             this.FloorH14.TabIndex = 245;
             this.FloorH14.Text = "O";
             this.FloorH14.UseVisualStyleBackColor = false;
+            this.FloorH14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorG14
             // 
@@ -2430,6 +2434,7 @@ namespace Map_editor
             this.FloorG14.TabIndex = 244;
             this.FloorG14.Text = "O";
             this.FloorG14.UseVisualStyleBackColor = false;
+            this.FloorG14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorF14
             // 
@@ -2440,6 +2445,7 @@ namespace Map_editor
             this.FloorF14.TabIndex = 243;
             this.FloorF14.Text = "O";
             this.FloorF14.UseVisualStyleBackColor = false;
+            this.FloorF14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorE14
             // 
@@ -2450,6 +2456,7 @@ namespace Map_editor
             this.FloorE14.TabIndex = 242;
             this.FloorE14.Text = "O";
             this.FloorE14.UseVisualStyleBackColor = false;
+            this.FloorE14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorD14
             // 
@@ -2460,6 +2467,7 @@ namespace Map_editor
             this.FloorD14.TabIndex = 241;
             this.FloorD14.Text = "O";
             this.FloorD14.UseVisualStyleBackColor = false;
+            this.FloorD14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorC14
             // 
@@ -2470,6 +2478,7 @@ namespace Map_editor
             this.FloorC14.TabIndex = 240;
             this.FloorC14.Text = "O";
             this.FloorC14.UseVisualStyleBackColor = false;
+            this.FloorC14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorB14
             // 
@@ -2480,6 +2489,7 @@ namespace Map_editor
             this.FloorB14.TabIndex = 239;
             this.FloorB14.Text = "O";
             this.FloorB14.UseVisualStyleBackColor = false;
+            this.FloorB14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorA14
             // 
@@ -2490,6 +2500,7 @@ namespace Map_editor
             this.FloorA14.TabIndex = 238;
             this.FloorA14.Text = "O";
             this.FloorA14.UseVisualStyleBackColor = false;
+            this.FloorA14.Click += new System.EventHandler(this.Floor_Click);
             // 
             // WallTop14
             // 
@@ -2500,6 +2511,7 @@ namespace Map_editor
             this.WallTop14.TabIndex = 237;
             this.WallTop14.Text = "W";
             this.WallTop14.UseVisualStyleBackColor = false;
+            this.WallTop14.Click += new System.EventHandler(this.WallTop_Click);
             // 
             // WallBottom15
             // 
@@ -2510,6 +2522,7 @@ namespace Map_editor
             this.WallBottom15.TabIndex = 262;
             this.WallBottom15.Text = "W";
             this.WallBottom15.UseVisualStyleBackColor = false;
+            this.WallBottom15.Click += new System.EventHandler(this.WallBottom_Click);
             // 
             // FloorJ15
             // 
@@ -2520,6 +2533,7 @@ namespace Map_editor
             this.FloorJ15.TabIndex = 261;
             this.FloorJ15.Text = "O";
             this.FloorJ15.UseVisualStyleBackColor = false;
+            this.FloorJ15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorI15
             // 
@@ -2530,6 +2544,7 @@ namespace Map_editor
             this.FloorI15.TabIndex = 260;
             this.FloorI15.Text = "O";
             this.FloorI15.UseVisualStyleBackColor = false;
+            this.FloorI15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorH15
             // 
@@ -2540,6 +2555,7 @@ namespace Map_editor
             this.FloorH15.TabIndex = 259;
             this.FloorH15.Text = "O";
             this.FloorH15.UseVisualStyleBackColor = false;
+            this.FloorH15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorG15
             // 
@@ -2550,6 +2566,7 @@ namespace Map_editor
             this.FloorG15.TabIndex = 258;
             this.FloorG15.Text = "O";
             this.FloorG15.UseVisualStyleBackColor = false;
+            this.FloorG15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorF15
             // 
@@ -2560,6 +2577,7 @@ namespace Map_editor
             this.FloorF15.TabIndex = 257;
             this.FloorF15.Text = "O";
             this.FloorF15.UseVisualStyleBackColor = false;
+            this.FloorF15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorE15
             // 
@@ -2570,6 +2588,7 @@ namespace Map_editor
             this.FloorE15.TabIndex = 256;
             this.FloorE15.Text = "O";
             this.FloorE15.UseVisualStyleBackColor = false;
+            this.FloorE15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorD15
             // 
@@ -2580,6 +2599,7 @@ namespace Map_editor
             this.FloorD15.TabIndex = 255;
             this.FloorD15.Text = "O";
             this.FloorD15.UseVisualStyleBackColor = false;
+            this.FloorD15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorC15
             // 
@@ -2590,6 +2610,7 @@ namespace Map_editor
             this.FloorC15.TabIndex = 254;
             this.FloorC15.Text = "O";
             this.FloorC15.UseVisualStyleBackColor = false;
+            this.FloorC15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorB15
             // 
@@ -2600,6 +2621,7 @@ namespace Map_editor
             this.FloorB15.TabIndex = 253;
             this.FloorB15.Text = "O";
             this.FloorB15.UseVisualStyleBackColor = false;
+            this.FloorB15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorA15
             // 
@@ -2610,6 +2632,7 @@ namespace Map_editor
             this.FloorA15.TabIndex = 252;
             this.FloorA15.Text = "O";
             this.FloorA15.UseVisualStyleBackColor = false;
+            this.FloorA15.Click += new System.EventHandler(this.Floor_Click);
             // 
             // WallTop15
             // 
@@ -2620,6 +2643,7 @@ namespace Map_editor
             this.WallTop15.TabIndex = 251;
             this.WallTop15.Text = "W";
             this.WallTop15.UseVisualStyleBackColor = false;
+            this.WallTop15.Click += new System.EventHandler(this.WallTop_Click);
             // 
             // WallBottom16
             // 
@@ -2630,6 +2654,7 @@ namespace Map_editor
             this.WallBottom16.TabIndex = 274;
             this.WallBottom16.Text = "W";
             this.WallBottom16.UseVisualStyleBackColor = false;
+            this.WallBottom16.Click += new System.EventHandler(this.WallBottom_Click);
             // 
             // FloorJ16
             // 
@@ -2640,6 +2665,7 @@ namespace Map_editor
             this.FloorJ16.TabIndex = 273;
             this.FloorJ16.Text = "O";
             this.FloorJ16.UseVisualStyleBackColor = false;
+            this.FloorJ16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorI16
             // 
@@ -2650,6 +2676,7 @@ namespace Map_editor
             this.FloorI16.TabIndex = 272;
             this.FloorI16.Text = "O";
             this.FloorI16.UseVisualStyleBackColor = false;
+            this.FloorI16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorH16
             // 
@@ -2660,6 +2687,7 @@ namespace Map_editor
             this.FloorH16.TabIndex = 271;
             this.FloorH16.Text = "O";
             this.FloorH16.UseVisualStyleBackColor = false;
+            this.FloorH16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorG16
             // 
@@ -2670,6 +2698,7 @@ namespace Map_editor
             this.FloorG16.TabIndex = 270;
             this.FloorG16.Text = "O";
             this.FloorG16.UseVisualStyleBackColor = false;
+            this.FloorG16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorF16
             // 
@@ -2680,6 +2709,7 @@ namespace Map_editor
             this.FloorF16.TabIndex = 269;
             this.FloorF16.Text = "O";
             this.FloorF16.UseVisualStyleBackColor = false;
+            this.FloorF16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorE16
             // 
@@ -2690,6 +2720,7 @@ namespace Map_editor
             this.FloorE16.TabIndex = 268;
             this.FloorE16.Text = "O";
             this.FloorE16.UseVisualStyleBackColor = false;
+            this.FloorE16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorD16
             // 
@@ -2700,6 +2731,7 @@ namespace Map_editor
             this.FloorD16.TabIndex = 267;
             this.FloorD16.Text = "O";
             this.FloorD16.UseVisualStyleBackColor = false;
+            this.FloorD16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorC16
             // 
@@ -2710,6 +2742,7 @@ namespace Map_editor
             this.FloorC16.TabIndex = 266;
             this.FloorC16.Text = "O";
             this.FloorC16.UseVisualStyleBackColor = false;
+            this.FloorC16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorB16
             // 
@@ -2720,6 +2753,7 @@ namespace Map_editor
             this.FloorB16.TabIndex = 265;
             this.FloorB16.Text = "O";
             this.FloorB16.UseVisualStyleBackColor = false;
+            this.FloorB16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorA16
             // 
@@ -2730,6 +2764,7 @@ namespace Map_editor
             this.FloorA16.TabIndex = 264;
             this.FloorA16.Text = "O";
             this.FloorA16.UseVisualStyleBackColor = false;
+            this.FloorA16.Click += new System.EventHandler(this.Floor_Click);
             // 
             // WallTop16
             // 
@@ -2740,6 +2775,7 @@ namespace Map_editor
             this.WallTop16.TabIndex = 263;
             this.WallTop16.Text = "W";
             this.WallTop16.UseVisualStyleBackColor = false;
+            this.WallTop16.Click += new System.EventHandler(this.WallTop_Click);
             // 
             // WallBottom17
             // 
@@ -2750,6 +2786,7 @@ namespace Map_editor
             this.WallBottom17.TabIndex = 286;
             this.WallBottom17.Text = "W";
             this.WallBottom17.UseVisualStyleBackColor = false;
+            this.WallBottom17.Click += new System.EventHandler(this.WallBottom_Click);
             // 
             // FloorJ17
             // 
@@ -2760,6 +2797,7 @@ namespace Map_editor
             this.FloorJ17.TabIndex = 285;
             this.FloorJ17.Text = "O";
             this.FloorJ17.UseVisualStyleBackColor = false;
+            this.FloorJ17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorI17
             // 
@@ -2770,6 +2808,7 @@ namespace Map_editor
             this.FloorI17.TabIndex = 284;
             this.FloorI17.Text = "O";
             this.FloorI17.UseVisualStyleBackColor = false;
+            this.FloorI17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorH17
             // 
@@ -2780,6 +2819,7 @@ namespace Map_editor
             this.FloorH17.TabIndex = 283;
             this.FloorH17.Text = "O";
             this.FloorH17.UseVisualStyleBackColor = false;
+            this.FloorH17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorG17
             // 
@@ -2790,6 +2830,7 @@ namespace Map_editor
             this.FloorG17.TabIndex = 282;
             this.FloorG17.Text = "O";
             this.FloorG17.UseVisualStyleBackColor = false;
+            this.FloorG17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorF17
             // 
@@ -2800,6 +2841,7 @@ namespace Map_editor
             this.FloorF17.TabIndex = 281;
             this.FloorF17.Text = "O";
             this.FloorF17.UseVisualStyleBackColor = false;
+            this.FloorF17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorE17
             // 
@@ -2810,6 +2852,7 @@ namespace Map_editor
             this.FloorE17.TabIndex = 280;
             this.FloorE17.Text = "O";
             this.FloorE17.UseVisualStyleBackColor = false;
+            this.FloorE17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorD17
             // 
@@ -2820,6 +2863,7 @@ namespace Map_editor
             this.FloorD17.TabIndex = 279;
             this.FloorD17.Text = "O";
             this.FloorD17.UseVisualStyleBackColor = false;
+            this.FloorD17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorC17
             // 
@@ -2830,6 +2874,7 @@ namespace Map_editor
             this.FloorC17.TabIndex = 278;
             this.FloorC17.Text = "O";
             this.FloorC17.UseVisualStyleBackColor = false;
+            this.FloorC17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorB17
             // 
@@ -2840,6 +2885,7 @@ namespace Map_editor
             this.FloorB17.TabIndex = 277;
             this.FloorB17.Text = "O";
             this.FloorB17.UseVisualStyleBackColor = false;
+            this.FloorB17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorA17
             // 
@@ -2850,6 +2896,7 @@ namespace Map_editor
             this.FloorA17.TabIndex = 276;
             this.FloorA17.Text = "O";
             this.FloorA17.UseVisualStyleBackColor = false;
+            this.FloorA17.Click += new System.EventHandler(this.Floor_Click);
             // 
             // WallTop17
             // 
@@ -2860,6 +2907,7 @@ namespace Map_editor
             this.WallTop17.TabIndex = 275;
             this.WallTop17.Text = "W";
             this.WallTop17.UseVisualStyleBackColor = false;
+            this.WallTop17.Click += new System.EventHandler(this.WallTop_Click);
             // 
             // WallBottom18
             // 
@@ -2870,6 +2918,7 @@ namespace Map_editor
             this.WallBottom18.TabIndex = 298;
             this.WallBottom18.Text = "W";
             this.WallBottom18.UseVisualStyleBackColor = false;
+            this.WallBottom18.Click += new System.EventHandler(this.WallBottom_Click);
             // 
             // FloorJ18
             // 
@@ -2880,6 +2929,7 @@ namespace Map_editor
             this.FloorJ18.TabIndex = 297;
             this.FloorJ18.Text = "O";
             this.FloorJ18.UseVisualStyleBackColor = false;
+            this.FloorJ18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorI18
             // 
@@ -2890,6 +2940,7 @@ namespace Map_editor
             this.FloorI18.TabIndex = 296;
             this.FloorI18.Text = "O";
             this.FloorI18.UseVisualStyleBackColor = false;
+            this.FloorI18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorH18
             // 
@@ -2900,6 +2951,7 @@ namespace Map_editor
             this.FloorH18.TabIndex = 295;
             this.FloorH18.Text = "O";
             this.FloorH18.UseVisualStyleBackColor = false;
+            this.FloorH18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorG18
             // 
@@ -2910,6 +2962,7 @@ namespace Map_editor
             this.FloorG18.TabIndex = 294;
             this.FloorG18.Text = "O";
             this.FloorG18.UseVisualStyleBackColor = false;
+            this.FloorG18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorF18
             // 
@@ -2920,6 +2973,7 @@ namespace Map_editor
             this.FloorF18.TabIndex = 293;
             this.FloorF18.Text = "O";
             this.FloorF18.UseVisualStyleBackColor = false;
+            this.FloorF18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorE18
             // 
@@ -2930,6 +2984,7 @@ namespace Map_editor
             this.FloorE18.TabIndex = 292;
             this.FloorE18.Text = "O";
             this.FloorE18.UseVisualStyleBackColor = false;
+            this.FloorE18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorD18
             // 
@@ -2940,6 +2995,7 @@ namespace Map_editor
             this.FloorD18.TabIndex = 291;
             this.FloorD18.Text = "O";
             this.FloorD18.UseVisualStyleBackColor = false;
+            this.FloorD18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorC18
             // 
@@ -2950,6 +3006,7 @@ namespace Map_editor
             this.FloorC18.TabIndex = 290;
             this.FloorC18.Text = "O";
             this.FloorC18.UseVisualStyleBackColor = false;
+            this.FloorC18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorB18
             // 
@@ -2960,6 +3017,7 @@ namespace Map_editor
             this.FloorB18.TabIndex = 289;
             this.FloorB18.Text = "O";
             this.FloorB18.UseVisualStyleBackColor = false;
+            this.FloorB18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // FloorA18
             // 
@@ -2970,6 +3028,7 @@ namespace Map_editor
             this.FloorA18.TabIndex = 288;
             this.FloorA18.Text = "O";
             this.FloorA18.UseVisualStyleBackColor = false;
+            this.FloorA18.Click += new System.EventHandler(this.Floor_Click);
             // 
             // WallTop18
             // 
@@ -2980,6 +3039,7 @@ namespace Map_editor
             this.WallTop18.TabIndex = 287;
             this.WallTop18.Text = "W";
             this.WallTop18.UseVisualStyleBackColor = false;
+            this.WallTop18.Click += new System.EventHandler(this.WallTop_Click);
             // 
             // Form1
             // 
