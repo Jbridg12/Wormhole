@@ -19,15 +19,15 @@ namespace Map_editor
     {
         //Door color is Aqua, Wall color is Lime
         enum Wall { Door, Wall }; //change the wall mode
-        enum floor { O , Player , Enemy1 , Enemy2 , Enemy3 , Wall };//change the floor mode
+        enum floor { O, Player, Enemy1, Enemy2, Enemy3, Wall };//change the floor mode
 
         string[] rooms = new string[25]; // array of saved room strings
 
         Dictionary<char, int> floorX;
         //int rows; //the rows of the map
         //int cols; //the columns of the map
-        string[,] form = new string[12,20]; // Record the input of the rows and columns of the map , the map size is 12 X 20
-         
+        string[,] form = new string[12, 20]; // Record the input of the rows and columns of the map , the map size is 12 X 20
+
         //Wall myWall;
 
         public Form1()
@@ -56,13 +56,13 @@ namespace Map_editor
             };
             //Set the text of the four corners
             form[0, 0] = "C";
-            form[0,19] = "C";
+            form[0, 19] = "C";
             form[11, 0] = "C";
             form[11, 19] = "C";
 
             //Set map
             //Top Wall
-            
+
             form[0, 1] = "W";
             form[0, 2] = "W";
             form[0, 3] = "W";
@@ -87,7 +87,7 @@ namespace Map_editor
             {
                 form[11, i] = "W";
             }
-           
+
 
             //Left wall
             for (int i = 1; i < 11; i++)
@@ -96,7 +96,7 @@ namespace Map_editor
             }
 
             //Right wall
-            for(int i = 1; i < 11; i ++)
+            for (int i = 1; i < 11; i++)
             {
                 form[i, 19] = "W";
             }
@@ -260,21 +260,29 @@ namespace Map_editor
             try
             {
                 StreamWriter output = new StreamWriter("Map.txt");
-
+                string room = "";
                 // write out a comma delimited lines of text
                 for (int i = 0; i < 12; i++)
                 {
+                    // which Line
+                    output.Write("L"+(i+1)+"{");
+
                     for (int j = 0; j < 20; j++)
                     {
-                        if (j < 20 - 1)  // comma separated on same line
-                        {
-                            output.Write(form[i, j] + ",");
-                        }
-                        else // no comma after number, start a new line
-                        {
-                            output.WriteLine(form[i, j]);
-                        }
+                        room = form[i, j];
+                        output.Write(room);
+                        
+                        //if (j < 20 - 1)  // comma separated on same line
+                        //{
+                        //    //output.Write(form[i, j] + ",");
+                        //    output.Write(form[i, j]);
+                        //}
+                        //else // no comma after number, start a new line
+                        //{
+                        //    output.WriteLine(form[i, j]);
+                        //}
                     }
+                    output.Write("},");
                 }
                 // done - so close the file
                 output.Close();
@@ -286,7 +294,7 @@ namespace Map_editor
                 return;
             }
         }
-        
+
 
         //// Wall click method
         //public void WallClick()
@@ -341,8 +349,8 @@ namespace Map_editor
         //            break;
         //    }
         //}
-       
-        
+
+
         private void WallTop_Click(object sender, EventArgs e)
         {
             Button pressed = (Button)sender;
@@ -364,20 +372,20 @@ namespace Map_editor
 
                     pressed.BackColor = Color.Aqua; //Door color
                     pressed.Text = "d"; //Door2  
-                    form[x, 0] = "d";
+                    form[0, x] = "d";
                     break;
 
                 case "d":
                     pressed.BackColor = Color.Lime; //Wall color
                     pressed.Text = "W"; //Wall 
-                    form[x, 0] = "W";
+                    form[0, x] = "W";
                     break;
 
                 case "W":
 
                     pressed.BackColor = Color.Aqua; //Door color
                     pressed.Text = "D"; //Door1                   
-                    form[x, 0] = "D";
+                    form[0, x] = "D";
                     break;
 
             }
@@ -403,20 +411,20 @@ namespace Map_editor
 
                     pressed.BackColor = Color.Aqua; //Door color
                     pressed.Text = "d"; //Door2
-                    form[x, 19] = "d";
+                    form[11, x] = "d";
                     break;
 
                 case "d":
                     pressed.BackColor = Color.Lime; //Wall color
                     pressed.Text = "W"; //Wall 
-                    form[x, 19] = "W";
+                    form[11, x] = "W";
                     break;
 
                 case "W":
 
                     pressed.BackColor = Color.Aqua; //Door color
                     pressed.Text = "D"; //Door 1                   
-                    form[x, 19] = "D";
+                    form[11, x] = "D";
                     break;
 
             }
@@ -507,7 +515,7 @@ namespace Map_editor
             Button pressed = (Button)sender;
             char x = pressed.Name.ToCharArray()[5];
             string a = string.Empty;
-            int y= 0;
+            int y = 0;
 
             for (int i = 0; i < pressed.Name.Length; i++)
             {
@@ -523,7 +531,7 @@ namespace Map_editor
                 case "O":
                     pressed.BackColor = Color.Yellow; //Player color
                     pressed.Text = "P"; //Player
-                    
+
                     form[floorX[x], y] = "P";
                     break;
                 case "P":
@@ -566,7 +574,7 @@ namespace Map_editor
 
         private void Write(object sender, EventArgs e)
         {
-            foreach(string str in rooms)
+            foreach (string str in rooms)
             {
                 //write ...
             }
