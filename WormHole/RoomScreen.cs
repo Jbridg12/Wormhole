@@ -69,7 +69,8 @@ namespace WormHole
         }
 
         public override void Update(GameTime gameTime)
-        {
+        { 
+
             KeyboardState status = Keyboard.GetState();
 
             if (!EnemiesAlive())
@@ -87,6 +88,13 @@ namespace WormHole
                                                                                  //you back to the main menu later
             {
                 Player.Instance.Reset();
+            }
+
+            if (status.IsKeyDown(Keys.P) && !pvState.IsKeyDown(Keys.P))// If the player presses escape to reset the room in case the door 
+                                                                                 //doesn't load.  This will be replaced by a proper pause function that takes
+                                                                                 //you back to the main menu later
+            {
+                Player.Instance.Pause();
             }
 
             pvState = status;  // Set prvious state

@@ -80,6 +80,9 @@ namespace WormHole
             mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
             mainMenu.Add("NewGame", Content.Load<Texture2D>("menu1"));
             mainMenu.Add("SubMenu", Content.Load<Texture2D>("instructions")); //-CLos
+            mainMenu.Add("GameOverScreen", Content.Load<Texture2D>("GameOver"));//-Zejun and Chris
+            mainMenu.Add("Pause", Content.Load<Texture2D>("Pause"));//-Zejun and Chris
+
 
             //Button textures here because I was having trouble making a unique element for them
             mainMenu.Add("button0", Content.Load<Texture2D>("button0"));
@@ -93,8 +96,10 @@ namespace WormHole
             mainMenu.Add("C", Content.Load<Texture2D>("corner"));
             mainMenu.Add("D", Content.Load<Texture2D>("nebula"));
 
+
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
-            //screens.Add("GameOver", new GameOverScreen(gameOver, ScreenFonts["base"]));
+            screens.Add("GameOver", new GameOverScreen(mainMenu, ScreenFonts["base"])); //-Zejun, Chris and Deen
+            screens.Add("Pause", new GameOverScreen(mainMenu, ScreenFonts["base"])); //-Zejun and Chris
 
             // Set Globals for room scaling
             Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;

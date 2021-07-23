@@ -100,25 +100,7 @@ namespace WormHole
                     ScreenManager.Instance.NextFloor(25); // Enter the first (and only) room               
                     break;
             }
-            /*
-            if (keyStatus.IsKeyDown(Keys.Space))
-            {
-                this.currentDisplay = Displays["NewGame"];     //Highlight New game button
-                selectedButton = 1;
-            }
-            else if (keyStatus.IsKeyDown(Keys.LeftShift))
-            {
-                this.currentDisplay = Displays["Initial"];      // Un-highlight NG button
-                selectedButton = 0;
-            }
-            else if (keyStatus.IsKeyDown(Keys.Enter))
-            {
-                if (selectedButton == 1)
-                {
-                    ScreenManager.Instance.NextFloor(); // Enter the first (and only) room
-                }
-            }
-            */
+          
             //Close game
 
 

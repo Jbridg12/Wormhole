@@ -66,7 +66,7 @@ namespace WormHole
             KeyboardState input = Keyboard.GetState();
 
             if (this.CurrentHealth <= 0)
-                this.Reset();
+                this.GameOver();
 
             float deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
             currentTime += deltaT;
@@ -232,15 +232,29 @@ namespace WormHole
             //Reset to Menu Screen
             
             Game1.CurrentState = Game1.GameState.Main;
-            Game1.CurrentState = Game1.GameState.Gameover;
-            ScreenManager.Instance.ChangeScreen("GameOver");
+            
             
             /*Game1.CurrentState = Game1.GameState.Main;
             //Game1.CurrentState = Game1.GameState.Gameover;
-            ScreenManager.Instance.ChangeScreen("MainMenu");*/
+            */
+
+            ScreenManager.Instance.ChangeScreen("MainMenu");
 
             // Reset all initialization values
             instance = new Player(EntityManager.Instance.Textures["player"]);
         }
+
+        public void GameOver() //-Zejun, Chris, and Deen
+        {
+            Game1.CurrentState = Game1.GameState.Gameover;
+            ScreenManager.Instance.ChangeScreen("GameOver");
+        }
+
+        public void Pause() //- Zejun and Chris
+        {
+            Game1.CurrentState = Game1.GameState.Pause;
+            ScreenManager.Instance.ChangeScreen("Pause");
+        }
+
     }
 }

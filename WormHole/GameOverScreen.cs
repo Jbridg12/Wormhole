@@ -47,15 +47,27 @@ namespace WormHole
         {
             
             spriteBatch.Draw(currentDisplay, displayLocation, Color.White);
-            spriteBatch.DrawString(font, "Game Over", new Vector2(500, 400), Color.White);
 
             switch (Game1.CurrentState) //-CLos
             {
                 case Game1.GameState.Gameover:
+
+                    Player.Instance.MaxHealth = 6;
+                    Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
+
                     spriteBatch.Draw(buttons[3].Texture, buttons[3].Position, Color.White);
+                    spriteBatch.DrawString(font, "Game Over", new Vector2(500, 400), Color.Red);
                     //spriteBatch.Draw(buttons[4].Texture, buttons[4].Position, Color.White);
                     break;
                 case Game1.GameState.Main:
+                    break;
+                case Game1.GameState.Pause: //-Zejun and Chris
+
+                    //spriteBatch.Draw(buttons[2].Texture, buttons[2].Position, Color.White);
+
+
+                    spriteBatch.Draw(buttons[3].Texture, new Rectangle(600, 630, 322, 64), Color.White);
+                    spriteBatch.DrawString(font, "Pause", new Vector2(Game1._graphics.GraphicsDevice.Viewport.Width / 2 - 65, 30), Color.Red);
                     break;
             }
         }
@@ -83,6 +95,19 @@ namespace WormHole
                 case Game1.GameState.Main:
                     Game1.CurrentState = Game1.GameState.Main;
                     ScreenManager.Instance.ChangeScreen("MainMenu");
+                    break;
+                case Game1.GameState.Pause: //-Zejun and Chris
+                    currentDisplay = Displays["Pause"];
+                    if (buttons[3].LeftButtonPress(mouseStatus, new Rectangle(600, 630, 322, 64)))
+                    {
+                        Game1.CurrentState = Game1.GameState.Main;
+                    }
+                    /*
+                    if (buttons[2].LeftButtonPress(mouseStatus, buttons[2].Position))
+                    {
+                        Game1.CurrentState = Game1.GameState.Game;
+                    }
+                    */
                     break;
             }
             /*

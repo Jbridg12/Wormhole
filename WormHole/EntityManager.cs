@@ -62,6 +62,14 @@ namespace WormHole
 
         public void Update(GameTime time)
         {
+            if (NextScreen != null)
+                ScreenManager.Instance.UpdateScreen(NextScreen);
+
+            if (Game1.CurrentState == Game1.GameState.Pause)
+            {
+                return;
+            }
+
             CurrentScreenEntities = new List<Entity>(this.UpdatedEntities);     // dynamically update the entites
             UpdatedEntities.Clear();
 
@@ -90,8 +98,7 @@ namespace WormHole
                 
             }
 
-            if (NextScreen != null)
-                ScreenManager.Instance.UpdateScreen(NextScreen);
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
