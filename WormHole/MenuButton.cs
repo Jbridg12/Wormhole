@@ -34,7 +34,7 @@ namespace WormHole
         {
 
             if (mState.LeftButton == ButtonState.Released &&
-                prevMState.LeftButton == ButtonState.Pressed &&
+             prevMState.LeftButton == ButtonState.Pressed &&
                 collisionBox.Contains(mState.Position))
             {
                 return true;

@@ -73,7 +73,7 @@ namespace WormHole
             ScreenTextures.Add("room", Content.Load<Texture2D>("room1"));
             ScreenTextures.Add("room_tiles", Content.Load<Texture2D>("doors_spritesheet"));
 
-           
+
 
             Dictionary<string, Texture2D> mainMenu = new Dictionary<string, Texture2D>();
             mainMenu.Add("Initial", Content.Load<Texture2D>("menu"));
@@ -97,10 +97,10 @@ namespace WormHole
 
             // Set Globals for room scaling
             Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;
-            Globals.XMAX = (int)(((ScreenTextures["room"].Width*Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width*Globals.SCREEN_SCALING)) / 2)) + (50 * Globals.SCREEN_SCALING));
-            Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width*Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
-            Globals.ROOM_TEXTURE_LEFT = (int)((Game1._graphics.GraphicsDevice.Viewport.Width - ((ScreenTextures["room"].Width)*Globals.SCREEN_SCALING)) / 2);
-            Globals.ROOM_TEXTURE_RIGHT = (int)(((ScreenTextures["room"].Width*Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width*Globals.SCREEN_SCALING)) / 2)));
+            Globals.XMAX = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) + (50 * Globals.SCREEN_SCALING));
+            Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
+            Globals.ROOM_TEXTURE_LEFT = (int)((Game1._graphics.GraphicsDevice.Viewport.Width - ((ScreenTextures["room"].Width) * Globals.SCREEN_SCALING)) / 2);
+            Globals.ROOM_TEXTURE_RIGHT = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)));
             CurrentScreen = screens["MainMenu"];
             //screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 100, 100), EntityManager.Instance.Textures["enemy"]) }));
 
@@ -129,7 +129,7 @@ namespace WormHole
             Floor = new RoomScreen[floorSize];
 
             string format = reader.ReadLine();
-            for(int i = 0; i < floorSize; i++)
+            for (int i = 0; i < floorSize; i++)
             {
                 string[] parts = format.Split(' ');
                 if (Int32.Parse(parts[0]) == 1)
@@ -153,7 +153,7 @@ namespace WormHole
             }
         }
 
-        public void NextFloor(int floorSize) 
+        public void NextFloor(int floorSize)
         {
             //We should change up the look by like changing between 3 or 4 different
             //arts for the background, it's kind of confusing 
@@ -189,7 +189,7 @@ namespace WormHole
                 {
                     case 0:
                         nextIndex = index - (int)Math.Sqrt(floorSize);
-                        
+
                         break;
                     case 1:
                         nextIndex = index + 1;
@@ -262,7 +262,7 @@ namespace WormHole
             EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);
             EntityManager.Instance.NextScreen = null;
         }
-       
+
         //Generate Floor from text file
         private void GenerateFloor(string loadBoard, Dictionary<string, Texture2D> roomTiles)
         {
@@ -292,7 +292,6 @@ namespace WormHole
                     //will be used to draw the room in the room class
 
                     //initializes the 2d array that stores the room data using the length of the data array
-                    //In this case it creates a 15x15 array
                     arrayRoom = new string[data.Length, data[0].Length];
 
                     for (int i = 0; i < data.Length; i++)
@@ -327,14 +326,14 @@ namespace WormHole
             }
         }
 
-        /*
-        public void DrawRoom(SpriteBatch spriteBatch)
-        {
-            //Code to determine which room to load
 
-            rooms[4].Draw(spriteBatch);
+        //public void DrawRoom(SpriteBatch spriteBatch)
+        //{
+        //    //Code to determine which room to load
 
-        }
-        */
+        //    rooms[4].Draw(spriteBatch);
+
+        //}
+
     }
 }

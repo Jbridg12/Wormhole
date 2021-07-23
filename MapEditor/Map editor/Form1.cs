@@ -364,20 +364,20 @@ namespace Map_editor
 
                     pressed.BackColor = Color.Aqua; //Door color
                     pressed.Text = "d"; //Door2  
-                    form[x, 0] = "d";
+                    form[0, x] = "d";
                     break;
 
                 case "d":
                     pressed.BackColor = Color.Lime; //Wall color
                     pressed.Text = "W"; //Wall 
-                    form[x, 0] = "W";
+                    form[0, x] = "W";
                     break;
 
                 case "W":
 
                     pressed.BackColor = Color.Aqua; //Door color
                     pressed.Text = "D"; //Door1                   
-                    form[x, 0] = "D";
+                    form[0, x] = "D";
                     break;
 
             }
@@ -570,6 +570,26 @@ namespace Map_editor
             {
                 //write ...
             }
+        }
+
+        private void FloorA15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void WallTop15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FloorB16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void WallTop14_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

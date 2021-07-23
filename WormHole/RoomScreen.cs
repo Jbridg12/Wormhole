@@ -35,7 +35,7 @@ namespace WormHole
             this.Entities.Add(Player.Instance);
         }
 
-        
+
         /*
         //Level Creation Constructor
         public RoomScreen(Texture2D texture, SpriteFont font, int depth, string[,] arrayRoom, Dictionary<string, Texture2D> textures) : base(texture, font)
@@ -75,15 +75,15 @@ namespace WormHole
             {
                 foreach (Entity door in Entities)
                 {
-                    if(door.GetType() == typeof(Door))
+                    if (door.GetType() == typeof(Door))
                         door.Active = true;
                 }
-                    
+
             }
-            
-            if (status.IsKeyDown(Keys.Escape) && !pvState.IsKeyDown(Keys.Escape))          // If the player presses escape to reset the room in case the door 
-                                                        //doesn't load.  This will be replaced by a proper pause function that takes
-                                                        //you back to the main menu later
+
+            if (status.IsKeyDown(Keys.Escape) && !pvState.IsKeyDown(Keys.Escape))// If the player presses escape to reset the room in case the door 
+                                                                                 //doesn't load.  This will be replaced by a proper pause function that takes
+                                                                                 //you back to the main menu later
             {
                 Player.Instance.Reset();
             }
@@ -94,7 +94,7 @@ namespace WormHole
 
         public bool EnemiesAlive()
         {
-            foreach(Entity en in Entities)
+            foreach (Entity en in Entities)
             {
                 if (en is Enemy && en.Active) return true;
             }

@@ -96,7 +96,7 @@ namespace WormHole
             base.Draw(gameTime);
         }
 
-        
+
     }
 
 }
