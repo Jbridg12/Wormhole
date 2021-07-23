@@ -75,6 +75,8 @@ namespace WormHole
                 this.IsMouseVisible = false;
             if (CurrentState == GameState.Main)
                 this.IsMouseVisible = true;
+            if (CurrentState == GameState.Gameover)
+                this.IsMouseVisible = true;
 
             ScreenManager.Instance.Update(gameTime);
             UIManager.Instance.Update(gameTime);
