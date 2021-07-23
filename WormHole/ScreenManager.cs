@@ -131,7 +131,7 @@ namespace WormHole
             string format = reader.ReadLine();
             for (int i = 0; i < floorSize; i++)
             {
-                string format = reader.ReadLine();
+                //string format = reader.ReadLine();
                 string[] parts = format.Split(' ');
 
                 if (Int32.Parse(parts[0]) == 1)
