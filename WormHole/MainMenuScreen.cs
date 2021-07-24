@@ -55,6 +55,9 @@ namespace WormHole
                     spriteBatch.Draw(buttons[1].Texture, buttons[1].Position, Color.White);
                     break;
                 case Game1.GameState.Instructions:
+
+                    //Text Draw
+                    spriteBatch.Draw(Displays["Instructions"], new Rectangle(Game1._graphics.GraphicsDevice.Viewport.Width / 2 - 384, Game1._graphics.GraphicsDevice.Viewport.Height / 2 - 192, 768, 384), Color.White);
                     spriteBatch.Draw(buttons[3].Texture, new Rectangle(600, 630, 322, 64), Color.White);
                     break;
                 case Game1.GameState.Game:

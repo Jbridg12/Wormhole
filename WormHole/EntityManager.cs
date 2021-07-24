@@ -62,6 +62,8 @@ namespace WormHole
 
         public void Update(GameTime time)
         {
+
+
             if (NextScreen != null)
                 ScreenManager.Instance.UpdateScreen(NextScreen);
 
@@ -70,8 +72,9 @@ namespace WormHole
                 return;
             }
 
-            CurrentScreenEntities = new List<Entity>(this.UpdatedEntities);     // dynamically update the entites
-            UpdatedEntities.Clear();
+                CurrentScreenEntities = new List<Entity>(this.UpdatedEntities);     // dynamically update the entites
+                UpdatedEntities.Clear();
+            
 
             for (int i = 0; i < CurrentScreenEntities.Count; i++)
             {

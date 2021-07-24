@@ -63,7 +63,7 @@ namespace WormHole
                     break;
                 case Game1.GameState.Pause: //-Zejun and Chris
 
-                    //spriteBatch.Draw(buttons[2].Texture, buttons[2].Position, Color.White);
+                   // spriteBatch.Draw(buttons[2].Texture, buttons[2].Position, Color.White);
 
 
                     spriteBatch.Draw(buttons[3].Texture, new Rectangle(600, 630, 322, 64), Color.White);
@@ -102,12 +102,12 @@ namespace WormHole
                     {
                         Game1.CurrentState = Game1.GameState.Main;
                     }
-                    /*
-                    if (buttons[2].LeftButtonPress(mouseStatus, buttons[2].Position))
-                    {
-                        Game1.CurrentState = Game1.GameState.Game;
-                    }
-                    */
+                    
+                    //if (buttons[2].LeftButtonPress(mouseStatus, buttons[2].Position))
+                    //{
+                    //    Game1.CurrentState = Game1.GameState.Game;
+                    //}
+                    
                     break;
             }
             /*

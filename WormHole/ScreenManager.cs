@@ -90,6 +90,7 @@ namespace WormHole
             mainMenu.Add("button2", Content.Load<Texture2D>("button2"));
             mainMenu.Add("button3", Content.Load<Texture2D>("button3"));
 
+            mainMenu.Add("Instructions", Content.Load<Texture2D>("PauseText"));
             //Adding room tiles - CLos
             mainMenu.Add("*", Content.Load<Texture2D>("wall"));
             mainMenu.Add("B", Content.Load<Texture2D>("Barrier"));
