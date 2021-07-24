@@ -1,4 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿// MenuButton.cs
+// Contributors: Chris LoSardo
+//
+// A class for the menu buttons
+// It is used by all of the menu buttons to detect when they have been pressed
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -28,7 +34,7 @@ namespace WormHole
         {
 
             if (mState.LeftButton == ButtonState.Released &&
-                prevMState.LeftButton == ButtonState.Pressed &&
+             prevMState.LeftButton == ButtonState.Pressed &&
                 collisionBox.Contains(mState.Position))
             {
                 return true;

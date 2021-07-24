@@ -579,5 +579,25 @@ namespace Map_editor
                 //write ...
             }
         }
+
+        private void FloorA15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void WallTop15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FloorB16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void WallTop14_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

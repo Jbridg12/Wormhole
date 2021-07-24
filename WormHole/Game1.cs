@@ -77,6 +77,8 @@ namespace WormHole
                 this.IsMouseVisible = true;
             if (CurrentState == GameState.Gameover)
                 this.IsMouseVisible = true;
+            if (CurrentState == GameState.Pause) //-Zejun and Chris
+                this.IsMouseVisible = true;
 
             ScreenManager.Instance.Update(gameTime);
             UIManager.Instance.Update(gameTime);
@@ -98,7 +100,7 @@ namespace WormHole
             base.Draw(gameTime);
         }
 
-        
+
     }
 
 }

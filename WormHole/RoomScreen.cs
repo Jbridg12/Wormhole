@@ -1,5 +1,5 @@
 ﻿// RoomScreen.cs
-// Contributors: Josh Bridges
+// Contributors: Josh Bridges, Chris LoSardo
 
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace WormHole
     public class RoomScreen : GameScreen
     {
         public RoomScreen parent;
+
         public int Depth { get; set; }
         public int Index { get; set; }  // Index in the floor array that this room is in
 
@@ -29,10 +30,26 @@ namespace WormHole
             doorAnimationState = 0;
         }
 
+
         public RoomScreen(Texture2D texture, SpriteFont font, int depth, List<Entity> entities) : this(texture, font, depth)
         {
             this.Entities = entities;
         }
+
+
+        /*
+        //Level Creation Constructor
+        public RoomScreen(Texture2D texture, SpriteFont font, int depth, string[,] arrayRoom, Dictionary<string, Texture2D> textures) : base(texture, font)
+        {
+            this.arrayRoom = arrayRoom;
+            this.textures = textures;
+
+            //gets the x and y dimensions of the room array
+            xArray = arrayRoom.GetLength(0);
+            yArray = arrayRoom.Length / xArray;
+        }
+        */
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             //base.Draw(spriteBatch);
@@ -52,24 +69,32 @@ namespace WormHole
         }
 
         public override void Update(GameTime gameTime)
-        {
+        { 
+
             KeyboardState status = Keyboard.GetState();
 
             if (!EnemiesAlive())
             {
                 foreach (Entity door in Entities)
                 {
-                    if(door.GetType() == typeof(Door))
+                    if (door.GetType() == typeof(Door))
                         door.Active = true;
                 }
-                    
+
             }
-            
-            if (status.IsKeyDown(Keys.Escape) && !pvState.IsKeyDown(Keys.Escape))          // If the player presses escape to reset the room in case the door 
-                                                        //doesn't load.  This will be replaced by a proper pause function that takes
-                                                        //you back to the main menu later
+
+            if (status.IsKeyDown(Keys.Escape) && !pvState.IsKeyDown(Keys.Escape))// If the player presses escape to reset the room in case the door 
+                                                                                 //doesn't load.  This will be replaced by a proper pause function that takes
+                                                                                 //you back to the main menu later
             {
                 Player.Instance.Reset();
+            }
+
+            if (status.IsKeyDown(Keys.P) && !pvState.IsKeyDown(Keys.P))// If the player presses escape to reset the room in case the door 
+                                                                                 //doesn't load.  This will be replaced by a proper pause function that takes
+                                                                                 //you back to the main menu later
+            {
+                Player.Instance.Pause();
             }
 
             pvState = status;  // Set prvious state
@@ -78,7 +103,7 @@ namespace WormHole
 
         public bool EnemiesAlive()
         {
-            foreach(Entity en in Entities)
+            foreach (Entity en in Entities)
             {
                 if (en is Enemy && en.Active) return true;
             }
