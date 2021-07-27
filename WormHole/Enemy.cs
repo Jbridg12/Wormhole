@@ -72,7 +72,6 @@ namespace WormHole
 
             if (other.GetType() == typeof(Player))
             {
-                //this should kill the player not the enemy
                 this.CurrentHealth = 0;
             }
         }

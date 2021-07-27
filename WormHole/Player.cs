@@ -39,7 +39,9 @@ namespace WormHole
         public int MaxShields { get; set; }
         public int CurrentShields { get; set; }
         private float shotsPerSecond;
-        private float currentTime;
+        private float shootingTime;
+        private float doorTime;
+        private bool UseDoors { get; set; }
 
         private KeyboardState previousState;    // For single press input control
 
@@ -50,9 +52,10 @@ namespace WormHole
             this.Consumables = InitiateConsumables();
             this.state = Mode.Vertical;
             this.shotsPerSecond = 10f;
-            this.currentTime = 0f;
+            this.shootingTime = 0f;
             this.Direction = Game1.Direction.Up;
             this.Speed = 600;
+            this.UseDoors = true;
 
             this.MaxShields = 2;
             this.CurrentShields = this.MaxShields;
@@ -69,7 +72,8 @@ namespace WormHole
                 this.GameOver();
 
             float deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            currentTime += deltaT;
+            shootingTime += deltaT;
+            doorTime += deltaT;
 
             if(previousState != null)   // make sure there is a previous state
             {
@@ -118,14 +122,24 @@ namespace WormHole
                 }
                 if (input.IsKeyDown(Keys.Space))
                 {
-                    if(currentTime >= (1/this.shotsPerSecond))  // shooting depends on the inverse of the amount of shots per second
+                    if(shootingTime >= (1/this.shotsPerSecond))  // shooting depends on the inverse of the amount of shots per second
                     {
-                        currentTime = 0f;
+                        shootingTime = 0f;
                         this.Shoot();
                     }
                 }
 
             }
+
+            if(doorTime >= 1)
+            {
+                UseDoors = true;
+                doorTime = 0;
+            }
+
+            if (UseDoors)
+                doorTime = 0;
+
             this.HandleBounds();
 
             previousState = input;  // Set prvious state
@@ -168,24 +182,25 @@ namespace WormHole
 
         public override void HandleCollision(Entity other) // Need to change this to be scaling based on the room dimensions
         {
-            if (other.GetType() == typeof(Door))
+            if (other.GetType() == typeof(Door) && UseDoors)
             {
                 EntityManager.Instance.NextScreen = ((Door)other).Destination;
                 switch (((Door)other).Direction)
                 {
                     case Game1.Direction.Up:
-                        this.X = 800; this.Y = 700;
+                        this.X = 600; this.Y = 680;
                         break;
                     case Game1.Direction.Down:
-                        this.X = 800; this.Y = 400;
+                        this.X = 600; this.Y = 0;
                         break;
                     case Game1.Direction.Right:
-                        this.X = Globals.XMIN + 50; this.Y = 500;
+                        this.X = Globals.XMIN + 50; this.Y = 360;
                         break;
                     case Game1.Direction.Left:
-                        this.X = Globals.XMAX - 50; this.Y = 500;
+                        this.X = Globals.XMAX - 50; this.Y = 360;
                         break;
                 }
+                this.UseDoors = false;
             }
 
             if (other.GetType() == typeof(Enemy))
@@ -196,7 +211,7 @@ namespace WormHole
         }
 
 
-        public override void HandleBounds()
+       /* public override void HandleBounds()
         {
             if (ScreenManager.Instance.CurrentScreen.GetType().IsSubclassOf(typeof(RoomScreen)))
             {
@@ -217,7 +232,7 @@ namespace WormHole
                     this.Y = 60;
                 }
             }
-        }
+        }*/
 
         public void Shoot()
         {

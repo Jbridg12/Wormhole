@@ -25,7 +25,6 @@ namespace WormHole
                 if(other.GetType() == typeof(Player))
                 {
                     Player.Instance.Consumables["Salvage"]+=10;
-                    Player.Instance.MaxHealth += 2;
                     this.Active = false;
                 }
             }

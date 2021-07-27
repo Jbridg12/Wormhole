@@ -120,23 +120,23 @@ namespace WormHole
                         return new Rectangle(64, 720, 64, 60);
                     }
                 case 'd':
-                    if (i == 0)
+                    if (i == 0) // This means we are working with the Topmost row
                     {
                         this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Up, ScreenManager.Instance.Floor[Index-(int)Math.Sqrt(ScreenManager.Instance.FloorSize)]));
                         return new Rectangle(0, 60 * doorAnimationState, 64, 60);
                     }
-                    else if (i == 11)
+                    else if (i == 11)   // Bottom-most row
                     {
 
                         this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Down, ScreenManager.Instance.Floor[Index + (int)Math.Sqrt(ScreenManager.Instance.FloorSize)]));
                         return new Rectangle(128, (300 - (60 * doorAnimationState)), 64, 60);
                     }
-                    else if (j == 0)
+                    else if (j == 0)    // left-most column
                     {
                         this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Left, ScreenManager.Instance.Floor[Index - 1]));
                         return new Rectangle(64 * doorAnimationState, 420, 64, 60);
                     }
-                    else
+                    else    // right-most column
                     {
                         this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Right, ScreenManager.Instance.Floor[Index + 1]));
                         return new Rectangle((320 - (64 * doorAnimationState)), 480, 64, 60);
