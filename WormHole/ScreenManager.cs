@@ -160,7 +160,7 @@ namespace WormHole
             }
         }
 
-        public void NextFloor(int floorSize)
+        public void NextFloor(int floorSize)    // CLos and Josh Bridges
         {
             //We should change up the look by like changing between 3 or 4 different
             //arts for the background, it's kind of confusing 
@@ -273,7 +273,7 @@ namespace WormHole
         }
 
         //Generate Floor from text file
-        private void GenerateFloor(string loadBoard, Dictionary<string, Texture2D> roomTiles)
+        private void GenerateFloor(string loadBoard, Dictionary<string, Texture2D> roomTiles)   // Deprecated
         {
             //room name that's used as the key in the rooms dictionary
             string roomName;
@@ -290,7 +290,7 @@ namespace WormHole
                     //the data array stores the information in the text file by splitting it where the { is in the text file
                     string[] data = line.Split('{');
 
-                    roomName = data[0].Trim(); ;
+                    roomName = data[0].Trim();
                     roomLayout = data[1];
                     //If you put a break point on line 253 and look at the locals tab in the output window below
                     //you can see how the line of the text file is split up and stored in the data array
