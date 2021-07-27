@@ -19,8 +19,8 @@ namespace WormHole
         public static float SCREEN_SCALING = 0;
         public static int ROOM_TEXTURE_LEFT = 0;
         public static int ROOM_TEXTURE_RIGHT = 0;
-        public static int XMAX = 0;
-        public static int XMIN = 0;
+        public static int XMAX = 1216;
+        public static int XMIN = 64;
         public static void ImageCenter(SpriteBatch sb, GraphicsDeviceManager g, Texture2D texture)
         {
             sb.Draw(

@@ -15,7 +15,7 @@ namespace WormHole
 {
     class EnemyRoom : RoomScreen
     {
-        public string Layout { get; set; }
+        
         public EnemyRoom(int depth) : base(ScreenManager.Instance.ScreenTextures["room"], ScreenManager.Instance.ScreenFonts["base"], depth)
         {
             this.Entities = GenerateEntities();
@@ -25,9 +25,11 @@ namespace WormHole
         {
             this.Index = index;
         }
-        public EnemyRoom(string layout) : base(ScreenManager.Instance.ScreenTextures["room_tiles"], ScreenManager.Instance.ScreenFonts["base"], 0)
+
+        public EnemyRoom(string layout, int index) : base(ScreenManager.Instance.ScreenTextures["room_tiles"], ScreenManager.Instance.ScreenFonts["base"], 0)
         {
             this.Layout = layout;
+            this.Index = index;
         }
 
         private List<Entity> GenerateEntities()
@@ -91,6 +93,7 @@ namespace WormHole
                     }
                 }
             }
+            Parsed = true;
         }
 
         public Rectangle GetTile(char c, int i, int j)  // method to identify the proper tile from spritesheet
@@ -98,7 +101,7 @@ namespace WormHole
             switch (c)
             {
                 case 'C':
-                    return new Rectangle(0, 600, 64, 60);
+                    return new Rectangle(64, 600, 64, 60);
                 case '*':
                     if (i == 0)
                     {
@@ -119,18 +122,23 @@ namespace WormHole
                 case 'd':
                     if (i == 0)
                     {
+                        this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Up, ScreenManager.Instance.Floor[Index-(int)Math.Sqrt(ScreenManager.Instance.FloorSize)]));
                         return new Rectangle(0, 60 * doorAnimationState, 64, 60);
                     }
                     else if (i == 11)
                     {
+
+                        this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Down, ScreenManager.Instance.Floor[Index + (int)Math.Sqrt(ScreenManager.Instance.FloorSize)]));
                         return new Rectangle(128, (300 - (60 * doorAnimationState)), 64, 60);
                     }
                     else if (j == 0)
                     {
+                        this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Left, ScreenManager.Instance.Floor[Index - 1]));
                         return new Rectangle(64 * doorAnimationState, 420, 64, 60);
                     }
                     else
                     {
+                        this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Right, ScreenManager.Instance.Floor[Index + 1]));
                         return new Rectangle((320 - (64 * doorAnimationState)), 480, 64, 60);
                     }
                     
@@ -154,7 +162,8 @@ namespace WormHole
                 case '-':
                     return new Rectangle(0, 600, 64, 60);
                 case 'E':
-                    this.Entities.Add(new Enemy(new Rectangle(j*64, i*60, 100, 100), EntityManager.Instance.Textures["enemy"]));
+                    if(!Parsed)
+                        this.Entities.Add(new Enemy(new Rectangle(j*64, i*60, 100, 100), EntityManager.Instance.Textures["enemy"]));
                     return new Rectangle(0, 600, 64, 60);
                 default:
                     return new Rectangle();

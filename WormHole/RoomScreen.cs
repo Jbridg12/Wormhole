@@ -20,6 +20,11 @@ namespace WormHole
         public int Index { get; set; }  // Index in the floor array that this room is in
 
         protected int doorAnimationState;   // animation state for door animation later
+        protected int timeSinceLastFrame;
+        protected int millisecondsPerFrame;
+        protected bool Parsed;
+        public string Layout { get; set; }
+        public bool Open { get; set; }
 
         KeyboardState pvState;
 
@@ -28,6 +33,10 @@ namespace WormHole
             this.Depth = depth;
             this.Entities.Add(Player.Instance);
             doorAnimationState = 0;
+            this.Parsed = false;
+            millisecondsPerFrame = 1500 / 6;
+            timeSinceLastFrame = 0;
+            Open = false;
         }
 
 
@@ -36,6 +45,7 @@ namespace WormHole
             this.Entities = entities;
         }
 
+        
 
         /*
         //Level Creation Constructor
@@ -73,15 +83,29 @@ namespace WormHole
 
             KeyboardState status = Keyboard.GetState();
 
-            if (!EnemiesAlive())
+            if (!EnemiesAlive() && doorAnimationState < 5)
             {
+                timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
+
+                if (timeSinceLastFrame > millisecondsPerFrame)
+                {
+                    doorAnimationState++;
+                    timeSinceLastFrame = 0;
+                }
+                /**/
+
+            }
+
+            if(doorAnimationState == 5 && !Open)
+            {
+                Open = true;
                 foreach (Entity door in Entities)
                 {
                     if (door.GetType() == typeof(Door))
                         door.Active = true;
                 }
-
             }
+                
 
             if (status.IsKeyDown(Keys.Escape) && !pvState.IsKeyDown(Keys.Escape))// If the player presses escape to reset the room in case the door 
                                                                                  //doesn't load.  This will be replaced by a proper pause function that takes

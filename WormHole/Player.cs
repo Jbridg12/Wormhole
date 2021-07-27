@@ -200,21 +200,21 @@ namespace WormHole
         {
             if (ScreenManager.Instance.CurrentScreen.GetType().IsSubclassOf(typeof(RoomScreen)))
             {
-                if (this.X > Globals.XMAX)
+                if ((this.X) > Globals.XMAX)
                 {
                     this.X = Globals.XMAX;
                 }
-                if (this.X < Globals.XMIN)
+                if (this.X  < Globals.XMIN)
                 {
                     this.X = Globals.XMIN;
                 }
-                if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height - 100)
+                if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height - 60)
                 {
-                    this.Y = Game1._graphics.GraphicsDevice.Viewport.Height - 100;
+                    this.Y = Game1._graphics.GraphicsDevice.Viewport.Height - 60;
                 }
-                if (this.Y < 100)
+                if (this.Y < 60)
                 {
-                    this.Y = 100;
+                    this.Y = 60;
                 }
             }
         }

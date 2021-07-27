@@ -56,6 +56,7 @@ namespace WormHole
         public RoomScreen NextRoom { get; private set; }
         public GameScreen CurrentScreen { get; private set; }
         public RoomScreen[] Floor { get; private set; }
+        public int FloorSize { get; set; }
 
         public SpriteFont font;
 
@@ -104,8 +105,8 @@ namespace WormHole
 
             // Set Globals for room scaling
             Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;
-            Globals.XMAX = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) + (50 * Globals.SCREEN_SCALING));
-            Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
+            //Globals.XMAX = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) + (50 * Globals.SCREEN_SCALING));
+           // Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
             Globals.ROOM_TEXTURE_LEFT = (int)((Game1._graphics.GraphicsDevice.Viewport.Width - ((ScreenTextures["room"].Width) * Globals.SCREEN_SCALING)) / 2);
             Globals.ROOM_TEXTURE_RIGHT = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)));
             CurrentScreen = screens["MainMenu"];
@@ -130,23 +131,22 @@ namespace WormHole
         {
             Random rand = new Random();
             var reader = File.OpenText(String.Format(@"..\..\..\{0}", textFile));
-            var floorSize = File.ReadLines(String.Format(@"..\..\..\{0}", textFile)).Count();
+            FloorSize = File.ReadLines(String.Format(@"..\..\..\{0}", textFile)).Count();
 
-            Floor = new RoomScreen[floorSize];
+            Floor = new RoomScreen[FloorSize];
 
-            string format = reader.ReadLine();
-            for (int i = 0; i < floorSize; i++)
+            for (int i = 0; i < FloorSize; i++)
             {
-                //string format = reader.ReadLine();
+                string format = reader.ReadLine();
                 string[] parts = format.Split(' ');
 
                 if (Int32.Parse(parts[0]) == 1)
                 {
-                    Floor[i] = new EnemyRoom(parts[1]);
+                    Floor[i] = new EnemyRoom(parts[1], i);
                 }
             }
 
-            NextRoom = Floor[floorSize / 2];
+            NextRoom = Floor[FloorSize / 2];
 
             // SetupDoors(floorSize);   // Doors and some other functions do not yet work with this method
 

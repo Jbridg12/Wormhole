@@ -98,9 +98,9 @@ namespace WormHole
                     Mouse.SetPosition(515, 320);
 
                     // This creates the updated room design using the text files to build to the room from a spritesheet
-                    //ScreenManager.Instance.ReadFloor("WormholeTest.txt");
+                    ScreenManager.Instance.ReadFloor("WormholeTest.txt");
 
-                    ScreenManager.Instance.NextFloor(25); // Enter the first (and only) room               
+                    //ScreenManager.Instance.NextFloor(25); // Enter the first (and only) room               
                     break;
             }
           
