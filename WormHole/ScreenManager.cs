@@ -110,7 +110,6 @@ namespace WormHole
             Globals.ROOM_TEXTURE_LEFT = (int)((Game1._graphics.GraphicsDevice.Viewport.Width - ((ScreenTextures["room"].Width) * Globals.SCREEN_SCALING)) / 2);
             Globals.ROOM_TEXTURE_RIGHT = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)));
             CurrentScreen = screens["MainMenu"];
-            //screens.Add("Room", new RoomScreen(ScreenTextures["room"], ScreenFonts["base"], new List<Entity> { new Enemy(new Rectangle(20, 20, 100, 100), EntityManager.Instance.Textures["enemy"]) }));
 
             loadBoard = "test Floor.txt";
             GenerateFloor("..\\..\\..\\" + loadBoard, mainMenu);
@@ -259,7 +258,7 @@ namespace WormHole
             EntityManager.Instance.NextScreen = screens[str];
         }
 
-        public void ChangeScreen(GameScreen rs)
+        public void ChangeScreen(GameScreen rs)     // different parameter overloading
         {
             EntityManager.Instance.NextScreen = rs;
         }
