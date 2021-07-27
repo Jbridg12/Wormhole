@@ -92,7 +92,6 @@ namespace WormHole
                     doorAnimationState++;
                     timeSinceLastFrame = 0;
                 }
-                /**/
 
             }
 
