@@ -267,8 +267,12 @@ namespace WormHole
 
         public void Pause() //- Zejun and Chris
         {
+            ((GameOverScreen) ScreenManager.Instance.Screens["Pause"]).LastScreen = ScreenManager.Instance.CurrentScreen;
+
             Game1.CurrentState = Game1.GameState.Pause;
             ScreenManager.Instance.ChangeScreen("Pause");
+
+
         }
 
     }

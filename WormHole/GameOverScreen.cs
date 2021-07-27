@@ -23,6 +23,7 @@ namespace WormHole
         private Rectangle displayLocation;
         private SpriteFont font;
 
+        public GameScreen LastScreen { get; set; }
 
         //Button code - CLos
         private List<MenuButton> buttons;
@@ -97,16 +98,19 @@ namespace WormHole
                     ScreenManager.Instance.ChangeScreen("MainMenu");
                     break;
                 case Game1.GameState.Pause: //-Zejun and Chris
+
+
                     currentDisplay = Displays["Pause"];
                     if (buttons[3].LeftButtonPress(mouseStatus, new Rectangle(600, 630, 322, 64)))
                     {
                         Game1.CurrentState = Game1.GameState.Main;
                     }
                     
-                    if (buttons[2].LeftButtonPress(mouseStatus, buttons[2].Position))
-                    {
-                        Game1.CurrentState = Game1.GameState.Game;
-                    }
+                    //if (buttons[2].LeftButtonPress(mouseStatus, buttons[2].Position))
+                    //{
+                    //    Game1.CurrentState = Game1.GameState.Game;
+                    //    ScreenManager.Instance.ChangeScreen(LastScreen);
+                    //}
                     
                     break;
             }
