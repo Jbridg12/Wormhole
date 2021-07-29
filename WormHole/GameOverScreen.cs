@@ -3,15 +3,10 @@
 //
 // A screen type that is used for doing menu screens in the game, converted into the game over screen
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 
 namespace WormHole
 {
@@ -46,7 +41,7 @@ namespace WormHole
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
+
             spriteBatch.Draw(currentDisplay, displayLocation, Color.White);
 
             switch (Game1.CurrentState) //-CLos
@@ -100,18 +95,18 @@ namespace WormHole
                 case Game1.GameState.Pause: //-Zejun and Chris
 
 
-                    currentDisplay = Displays["Pause"];
+                    //currentDisplay = Displays["Pause"];
                     if (buttons[3].LeftButtonPress(mouseStatus, new Rectangle(600, 630, 322, 64)))
                     {
                         Game1.CurrentState = Game1.GameState.Main;
                     }
-                    
-                    //if (buttons[2].LeftButtonPress(mouseStatus, buttons[2].Position))
-                    //{
-                    //    Game1.CurrentState = Game1.GameState.Game;
-                    //    ScreenManager.Instance.ChangeScreen(LastScreen);
-                    //}
-                    
+
+                    if (buttons[2].LeftButtonPress(mouseStatus, buttons[2].Position))
+                    {
+                        Game1.CurrentState = Game1.GameState.Game;
+                        //ScreenManager.Instance.ChangeScreen(LastScreen);
+                    }
+
                     break;
             }
             /*

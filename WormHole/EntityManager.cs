@@ -66,11 +66,13 @@ namespace WormHole
 
         public void Update(GameTime time)
         {
+
             if (NextScreen != null)
                 ScreenManager.Instance.UpdateScreen(NextScreen);
 
             if (Game1.CurrentState == Game1.GameState.Pause)
             {
+                ScreenManager.Instance.Screens["Pause"].Update(time);
                 paused = true;
                 return;
             }

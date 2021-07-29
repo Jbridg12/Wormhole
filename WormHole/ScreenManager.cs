@@ -101,7 +101,7 @@ namespace WormHole
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
             screens.Add("GameOver", new GameOverScreen(mainMenu, ScreenFonts["base"])); //-Zejun, Chris and Deen
-            screens.Add("Pause", new GameOverScreen(mainMenu, ScreenFonts["base"])); //-Zejun and Chris
+            screens.Add("Pause", new PauseScreen(mainMenu, ScreenFonts["base"])); //-Zejun and Chris
 
             // Set Globals for room scaling
             Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;

@@ -143,6 +143,8 @@ namespace WormHole
             this.HandleBounds();
 
             previousState = input;  // Set prvious state
+
+           
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -170,7 +172,14 @@ namespace WormHole
                         0);
                     break;
             }
-            
+
+
+            if (Game1.CurrentState == Game1.GameState.Pause)
+            {
+                ScreenManager.Instance.Screens["Pause"].Draw(spriteBatch);
+            }
+
+
         }
         private Dictionary<string, int> InitiateConsumables()
         {
@@ -265,12 +274,18 @@ namespace WormHole
             ScreenManager.Instance.ChangeScreen("GameOver");
         }
 
-        public void Pause() //- Zejun and Chris
+        public void Pause(bool pauseState) //- Zejun and Chris
         {
-            ((GameOverScreen) ScreenManager.Instance.Screens["Pause"]).LastScreen = ScreenManager.Instance.CurrentScreen;
-
-            Game1.CurrentState = Game1.GameState.Pause;
-            ScreenManager.Instance.ChangeScreen("Pause");
+            //((GameOverScreen) ScreenManager.Instance.Screens["Pause"]).LastScreen = ScreenManager.Instance.CurrentScreen;
+            if (pauseState)
+            {
+                Game1.CurrentState = Game1.GameState.Pause;
+            }
+            else
+            {
+                Game1.CurrentState = Game1.GameState.Game;
+            }
+            //ScreenManager.Instance.ChangeScreen("Pause");
 
 
         }

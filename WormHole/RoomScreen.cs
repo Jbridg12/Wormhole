@@ -16,6 +16,7 @@ namespace WormHole
     {
         public RoomScreen parent;
 
+        bool pauseState = false;
         public int Depth { get; set; }
         public int Index { get; set; }  // Index in the floor array that this room is in
 
@@ -117,7 +118,16 @@ namespace WormHole
                                                                                  //doesn't load.  This will be replaced by a proper pause function that takes
                                                                                  //you back to the main menu later
             {
-                Player.Instance.Pause();
+                if (!pauseState)
+                {
+                    pauseState = true;
+                    Player.Instance.Pause(pauseState);
+                }
+                else 
+                {
+                    pauseState = false;
+                    Player.Instance.Pause(pauseState);
+                }
             }
 
             pvState = status;  // Set prvious state
