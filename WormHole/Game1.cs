@@ -83,6 +83,9 @@ namespace WormHole
             ScreenManager.Instance.Update(gameTime);
             UIManager.Instance.Update(gameTime);
             EntityManager.Instance.Update(gameTime);
+
+            
+
             base.Update(gameTime);
         }
 

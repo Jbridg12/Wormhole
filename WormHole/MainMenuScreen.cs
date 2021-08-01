@@ -48,6 +48,7 @@ namespace WormHole
             //spriteBatch.DrawString(font, "Hello!", new Vector2(480.0f, 200.0f), Color.Aquamarine);
             spriteBatch.Draw(currentDisplay, displayLocation, Color.White);
 
+
             switch (Game1.CurrentState) //-CLos
             {
                 case Game1.GameState.Main:

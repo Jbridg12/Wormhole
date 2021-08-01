@@ -33,7 +33,7 @@ namespace WormHole
         }
 
         // specific player attributes
-        enum Mode { Vertical, Horizontal}
+        enum Mode { Vertical, Horizontal }
         private Mode state;
 
         public int MaxShields { get; set; }
@@ -66,120 +66,129 @@ namespace WormHole
 
         public override void Update(GameTime gameTime)
         {
-            KeyboardState input = Keyboard.GetState();
-
-            if (this.CurrentHealth <= 0)
-                this.GameOver();
-
-            float deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            shootingTime += deltaT;
-            doorTime += deltaT;
-
-            if(previousState != null)   // make sure there is a previous state
+            //Switch Statement so that the player is only updated in the game, preventing movement on the pause screen
+            switch (Game1.CurrentState) // - CLoS
             {
-                if (input.IsKeyDown(Keys.LeftShift) && !previousState.IsKeyDown(Keys.LeftShift))    // this only allows single presses to count as one input
-                {
-                    if (state == Mode.Vertical)      // Just changes the mode for now
+                case Game1.GameState.Game:
+                    KeyboardState input = Keyboard.GetState();
+
+                    if (this.CurrentHealth <= 0)
+                        this.GameOver();
+
+                    float deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    shootingTime += deltaT;
+                    doorTime += deltaT;
+
+                    if (previousState != null)   // make sure there is a previous state
                     {
-                        state = Mode.Horizontal;
+                        if (input.IsKeyDown(Keys.LeftShift) && !previousState.IsKeyDown(Keys.LeftShift))    // this only allows single presses to count as one input
+                        {
+                            if (state == Mode.Vertical)      // Just changes the mode for now
+                            {
+                                state = Mode.Horizontal;
+                            }
+                            else
+                            {
+                                state = Mode.Vertical;
+                            }
+
+                        }
+
+
+                        // Handle basic movement with WASD
+                        if (input.IsKeyDown(Keys.W))
+                        {
+                            if (Direction != Game1.Direction.Up)
+                                Direction = Game1.Direction.Up;
+
+                            this.Y -= (int)(this.Speed * deltaT);
+                        }
+                        if (input.IsKeyDown(Keys.S))
+                        {
+                            if (Direction != Game1.Direction.Down)
+                                Direction = Game1.Direction.Down;
+
+                            this.Y += (int)(this.Speed * deltaT);
+                        }
+                        if (input.IsKeyDown(Keys.A))
+                        {
+                            if (Direction != Game1.Direction.Left)
+                                Direction = Game1.Direction.Left;
+
+                            this.X -= (int)(this.Speed * deltaT);
+                        }
+                        if (input.IsKeyDown(Keys.D))
+                        {
+                            if (Direction != Game1.Direction.Right)
+                                Direction = Game1.Direction.Right;
+
+                            this.X += (int)(this.Speed * deltaT);
+                        }
+                        if (input.IsKeyDown(Keys.Space))
+                        {
+                            if (shootingTime >= (1 / this.shotsPerSecond))  // shooting depends on the inverse of the amount of shots per second
+                            {
+                                shootingTime = 0f;
+                                this.Shoot();
+                            }
+                        }
+
                     }
-                    else
+
+                    if (doorTime >= 1)
                     {
-                        state = Mode.Vertical;
+                        UseDoors = true;
+                        doorTime = 0;
                     }
 
-                }
+                    if (UseDoors)
+                        doorTime = 0;
 
+                    this.HandleBounds();
 
-                // Handle basic movement with WASD
-                if (input.IsKeyDown(Keys.W))
-                {
-                    if (Direction != Game1.Direction.Up)
-                        Direction = Game1.Direction.Up;
-
-                    this.Y -= (int)(this.Speed * deltaT);
-                }
-                if (input.IsKeyDown(Keys.S))
-                {
-                    if (Direction != Game1.Direction.Down)
-                        Direction = Game1.Direction.Down;
-
-                    this.Y += (int)(this.Speed * deltaT);
-                }
-                if (input.IsKeyDown(Keys.A))
-                {
-                    if (Direction != Game1.Direction.Left)
-                        Direction = Game1.Direction.Left;
-
-                    this.X -= (int)(this.Speed * deltaT);
-                }
-                if (input.IsKeyDown(Keys.D))
-                {
-                    if (Direction != Game1.Direction.Right)
-                        Direction = Game1.Direction.Right;
-
-                    this.X += (int)(this.Speed * deltaT);
-                }
-                if (input.IsKeyDown(Keys.Space))
-                {
-                    if(shootingTime >= (1/this.shotsPerSecond))  // shooting depends on the inverse of the amount of shots per second
-                    {
-                        shootingTime = 0f;
-                        this.Shoot();
-                    }
-                }
-
+                    previousState = input;  // Set prvious state
+                    break;
             }
-
-            if(doorTime >= 1)
-            {
-                UseDoors = true;
-                doorTime = 0;
-            }
-
-            if (UseDoors)
-                doorTime = 0;
-
-            this.HandleBounds();
-
-            previousState = input;  // Set prvious state
-
-           
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            switch (state)
+            //Switch Statement so that the player is only drawn on the pause screen and the game
+            switch (Game1.CurrentState) // - CLoS
             {
-                case Mode.Vertical:                                     // Draw the sprite in mode 0
-                    spriteBatch.Draw(Texture, 
-                        Position,
-                        new Rectangle(230, 105, 322, 160),              // get the area of the Texture
-                        Color.White,
-                        (float)((float)Direction * (float)(Math.PI/2)),   // using north as origin rotate in radians 
-                        new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
-                        SpriteEffects.None,
-                        0);
-                    break;
-                case Mode.Horizontal:                                     // Draw the sprite in mode 1
-                    spriteBatch.Draw(Texture,
-                        Position,
-                        new Rectangle(103, 300, 207, 260),                // get the arae of the Texture
-                        Color.White,
-                        (float)((float)Direction * (float)(Math.PI/2)),     // using north as origin rotate in radians 
-                        new Vector2(Position.Width, Position.Height),     // keep image centered while rotating
-                        SpriteEffects.None,
-                        0);
+                case Game1.GameState.Pause:
+                case Game1.GameState.Game:
+                    switch (state)
+                    {
+                        case Mode.Vertical:                                     // Draw the sprite in mode 0
+                            spriteBatch.Draw(Texture,
+                                Position,
+                                new Rectangle(230, 105, 322, 160),              // get the area of the Texture
+                                Color.White,
+                                (float)((float)Direction * (float)(Math.PI / 2)),   // using north as origin rotate in radians 
+                                new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
+                                SpriteEffects.None,
+                                0);
+                            break;
+                        case Mode.Horizontal:                                     // Draw the sprite in mode 1
+                            spriteBatch.Draw(Texture,
+                                Position,
+                                new Rectangle(103, 300, 207, 260),                // get the arae of the Texture
+                                Color.White,
+                                (float)((float)Direction * (float)(Math.PI / 2)),     // using north as origin rotate in radians 
+                                new Vector2(Position.Width, Position.Height),     // keep image centered while rotating
+                                SpriteEffects.None,
+                                0);
+                            break;
+                    }
+
+
+                    if (Game1.CurrentState == Game1.GameState.Pause)
+                    {
+                        ScreenManager.Instance.Screens["Pause"].Draw(spriteBatch);
+                    }
                     break;
             }
-
-
-            if (Game1.CurrentState == Game1.GameState.Pause)
-            {
-                ScreenManager.Instance.Screens["Pause"].Draw(spriteBatch);
-            }
-
-
         }
         private Dictionary<string, int> InitiateConsumables()
         {
@@ -220,28 +229,28 @@ namespace WormHole
         }
 
 
-       /* public override void HandleBounds()
-        {
-            if (ScreenManager.Instance.CurrentScreen.GetType().IsSubclassOf(typeof(RoomScreen)))
-            {
-                if ((this.X) > Globals.XMAX)
-                {
-                    this.X = Globals.XMAX;
-                }
-                if (this.X  < Globals.XMIN)
-                {
-                    this.X = Globals.XMIN;
-                }
-                if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height - 60)
-                {
-                    this.Y = Game1._graphics.GraphicsDevice.Viewport.Height - 60;
-                }
-                if (this.Y < 60)
-                {
-                    this.Y = 60;
-                }
-            }
-        }*/
+        /* public override void HandleBounds()
+         {
+             if (ScreenManager.Instance.CurrentScreen.GetType().IsSubclassOf(typeof(RoomScreen)))
+             {
+                 if ((this.X) > Globals.XMAX)
+                 {
+                     this.X = Globals.XMAX;
+                 }
+                 if (this.X  < Globals.XMIN)
+                 {
+                     this.X = Globals.XMIN;
+                 }
+                 if (this.Y > Game1._graphics.GraphicsDevice.Viewport.Height - 60)
+                 {
+                     this.Y = Game1._graphics.GraphicsDevice.Viewport.Height - 60;
+                 }
+                 if (this.Y < 60)
+                 {
+                     this.Y = 60;
+                 }
+             }
+         }*/
 
         public void Shoot()
         {
@@ -252,12 +261,12 @@ namespace WormHole
         public void Reset()
         {
             //change to go to end screen
-            
+
             //Reset to Menu Screen
-            
+
             Game1.CurrentState = Game1.GameState.Main;
-            
-            
+
+
             /*Game1.CurrentState = Game1.GameState.Main;
             //Game1.CurrentState = Game1.GameState.Gameover;
             */
