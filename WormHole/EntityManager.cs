@@ -16,6 +16,7 @@ namespace WormHole
 {
     public class EntityManager
     {
+
         private static EntityManager instance;
         public static EntityManager Instance
         {
@@ -33,6 +34,8 @@ namespace WormHole
         public ContentManager Content { get; private set; }
         public List<Entity> UpdatedEntities { get; set; }
         public GameScreen NextScreen { get; set; }
+        public bool paused { get; set; }
+
 
         public EntityManager()
         {
@@ -40,6 +43,7 @@ namespace WormHole
             UpdatedEntities = new List<Entity>();
             Textures = new Dictionary<string, Texture2D>();
             NextScreen = null;
+            paused = false;
         }
 
         public void LoadContent(ContentManager Content)
@@ -63,17 +67,20 @@ namespace WormHole
         public void Update(GameTime time)
         {
 
-
             if (NextScreen != null)
                 ScreenManager.Instance.UpdateScreen(NextScreen);
 
             if (Game1.CurrentState == Game1.GameState.Pause)
             {
+                ScreenManager.Instance.Screens["Pause"].Update(time);
+                paused = true;
                 return;
             }
-
+            if (!paused)
+            {
                 CurrentScreenEntities = new List<Entity>(this.UpdatedEntities);     // dynamically update the entites
                 UpdatedEntities.Clear();
+            }
             
 
             for (int i = 0; i < CurrentScreenEntities.Count; i++)
@@ -101,6 +108,7 @@ namespace WormHole
                 
             }
 
+            paused = false;
             
         }
 
