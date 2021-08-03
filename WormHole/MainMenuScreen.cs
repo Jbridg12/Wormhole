@@ -22,7 +22,6 @@ namespace WormHole
         private int selectedButton;
         private Rectangle displayLocation;
 
-        private RoomGen roomDraw;
 
         //Button code - CLos
         private List<MenuButton> buttons;

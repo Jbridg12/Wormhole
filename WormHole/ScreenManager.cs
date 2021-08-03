@@ -24,7 +24,6 @@ namespace WormHole
         //Load Variables - CLos
         StreamReader input = null;
         string loadBoard = "";
-        List<RoomGen> rooms = new List<RoomGen>();
         private string line = null;
         private string[,] arrayRoom;
 
@@ -106,19 +105,25 @@ namespace WormHole
             // Set Globals for room scaling
             Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;
             //Globals.XMAX = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) + (50 * Globals.SCREEN_SCALING));
-           // Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
+            // Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
             Globals.ROOM_TEXTURE_LEFT = (int)((Game1._graphics.GraphicsDevice.Viewport.Width - ((ScreenTextures["room"].Width) * Globals.SCREEN_SCALING)) / 2);
             Globals.ROOM_TEXTURE_RIGHT = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)));
             CurrentScreen = screens["MainMenu"];
 
+            /*
             loadBoard = "test Floor.txt";
             GenerateFloor("..\\..\\..\\" + loadBoard, mainMenu);
+            */
 
         }
 
         public void Update(GameTime time)
         {
             CurrentScreen.Update(time);
+            if (Game1.CurrentState == Game1.GameState.Pause) //Allows the buttons on the pause screen to function -CLoS
+            {
+                ScreenManager.Instance.Screens["Pause"].Update(time);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -160,6 +165,26 @@ namespace WormHole
             }
         }
 
+        public void ChangeScreen(string str)       // Function to allow changing the CurrentScreen variable
+        {
+            EntityManager.Instance.NextScreen = screens[str];
+        }
+
+        public void ChangeScreen(GameScreen rs)     // different parameter overloading
+        {
+            EntityManager.Instance.NextScreen = rs;
+        }
+
+        public void UpdateScreen(GameScreen gs)
+        {
+            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
+            CurrentScreen = gs;
+
+            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);
+            EntityManager.Instance.NextScreen = null;
+        }
+
+        /*
         public void NextFloor(int floorSize)    // CLos and Josh Bridges
         {
             //We should change up the look by like changing between 3 or 4 different
@@ -252,26 +277,9 @@ namespace WormHole
                 }
             }
         }
+        */
 
-        public void ChangeScreen(string str)       // Function to allow changing the CurrentScreen variable
-        {
-            EntityManager.Instance.NextScreen = screens[str];
-        }
-
-        public void ChangeScreen(GameScreen rs)     // different parameter overloading
-        {
-            EntityManager.Instance.NextScreen = rs;
-        }
-
-        public void UpdateScreen(GameScreen gs)
-        {
-            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
-            CurrentScreen = gs;
-
-            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);
-            EntityManager.Instance.NextScreen = null;
-        }
-
+        /*
         //Generate Floor from text file
         private void GenerateFloor(string loadBoard, Dictionary<string, Texture2D> roomTiles)   // Deprecated
         {
@@ -335,7 +343,7 @@ namespace WormHole
             }
         }
 
-
+        */
         //public void DrawRoom(SpriteBatch spriteBatch)
         //{
         //    //Code to determine which room to load

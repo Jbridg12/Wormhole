@@ -149,6 +149,7 @@ namespace WormHole
                     previousState = input;  // Set prvious state
                     break;
             }
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -283,15 +284,16 @@ namespace WormHole
             ScreenManager.Instance.ChangeScreen("GameOver");
         }
 
-        public void Pause(bool pauseState) //- Zejun and Chris
+        public void Pause() //- Zejun and Chris
         {
             //((GameOverScreen) ScreenManager.Instance.Screens["Pause"]).LastScreen = ScreenManager.Instance.CurrentScreen;
-            if (pauseState)
+            if (Game1.CurrentState == Game1.GameState.Game)
             {
                 Game1.CurrentState = Game1.GameState.Pause;
             }
             else
             {
+                
                 Game1.CurrentState = Game1.GameState.Game;
             }
             //ScreenManager.Instance.ChangeScreen("Pause");

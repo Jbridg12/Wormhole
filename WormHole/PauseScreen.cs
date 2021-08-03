@@ -24,7 +24,6 @@ namespace WormHole
 
         private SpriteFont font;
 
-        private RoomGen roomDraw;
 
         //Button code - CLos
         private List<MenuButton> buttons;
@@ -58,7 +57,7 @@ namespace WormHole
 
 
                     spriteBatch.Draw(buttons[3].Texture, new Rectangle(600, 630, 322, 64), Color.White);
-                    spriteBatch.DrawString(font, "Pause", new Vector2(Game1._graphics.GraphicsDevice.Viewport.Width / 2 - 65, 30), Color.Red);
+                    spriteBatch.DrawString(font, "Pause, Press P to unpause", new Vector2(Game1._graphics.GraphicsDevice.Viewport.Width / 2 - 65, 30), Color.Red);
                     break;
             }
         }
@@ -80,7 +79,7 @@ namespace WormHole
 
                     if (buttons[2].LeftButtonPress(mouseStatus, buttons[2].Position))
                     {
-                        Player.Instance.Pause(false);
+                        Player.Instance.Pause();
                     }
                     break;
             }

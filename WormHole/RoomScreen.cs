@@ -14,9 +14,11 @@ namespace WormHole
 {
     public class RoomScreen : GameScreen
     {
+
         public RoomScreen parent;
 
-        bool pauseState = false;
+        //bool pauseState = false;
+
         public int Depth { get; set; }
         public int Index { get; set; }  // Index in the floor array that this room is in
 
@@ -46,7 +48,7 @@ namespace WormHole
             this.Entities = entities;
         }
 
-        
+
 
         /*
         //Level Creation Constructor
@@ -80,7 +82,8 @@ namespace WormHole
         }
 
         public override void Update(GameTime gameTime)
-        { 
+        {
+
 
             KeyboardState status = Keyboard.GetState();
 
@@ -96,7 +99,7 @@ namespace WormHole
 
             }
 
-            if(doorAnimationState == 5 && !Open)
+            if (doorAnimationState == 5 && !Open)
             {
                 Open = true;
                 foreach (Entity door in Entities)
@@ -105,7 +108,7 @@ namespace WormHole
                         door.Active = true;
                 }
             }
-                
+
 
             if (status.IsKeyDown(Keys.Escape) && !pvState.IsKeyDown(Keys.Escape))// If the player presses escape to reset the room in case the door 
                                                                                  //doesn't load.  This will be replaced by a proper pause function that takes
@@ -115,23 +118,25 @@ namespace WormHole
             }
 
             if (status.IsKeyDown(Keys.P) && !pvState.IsKeyDown(Keys.P))// If the player presses escape to reset the room in case the door 
-                                                                                 //doesn't load.  This will be replaced by a proper pause function that takes
-                                                                                 //you back to the main menu later
+                                                                       //doesn't load.  This will be replaced by a proper pause function that takes
+                                                                       //you back to the main menu later
             {
-                if (!pauseState)
+                Mouse.SetPosition(515, 320);
+                if (Game1.CurrentState == Game1.GameState.Game)
                 {
-                    pauseState = true;
-                    Player.Instance.Pause(pauseState);
+                    //pauseState = true;
+                    Player.Instance.Pause();
                 }
-                else 
+                else
                 {
-                    pauseState = false;
-                    Player.Instance.Pause(pauseState);
+                    //pauseState = false;
+                    Player.Instance.Pause();
                 }
             }
 
-            pvState = status;  // Set prvious state
+            pvState = status;  // Set previous state
             base.Update(gameTime);
+            
         }
 
         public bool EnemiesAlive()
