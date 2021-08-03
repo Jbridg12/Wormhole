@@ -60,7 +60,7 @@ namespace WormHole
             Textures.Add("button1", Content.Load<Texture2D>("button1"));
             Textures.Add("button2", Content.Load<Texture2D>("button2"));
             Textures.Add("button3", Content.Load<Texture2D>("button3"));
-
+            Textures.Add("HUDRect", Content.Load<Texture2D>("HUDRect")); //Background Rectangle -CLoS
 
         }
 

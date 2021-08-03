@@ -1,5 +1,5 @@
 ﻿// Player.cs
-// Contributors: Josh Bridges
+// Contributors: Josh Bridges, Chris LoSardo, Zejun Meng
 //
 // Player Class
 // Inherits the character class
@@ -281,7 +281,15 @@ namespace WormHole
         public void GameOver() //-Zejun, Chris, and Deen
         {
             Game1.CurrentState = Game1.GameState.Gameover;
-            ScreenManager.Instance.ChangeScreen("GameOver");
+            //Changes the screen based on whether the player died or used the pause menu -CLoS
+            if (CurrentHealth > 0)
+            {
+                ScreenManager.Instance.ChangeScreen("Success");
+            }
+            else
+            {
+                ScreenManager.Instance.ChangeScreen("GameOver");
+            }
         }
 
         public void Pause() //- Zejun and Chris
@@ -293,13 +301,12 @@ namespace WormHole
             }
             else
             {
-                
+
                 Game1.CurrentState = Game1.GameState.Game;
             }
             //ScreenManager.Instance.ChangeScreen("Pause");
 
 
         }
-
     }
 }

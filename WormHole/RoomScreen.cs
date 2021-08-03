@@ -78,7 +78,6 @@ namespace WormHole
 
             //spriteBatch.DrawString(Font, String.Format("Max X: {0} Scale: {1} Index: {2}", (int)((Display.Width + ((Game1._graphics.GraphicsDevice.Viewport.Width - Display.Width) / 2)) - (50 * Globals.SCREEN_SCALING)), Globals.SCREEN_SCALING, Index), Vector2.Zero, Color.White);
             //spriteBatch.DrawString(Font, String.Format("Height: {0} Scale: {1} Index: {2}", Game1._graphics.GraphicsDevice.Viewport.Height, Globals.SCREEN_SCALING, Index), Vector2.Zero, Color.White);
-            spriteBatch.DrawString(Font, String.Format("Salvage: {0}", Player.Instance.Consumables["Salvage"]), new Vector2(1500f, 60f), Color.Black);
         }
 
         public override void Update(GameTime gameTime)
@@ -89,12 +88,17 @@ namespace WormHole
 
             if (!EnemiesAlive() && doorAnimationState < 5)
             {
-                timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
-
-                if (timeSinceLastFrame > millisecondsPerFrame)
+                switch (Game1.CurrentState) //Only update the door when the game is running -CLoS
                 {
-                    doorAnimationState++;
-                    timeSinceLastFrame = 0;
+                    case Game1.GameState.Game:
+                        timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
+
+                        if (timeSinceLastFrame > millisecondsPerFrame)
+                        {
+                            doorAnimationState++;
+                            timeSinceLastFrame = 0;
+                        }
+                        break;
                 }
 
             }
@@ -136,7 +140,7 @@ namespace WormHole
 
             pvState = status;  // Set previous state
             base.Update(gameTime);
-            
+
         }
 
         public bool EnemiesAlive()

@@ -16,7 +16,7 @@ namespace WormHole
         private Game1.Direction Direction;
         public int Range { get; set; }
         private int speed;
-        public int DistTravelled { get; set;}
+        public int DistTravelled { get; set; }
 
         public Bullet(Rectangle position, Texture2D texture) : base(position, texture)
         {
@@ -36,22 +36,22 @@ namespace WormHole
                     switch (this.Direction)
                     {
                         case Game1.Direction.Up:
-                            this.Y-= (int)(this.speed * deltaT);
+                            this.Y -= (int)(this.speed * deltaT);
                             break;
                         case Game1.Direction.Down:
-                            this.Y+= (int)(this.speed * deltaT);
+                            this.Y += (int)(this.speed * deltaT);
                             break;
                         case Game1.Direction.Right:
-                            this.X+= (int)(this.speed * deltaT);
+                            this.X += (int)(this.speed * deltaT);
                             break;
                         case Game1.Direction.Left:
-                            this.X-= (int)(this.speed * deltaT);
+                            this.X -= (int)(this.speed * deltaT);
                             break;
                     }
 
                     this.HandleBounds();
 
-                    this.DistTravelled+= (int)(this.speed * deltaT);
+                    this.DistTravelled += (int)(this.speed * deltaT);
                 }
                 else
                 {
@@ -68,7 +68,7 @@ namespace WormHole
                          this.Position,
                          null,              // get the area of the Texture
                          Color.White,
-                         (float)(((float)this.Direction * (float)(Math.PI / 2)) - (Math.PI/2)),   // using north as origin rotate in radians 
+                         (float)(((float)this.Direction * (float)(Math.PI / 2)) - (Math.PI / 2)),   // using north as origin rotate in radians 
                          new Vector2(Position.Width, Position.Height),   // keep image centered while rotating
                          SpriteEffects.None,
                          0);
@@ -87,6 +87,6 @@ namespace WormHole
                 this.Active = false;
             }
         }
-        
+
     }
 }

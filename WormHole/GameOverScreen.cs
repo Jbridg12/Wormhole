@@ -1,7 +1,10 @@
 ﻿// GameOverScreen.cs
-// Contributors: Josh Bridges, Deen Grey
+// Contributors: Josh Bridges, Deen Grey, Chris LoSardo, Zejun Meng
 //
 // A screen type that is used for doing menu screens in the game, converted into the game over screen
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,7 +30,7 @@ namespace WormHole
         public GameOverScreen(Dictionary<string, Texture2D> textures, SpriteFont font) : base(textures, font)
         {
             displayLocation = new Rectangle(((int)ScreenManager.Instance.Dimensions.X / 2) - 384, ((int)ScreenManager.Instance.Dimensions.Y / 2) - 384, 768, 768);
-            this.currentDisplay = Displays["Initial"];
+            this.currentDisplay = Displays["SubMenu"];
 
             buttons = new List<MenuButton>();
             this.font = font;
@@ -48,11 +51,22 @@ namespace WormHole
             {
                 case Game1.GameState.Gameover:
 
-                    Player.Instance.MaxHealth = 6;
-                    Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
 
-                    spriteBatch.Draw(buttons[3].Texture, buttons[3].Position, Color.White);
-                    spriteBatch.DrawString(font, "Game Over", new Vector2(500, 400), Color.Red);
+
+                    spriteBatch.Draw(buttons[3].Texture, new Rectangle(690, 630, 322, 64), Color.White);
+                    //spriteBatch.DrawString(font, "Game Over", new Vector2(500, 200), Color.Red);
+
+                    //Credits- Chris and Zejun
+                    spriteBatch.DrawString(font, "Deen Grey:  Team Lead", new Vector2(275, 335), Color.Black);
+                    spriteBatch.DrawString(font, "Josh Bridges:  Architect, Main Developer", new Vector2(275, 395), Color.Black);
+                    spriteBatch.DrawString(font, "Zejun Meng:  Designer, External Map Tool", new Vector2(275, 455), Color.Black);
+                    spriteBatch.DrawString(font, "Chris LoSardo:  UI/UX Designer", new Vector2(275, 515), Color.Black);
+
+                    //Score -CLoS
+                    spriteBatch.Draw(Displays["HUDRect"], new Rectangle(265, 615, 394, 100), Color.White);
+                    spriteBatch.DrawString(font, String.Format("Salvage: {0}", Player.Instance.Consumables["Salvage"]), new Vector2(345, 642), Color.Black);
+
+
                     //spriteBatch.Draw(buttons[4].Texture, buttons[4].Position, Color.White);
                     break;
                 case Game1.GameState.Main:
@@ -78,8 +92,17 @@ namespace WormHole
             switch (Game1.CurrentState) //-CLos
             {
                 case Game1.GameState.Gameover:
-                    currentDisplay = Displays["Initial"];
-                    if (buttons[3].LeftButtonPress(mouseStatus, buttons[3].Position))
+                    //Changes which screen is displayed depending on if the player died or used the menu to leave
+                    //And if the player gained any points
+                    if (Player.Instance.CurrentHealth > 0 && Player.Instance.Consumables["Salvage"] > 0)
+                    {
+                        currentDisplay = Displays["Success"];
+                    }
+                    else
+                    {
+                        currentDisplay = Displays["GameOverScreen"];
+                    }
+                    if (buttons[3].LeftButtonPress(mouseStatus, new Rectangle(690, 630, 322, 64)))
                     {
                         Game1.CurrentState = Game1.GameState.Main;
                     }
@@ -91,6 +114,7 @@ namespace WormHole
                 case Game1.GameState.Main:
                     Game1.CurrentState = Game1.GameState.Main;
                     ScreenManager.Instance.ChangeScreen("MainMenu");
+                    Player.Instance.Reset();// resets player and score -CLoS
                     break;
                 case Game1.GameState.Pause: //-Zejun and Chris
 

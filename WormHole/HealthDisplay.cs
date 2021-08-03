@@ -1,5 +1,5 @@
 ﻿// HealthDisplay.cs
-// Contributors: Josh Bridges
+// Contributors: Josh Bridges, Chris LoSardo
 
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,7 @@ namespace WormHole
     {
         private string healthTitle = "Hull Strength ";
         private string shieldTitle = "Shield Energy ";
-        private SpriteFont font; 
-
+        private SpriteFont font;
         private List<int> healthBar;
         private List<int> shieldBar;
 
@@ -29,8 +28,8 @@ namespace WormHole
             this.font = font;
             this.shieldBar = new List<int>();
             this.healthBar = new List<int>();
-            this.healthStart = Globals.ROOM_TEXTURE_LEFT + (int)Game1.Font.MeasureString(healthTitle).X;
-            this.shieldStart = Globals.ROOM_TEXTURE_LEFT + (int)Game1.Font.MeasureString(shieldTitle).X;
+            this.healthStart = 100 + (int)Game1.Font.MeasureString(healthTitle).X;
+            this.shieldStart = 100 + (int)Game1.Font.MeasureString(shieldTitle).X;
         }
 
         public override void Update(GameTime gameTime)
@@ -39,9 +38,9 @@ namespace WormHole
             List<int> updatedHealth = new List<int>();
             while (i > 0)
             {
-                if(i > Player.Instance.CurrentHealth)
+                if (i > Player.Instance.CurrentHealth)
                 {
-                    if((i - Player.Instance.CurrentHealth) == 1)
+                    if ((i - Player.Instance.CurrentHealth) == 1)
                     {
                         updatedHealth.Insert(0, 1);
                     }
@@ -50,7 +49,7 @@ namespace WormHole
                         updatedHealth.Insert(0, 0);
                     }
                 }
-                else if(i % 2 == 1)
+                else if (i % 2 == 1)
                 {
                     updatedHealth.Insert(0, 1);
                     i--;
@@ -99,7 +98,12 @@ namespace WormHole
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, healthTitle, new Vector2(Globals.ROOM_TEXTURE_LEFT, 0f), Color.Black);
+
+            //Background Rect for HUD -CLoS
+            spriteBatch.Draw(EntityManager.Instance.Textures["HUDRect"], new Rectangle(10, 10, 530, 140), Color.White);
+
+
+            spriteBatch.DrawString(font, healthTitle, new Vector2(100, 30f), Color.Black);
             Rectangle texture = new Rectangle();
             for (int i = 0; i < healthBar.Count; i++)
             {
@@ -117,17 +121,17 @@ namespace WormHole
                 }
 
                 spriteBatch.Draw(Texture,
-                        new Rectangle(healthStart + (i*40), 0, 40, 40),
-                        texture,              
+                        new Rectangle(healthStart + (i * 40), 30, 40, 40),
+                        texture,
                         Color.White,
-                        0f,    
-                        Vector2.Zero,   
+                        0f,
+                        Vector2.Zero,
                         SpriteEffects.None,
                         0);
             }
 
             float shieldY = Game1.Font.MeasureString(healthTitle).Y + (Game1.Font.MeasureString(shieldTitle).Y / 2);
-            spriteBatch.DrawString(font, shieldTitle, new Vector2(Globals.ROOM_TEXTURE_LEFT, Game1.Font.MeasureString(healthTitle).Y), Color.Black);
+            spriteBatch.DrawString(font, shieldTitle, new Vector2(100, Game1.Font.MeasureString(healthTitle).Y + 30), Color.Black);
 
             for (int i = 0; i < shieldBar.Count; i++)
             {
@@ -145,7 +149,7 @@ namespace WormHole
                 }
 
                 spriteBatch.Draw(Texture,
-                        new Rectangle(shieldStart + (i * 40), (int)shieldY, 40, 20),
+                        new Rectangle(shieldStart + (i * 40), (int)shieldY + 23, 40, 20),
                         texture,
                         Color.White,
                         0f,
@@ -153,6 +157,10 @@ namespace WormHole
                         SpriteEffects.None,
                         0);
             }
+
+            //Salvage and Background Rect -CLoS
+            spriteBatch.Draw(EntityManager.Instance.Textures["HUDRect"], new Rectangle(940, 10, 335, 100), Color.White);
+            spriteBatch.DrawString(font, String.Format("Salvage: {0}", Player.Instance.Consumables["Salvage"]), new Vector2(988, 37), Color.Black);
         }
     }
 }

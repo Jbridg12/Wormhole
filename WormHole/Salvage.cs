@@ -22,9 +22,9 @@ namespace WormHole
         {
             if (this.Position.Intersects(other.Position))
             {
-                if(other.GetType() == typeof(Player))
+                if (other.GetType() == typeof(Player))
                 {
-                    Player.Instance.Consumables["Salvage"]+=10;
+                    Player.Instance.Consumables["Salvage"] += 10;
                     this.Active = false;
                 }
             }

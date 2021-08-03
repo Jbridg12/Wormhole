@@ -1,5 +1,5 @@
 ﻿// Game1.cs
-// Contributors: Josh Bridges
+// Contributors: Josh Bridges, Chris LoSardo, Zejun Meng, Deen Grey
 //
 // The main game class.
 // This is where all of the other classes and methods have to be involved somehow.
@@ -84,7 +84,7 @@ namespace WormHole
             UIManager.Instance.Update(gameTime);
             EntityManager.Instance.Update(gameTime);
 
-            
+
 
             base.Update(gameTime);
         }
