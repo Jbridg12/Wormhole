@@ -19,6 +19,13 @@ namespace Map_editor
     {
         //Door color is Aqua, Wall color is Lime
 
+        enum Wall { Door, Wall }; //change the wall mode
+        enum floor { O, Player, Enemy1, Enemy2, Enemy3, Wall };//change the floor mode
+
+        string[,][] rooms = new string[,][25]; // array of saved room strings Added by Josh
+
+        int currentIndex = 12; // Added by Josh
+
         Dictionary<char, int> floorX;
 
         string[,] form = new string[12, 20]; // Record the input of the rows and columns of the map , the map size is 12 X 20
@@ -531,17 +538,24 @@ namespace Map_editor
             }
         }
 
-        //private void Save_Room(object sender, EventArgs e)
-        //{
-        //  rooms[][] = form;
-        //}
 
-        private void Write(object sender, EventArgs e)
+        private void Save_Room(object sender, EventArgs e)  //Added by Josh
         {
-            //foreach (string str in rooms)
-            //{
-            //    //write ...
-            //}
+            rooms[currentIndex] = form;
+        }
+
+        private void Write(object sender, EventArgs e)  // Added by Josh
+        {
+            foreach (string str in rooms)
+            {
+                
+            }
+        }
+
+        private void ChangeRoom(object sender, EventArgs e) // Added by Josh
+        {
+            currentIndex = Int32.Parse(sender.Name);
+            Form1_Load();
         }
 
         private void FloorA15_Click(object sender, EventArgs e)

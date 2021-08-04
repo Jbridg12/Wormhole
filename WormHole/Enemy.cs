@@ -24,31 +24,45 @@ namespace WormHole
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!this.hit)
+            //Switch Statement so that the enemy is only drawn on the pause screen and the game
+            switch (Game1.CurrentState) // -CLoS
             {
-                base.Draw(spriteBatch);
+                case Game1.GameState.Pause:
+                case Game1.GameState.Game:
+                    if (!this.hit)
+                    {
+                        base.Draw(spriteBatch);
+                    }
+                    else
+                    {
+                        if (this.Active)
+                            spriteBatch.Draw(this.Texture, this.Position, Color.Red);
+                    }
+                    break;
             }
-            else
-            {
-                if (this.Active)
-                    spriteBatch.Draw(this.Texture, this.Position, Color.Red);
-            }
-
         }
 
         public override void Update(GameTime gameTime)
         {
-            float time = (float) gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (this.CurrentHealth <= 0)
-                this.Destroy();
-
-            this.hit = false;
-
-            if (this.Active)
+            //Switch Statement so that the enemy is only updated in the game, preventing movement on the pause screen
+            switch (Game1.CurrentState) // -CLoS
             {
-                this.ChasePlayer(time);
-                this.HandleBounds();
+
+                case Game1.GameState.Game:
+                    float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    if (this.CurrentHealth <= 0)
+                        this.Destroy();
+
+                    this.hit = false;
+
+                    if (this.Active)
+                    {
+                        this.ChasePlayer(time);
+                        this.HandleBounds();
+                    }
+
+                    break;
             }
         }
 
@@ -60,7 +74,7 @@ namespace WormHole
 
         public override void HandleCollision(Entity other)
         {
-            
+
             if (other.GetType() == typeof(Enemy))
                 return;
 
@@ -77,7 +91,7 @@ namespace WormHole
         }
 
         private void ChasePlayer(float deltaT)
-        { 
+        {
             Vector2 pos = new Vector2(this.X, this.Y);
             Vector2 playerPos = new Vector2(Player.Instance.X, Player.Instance.Y);
 

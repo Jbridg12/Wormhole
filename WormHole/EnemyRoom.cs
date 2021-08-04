@@ -15,12 +15,12 @@ namespace WormHole
 {
     class EnemyRoom : RoomScreen
     {
-        
+
         public EnemyRoom(int depth) : base(ScreenManager.Instance.ScreenTextures["room"], ScreenManager.Instance.ScreenFonts["base"], depth)
         {
             this.Entities = GenerateEntities();
         }
-        
+
         public EnemyRoom(int depth, int index) : this(depth)
         {
             this.Index = index;
@@ -65,22 +65,22 @@ namespace WormHole
             }
 
             return temp;
-            
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)  // new Draw method can draw the room from the provided Layout string
         {
-            if(Layout == null)  // If not using the tool just draw as normal
+            if (Layout == null)  // If not using the tool just draw as normal
             {
                 base.Draw(spriteBatch);
             }
             else
             {
                 string[] rows = Layout.Split(',');
-                for(int i = 0; i < rows.Length; i++)
+                for (int i = 0; i < rows.Length; i++)
                 {
                     var chars = rows[i].ToCharArray();
-                    for(int j = 0; j < chars.Length; j++)
+                    for (int j = 0; j < chars.Length; j++)
                     {
                         spriteBatch.Draw(Display,
                                     new Rectangle(j * 64, i * 60, 64, 60),
@@ -122,26 +122,29 @@ namespace WormHole
                 case 'd':
                     if (i == 0) // This means we are working with the Topmost row
                     {
-                        this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Up, ScreenManager.Instance.Floor[Index-(int)Math.Sqrt(ScreenManager.Instance.FloorSize)]));
+                        if (!Parsed)
+                            this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Up, ScreenManager.Instance.Floor[Index - (int)Math.Sqrt(ScreenManager.Instance.FloorSize)]));
                         return new Rectangle(0, 60 * doorAnimationState, 64, 60);
                     }
                     else if (i == 11)   // Bottom-most row
                     {
-
-                        this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Down, ScreenManager.Instance.Floor[Index + (int)Math.Sqrt(ScreenManager.Instance.FloorSize)]));
+                        if (!Parsed)
+                            this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Down, ScreenManager.Instance.Floor[Index + (int)Math.Sqrt(ScreenManager.Instance.FloorSize)]));
                         return new Rectangle(128, (300 - (60 * doorAnimationState)), 64, 60);
                     }
                     else if (j == 0)    // left-most column
                     {
-                        this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Left, ScreenManager.Instance.Floor[Index - 1]));
+                        if (!Parsed)
+                            this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Left, ScreenManager.Instance.Floor[Index - 1]));
                         return new Rectangle(64 * doorAnimationState, 420, 64, 60);
                     }
                     else    // right-most column
                     {
-                        this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Right, ScreenManager.Instance.Floor[Index + 1]));
+                        if (!Parsed)
+                            this.Entities.Add(new Door(new Rectangle(j * 64, i * 60, 128, 120), Game1.Direction.Right, ScreenManager.Instance.Floor[Index + 1]));
                         return new Rectangle((320 - (64 * doorAnimationState)), 480, 64, 60);
                     }
-                    
+
                 case 'D':
                     if (i == 0)
                     {
@@ -162,14 +165,12 @@ namespace WormHole
                 case '-':
                     return new Rectangle(0, 600, 64, 60);
                 case 'E':
-                    if(!Parsed)
-                        this.Entities.Add(new Enemy(new Rectangle(j*64, i*60, 100, 100), EntityManager.Instance.Textures["enemy"]));
+                    if (!Parsed)
+                        this.Entities.Add(new Enemy(new Rectangle(j * 64, i * 60, 100, 100), EntityManager.Instance.Textures["enemy"]));
                     return new Rectangle(0, 600, 64, 60);
                 default:
                     return new Rectangle();
             }
-
-
         }
     }
 }

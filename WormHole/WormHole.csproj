@@ -10,6 +10,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="RoomGen.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Content\room1.png" />
     <None Remove="Content\Title Mockup No Buttons.png" />
     <None Remove="Icon.ico" />

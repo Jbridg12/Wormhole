@@ -27,7 +27,7 @@ namespace WormHole
         }
 
         public Dictionary<string, Texture2D> Textures { get; set; }
-        public List<UIElement>  Elements { get; set; }
+        public List<UIElement> Elements { get; set; }
         public SpriteFont Font { get; set; }
 
         public UIManager()
@@ -45,20 +45,28 @@ namespace WormHole
 
         public void Update(GameTime gameTime)
         {
-            foreach(UIElement element in Elements)
+            switch (Game1.CurrentState)
             {
-                element.Update(gameTime);
+                case Game1.GameState.Game:
+                    foreach (UIElement element in Elements)
+                    {
+                        element.Update(gameTime);
+                    }
+                    break;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if(Game1.CurrentState == Game1.GameState.Game)
+            switch (Game1.CurrentState)
             {
-                foreach (UIElement element in Elements)
-                {
-                    element.Draw(spriteBatch);
-                }
+                case Game1.GameState.Game:
+                case Game1.GameState.Pause:
+                    foreach (UIElement element in Elements)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    break;
             }
         }
     }
