@@ -30,7 +30,7 @@ namespace WormHole
         }
 
         public List<Entity> CurrentScreenEntities { get; private set; } // list of all Entities in the current room that need to call Update/Draw
-        public Dictionary<string, Texture2D> Textures {get; set; }
+        public Dictionary<string, Texture2D> Textures { get; set; }
         public ContentManager Content { get; private set; }
         public List<Entity> UpdatedEntities { get; set; }
         public GameScreen NextScreen { get; set; }
@@ -60,65 +60,72 @@ namespace WormHole
             Textures.Add("button1", Content.Load<Texture2D>("button1"));
             Textures.Add("button2", Content.Load<Texture2D>("button2"));
             Textures.Add("button3", Content.Load<Texture2D>("button3"));
-
+            Textures.Add("HUDRect", Content.Load<Texture2D>("HUDRect")); //Background Rectangle -CLoS
 
         }
 
         public void Update(GameTime time)
         {
-
-            if (NextScreen != null)
-                ScreenManager.Instance.UpdateScreen(NextScreen);
-
-            if (Game1.CurrentState == Game1.GameState.Pause)
+            switch (Game1.CurrentState)
             {
-                ScreenManager.Instance.Screens["Pause"].Update(time);
-                paused = true;
-                return;
-            }
-            if (!paused)
-            {
-                CurrentScreenEntities = new List<Entity>(this.UpdatedEntities);     // dynamically update the entites
-                UpdatedEntities.Clear();
-            }
-            
+                case Game1.GameState.Game:
 
-            for (int i = 0; i < CurrentScreenEntities.Count; i++)
-            {
-                if (CurrentScreenEntities[i].Active)
-                {
+                    if (NextScreen != null)
+                        ScreenManager.Instance.UpdateScreen(NextScreen);
 
-                    CurrentScreenEntities[i].Update(time);
 
-                    for (int j = i; j < CurrentScreenEntities.Count; j++)
+                    CurrentScreenEntities = new List<Entity>(this.UpdatedEntities);     // dynamically update the entites
+                    UpdatedEntities.Clear();
+
+
+
+                    for (int i = 0; i < CurrentScreenEntities.Count; i++)
                     {
-                        if (!CurrentScreenEntities[j].Active)
-                            continue;
-
-                        if (CurrentScreenEntities[i].Position.Intersects(CurrentScreenEntities[j].Position))
+                        if (CurrentScreenEntities[i].Active)
                         {
-                            CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]); 
-                            CurrentScreenEntities[j].HandleCollision(CurrentScreenEntities[i]);
+
+                            CurrentScreenEntities[i].Update(time);
+
+                            for (int j = i; j < CurrentScreenEntities.Count; j++)
+                            {
+                                if (!CurrentScreenEntities[j].Active)
+                                    continue;
+
+                                if (CurrentScreenEntities[i].Position.Intersects(CurrentScreenEntities[j].Position))
+                                {
+                                    CurrentScreenEntities[i].HandleCollision(CurrentScreenEntities[j]);
+                                    CurrentScreenEntities[j].HandleCollision(CurrentScreenEntities[i]);
+                                }
+                            }
                         }
+
+                        if (CurrentScreenEntities[i].Active || (CurrentScreenEntities[i].GetType() == typeof(Door)))            // any active entities carry over to next Update call
+                            this.AddEntity(CurrentScreenEntities[i]);
+
                     }
-                }
-
-                if (CurrentScreenEntities[i].Active || (CurrentScreenEntities[i].GetType() == typeof(Door)))            // any active entities carry over to next Update call
-                    this.AddEntity(CurrentScreenEntities[i]);
-                
+                    break;
+                case Game1.GameState.Main:
+                case Game1.GameState.Gameover:
+                    if (NextScreen != null)
+                    {
+                        ScreenManager.Instance.UpdateScreen(NextScreen);
+                    }
+                    break;
             }
-
-            paused = false;
-            
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Entity item in CurrentScreenEntities)
+            switch (Game1.CurrentState)
             {
-                item.Draw(spriteBatch);
+                case Game1.GameState.Game:
+                case Game1.GameState.Pause:
+                    foreach (Entity item in CurrentScreenEntities)
+                    {
+                        item.Draw(spriteBatch);
+                    }
+                    break;
             }
-
         }
 
         public void AddEntity(Entity newEn)

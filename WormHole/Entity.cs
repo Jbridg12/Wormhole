@@ -14,9 +14,9 @@ namespace WormHole
     public class Entity : GameObject
     {
         // Attributes all entities share
-        
 
-        
+
+
         public Entity(Rectangle position, Texture2D texture) : base(position, texture)
         {
         }
@@ -30,8 +30,8 @@ namespace WormHole
 
         public virtual void HandleBounds()
         {
-            
-            if(ScreenManager.Instance.CurrentScreen.GetType().IsSubclassOf(typeof(RoomScreen)))
+
+            if (ScreenManager.Instance.CurrentScreen.GetType().IsSubclassOf(typeof(RoomScreen)))
             {
 
                 if (this.X > Globals.XMAX)

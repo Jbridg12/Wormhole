@@ -38,13 +38,13 @@ namespace WormHole
                     break;
             }*/
             this.Destination = room;
-            
+
         }
 
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if(Active)
+            if (Active)
                 spriteBatch.Draw(Texture,
                             Position,
                             null,              // get the area of the Texture

@@ -24,7 +24,6 @@ namespace WormHole
         //Load Variables - CLos
         StreamReader input = null;
         string loadBoard = "";
-        List<RoomGen> rooms = new List<RoomGen>();
         private string line = null;
         private string[,] arrayRoom;
 
@@ -83,6 +82,7 @@ namespace WormHole
             mainMenu.Add("SubMenu", Content.Load<Texture2D>("instructions")); //-CLos
             mainMenu.Add("GameOverScreen", Content.Load<Texture2D>("GameOver"));//-Zejun and Chris
             mainMenu.Add("Pause", Content.Load<Texture2D>("Pause"));//-Zejun and Chris
+            mainMenu.Add("Success", Content.Load<Texture2D>("Success"));//-CLoS
 
 
             //Button textures here because I was having trouble making a unique element for them
@@ -90,35 +90,44 @@ namespace WormHole
             mainMenu.Add("button1", Content.Load<Texture2D>("button1"));
             mainMenu.Add("button2", Content.Load<Texture2D>("button2"));
             mainMenu.Add("button3", Content.Load<Texture2D>("button3"));
+            mainMenu.Add("button4", Content.Load<Texture2D>("button4"));
+            mainMenu.Add("HUDRect", Content.Load<Texture2D>("HUDRect"));
 
             mainMenu.Add("Instructions", Content.Load<Texture2D>("PauseText"));
-            //Adding room tiles - CLos
+            /*Adding room tiles - CLos
             mainMenu.Add("*", Content.Load<Texture2D>("wall"));
             mainMenu.Add("B", Content.Load<Texture2D>("Barrier"));
             mainMenu.Add("C", Content.Load<Texture2D>("corner"));
             mainMenu.Add("D", Content.Load<Texture2D>("nebula"));
-
+            */
 
             screens.Add("MainMenu", new MainMenuScreen(mainMenu, ScreenFonts["base"]));
             screens.Add("GameOver", new GameOverScreen(mainMenu, ScreenFonts["base"])); //-Zejun, Chris and Deen
             screens.Add("Pause", new PauseScreen(mainMenu, ScreenFonts["base"])); //-Zejun and Chris
+            screens.Add("Success", new GameOverScreen(mainMenu, ScreenFonts["base"]));
 
             // Set Globals for room scaling
             Globals.SCREEN_SCALING = (float)Game1._graphics.GraphicsDevice.Viewport.Height / ScreenTextures["room"].Height;
             //Globals.XMAX = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) + (50 * Globals.SCREEN_SCALING));
-           // Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
+            // Globals.XMIN = (int)((((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)) - (50 * Globals.SCREEN_SCALING));
             Globals.ROOM_TEXTURE_LEFT = (int)((Game1._graphics.GraphicsDevice.Viewport.Width - ((ScreenTextures["room"].Width) * Globals.SCREEN_SCALING)) / 2);
             Globals.ROOM_TEXTURE_RIGHT = (int)(((ScreenTextures["room"].Width * Globals.SCREEN_SCALING) + ((Game1._graphics.GraphicsDevice.Viewport.Width - (ScreenTextures["room"].Width * Globals.SCREEN_SCALING)) / 2)));
             CurrentScreen = screens["MainMenu"];
 
+            /*
             loadBoard = "test Floor.txt";
             GenerateFloor("..\\..\\..\\" + loadBoard, mainMenu);
+            */
 
         }
 
         public void Update(GameTime time)
         {
             CurrentScreen.Update(time);
+            if (Game1.CurrentState == Game1.GameState.Pause) //Allows the buttons on the pause screen to function -CLoS
+            {
+                ScreenManager.Instance.Screens["Pause"].Update(time);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -160,6 +169,26 @@ namespace WormHole
             }
         }
 
+        public void ChangeScreen(string str)       // Function to allow changing the CurrentScreen variable
+        {
+            EntityManager.Instance.NextScreen = screens[str];
+        }
+
+        public void ChangeScreen(GameScreen rs)     // different parameter overloading
+        {
+            EntityManager.Instance.NextScreen = rs;
+        }
+
+        public void UpdateScreen(GameScreen gs)
+        {
+            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
+            CurrentScreen = gs;
+
+            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);
+            EntityManager.Instance.NextScreen = null;
+        }
+
+        /*
         public void NextFloor(int floorSize)    // CLos and Josh Bridges
         {
             //We should change up the look by like changing between 3 or 4 different
@@ -252,26 +281,9 @@ namespace WormHole
                 }
             }
         }
+        */
 
-        public void ChangeScreen(string str)       // Function to allow changing the CurrentScreen variable
-        {
-            EntityManager.Instance.NextScreen = screens[str];
-        }
-
-        public void ChangeScreen(GameScreen rs)     // different parameter overloading
-        {
-            EntityManager.Instance.NextScreen = rs;
-        }
-
-        public void UpdateScreen(GameScreen gs)
-        {
-            CurrentScreen.Entities = EntityManager.Instance.CurrentScreenEntities;
-            CurrentScreen = gs;
-
-            EntityManager.Instance.SetCurrentEntities(CurrentScreen.Entities);
-            EntityManager.Instance.NextScreen = null;
-        }
-
+        /*
         //Generate Floor from text file
         private void GenerateFloor(string loadBoard, Dictionary<string, Texture2D> roomTiles)   // Deprecated
         {
@@ -335,7 +347,7 @@ namespace WormHole
             }
         }
 
-
+        */
         //public void DrawRoom(SpriteBatch spriteBatch)
         //{
         //    //Code to determine which room to load

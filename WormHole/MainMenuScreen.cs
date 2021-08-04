@@ -22,7 +22,6 @@ namespace WormHole
         private int selectedButton;
         private Rectangle displayLocation;
 
-        private RoomGen roomDraw;
 
         //Button code - CLos
         private List<MenuButton> buttons;
@@ -104,7 +103,7 @@ namespace WormHole
                     //ScreenManager.Instance.NextFloor(25); // Enter the first (and only) room               
                     break;
             }
-          
+
             //Close game
 
 
