@@ -1,2 +1,2 @@
 # Wormhole
-Game design experiement for practice coding simple screen elements in C#.
+Game design experiement for practicing coding simple screen elements in C#.
