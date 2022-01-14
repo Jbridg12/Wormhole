@@ -1,2 +1,2 @@
 # Wormhole
-Game designed for IGME106 course
+Game design experiement for practice coding simple screen elements in C#.
